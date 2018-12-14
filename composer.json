@@ -26,5 +26,8 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "require-dev": {
+        "behat/behat": "^3.5"
     }
 }
