@@ -19,4 +19,16 @@ class FeatureContext implements Context
     public function __construct()
     {
     }
+
+    /**
+     * @Then PHP version needs to be :version or later
+     *
+     * @param string $version
+     */
+    public function phpVersionNeedsToBeOrLater(string $version)
+    {
+        if (!version_compare(phpversion(), $version, '>=')) {
+            throw new \RuntimeException('Invalid PHP version');
+        }
+    }
 }
