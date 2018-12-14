@@ -1,0 +1,29 @@
+{
+    "name": "finblocks/finblocks-php-sdk",
+    "description": "This is the official FinBlocks PHP SDK",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Garcia",
+            "email": "me@davidgarcia.cat",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "FinBlocks\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FinBlocks\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.0,<8.0"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
