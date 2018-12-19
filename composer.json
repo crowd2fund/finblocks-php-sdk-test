@@ -28,7 +28,8 @@
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
-        "behat/behat": "^3.5"
+        "behat/behat": "^3.5",
+        "phpunit/phpunit": "^6.5|^7.0"
     },
     "config": {
         "sort-packages": true
