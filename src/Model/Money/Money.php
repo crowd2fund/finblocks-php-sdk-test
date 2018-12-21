@@ -4,6 +4,11 @@ namespace FinBlocks\Model\Money;
 
 use FinBlocks\Model\BaseModelInterface;
 
+/**
+ * @author    David Garcia <me@davidgarcia.cat>
+ * @copyright FinBlocks
+ * @version   1.0.0
+ */
 class Money implements BaseModelInterface
 {
     /**
