@@ -17,7 +17,7 @@
     </filter>
 
     <testsuites>
-        <testsuite name="FinBlocks PHPUnit Test Suite">
+        <testsuite>
             <directory>tests</directory>
         </testsuite>
     </testsuites>
