@@ -7,7 +7,7 @@ namespace FinBlocks\Model;
  * @copyright FinBlocks
  * @version   1.0.0
  */
-interface BaseModel
+interface BaseModelInterface
 {
     /**
      * Converts the Model to an array with all fields and format that we can use for the POST request.

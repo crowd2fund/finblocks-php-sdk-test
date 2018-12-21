@@ -2,9 +2,9 @@
 
 namespace FinBlocks\Model\Money;
 
-use FinBlocks\Model\BaseModel;
+use FinBlocks\Model\BaseModelInterface;
 
-class Money implements BaseModel
+class Money implements BaseModelInterface
 {
     /**
      * @var string

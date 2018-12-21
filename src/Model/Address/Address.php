@@ -2,7 +2,7 @@
 
 namespace FinBlocks\Model\Address;
 
-use FinBlocks\Model\BaseModel;
+use FinBlocks\Model\BaseModelInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -10,7 +10,7 @@ use Webmozart\Assert\Assert;
  * @copyright FinBlocks
  * @version   1.0.0
  */
-final class Address implements BaseModel
+final class Address implements BaseModelInterface
 {
     /**
      * @var string|null

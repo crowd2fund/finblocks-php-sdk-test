@@ -3,7 +3,7 @@
 namespace FinBlocks\Model\AccountHolder\Company;
 
 use FinBlocks\Model\Address\Address;
-use FinBlocks\Model\BaseModel;
+use FinBlocks\Model\BaseModelInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -11,7 +11,7 @@ use Webmozart\Assert\Assert;
  * @copyright FinBlocks
  * @version   1.0.0
  */
-final class Company implements BaseModel
+final class Company implements BaseModelInterface
 {
     const TYPE_BUSINESS = 'business';
     const TYPE_ORGANISATION = 'organisation';
