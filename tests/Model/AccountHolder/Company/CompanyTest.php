@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CompanyTest extends TestCase
 {
-    public function testCompanyModel()
+    public function testSettersForCompanyModel()
     {
         $model = new Company();
         $model->setName('FINBLOCKS LTD');

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class MoneyTest extends TestCase
 {
-    public function testMoneyModel()
+    public function testSettersForMoneyModel()
     {
         $model = new Money();
         $model->setCurrency('GBP');

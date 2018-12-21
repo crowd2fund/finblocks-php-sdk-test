@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class AddressTest extends TestCase
 {
-    public function testAddressModel()
+    public function testSettersForAddressModel()
     {
         $model = new Address();
         $model->setFlatNumber('3');
