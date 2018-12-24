@@ -100,7 +100,7 @@ final class Address implements BaseModelInterface
     /**
      * @param string|null $buildingName
      */
-    public function setBuildingName(string $buildingName)
+    public function setBuildingName(string $buildingName = null)
     {
         Assert::nullOrStringNotEmpty($buildingName);
         Assert::maxLength($buildingName, 255);
@@ -111,7 +111,7 @@ final class Address implements BaseModelInterface
     /**
      * @return string|null
      */
-    public function getBuildingName(): string
+    public function getBuildingName()
     {
         return $this->buildingName;
     }
@@ -138,7 +138,7 @@ final class Address implements BaseModelInterface
     /**
      * @param string|null $subStreet
      */
-    public function setSubStreet(string $subStreet)
+    public function setSubStreet(string $subStreet = null)
     {
         Assert::nullOrStringNotEmpty($subStreet);
         Assert::maxLength($subStreet, 255);
@@ -149,7 +149,7 @@ final class Address implements BaseModelInterface
     /**
      * @return string|null
      */
-    public function getSubStreet(): string
+    public function getSubStreet()
     {
         return $this->subStreet;
     }
@@ -176,7 +176,7 @@ final class Address implements BaseModelInterface
     /**
      * @param string|null $state
      */
-    public function setState(string $state)
+    public function setState(string $state = null)
     {
         Assert::nullOrStringNotEmpty($state);
         Assert::maxLength($state, 255);
@@ -187,7 +187,7 @@ final class Address implements BaseModelInterface
     /**
      * @return string|null
      */
-    public function getState(): string
+    public function getState()
     {
         return $this->state;
     }
