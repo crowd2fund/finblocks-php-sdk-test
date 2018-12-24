@@ -1,0 +1,31 @@
+<?php
+
+namespace FinBlocks\Model\BankAccount;
+
+use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountOtherDetails;
+
+/**
+ * @author    David Garcia <me@davidgarcia.cat>
+ * @copyright FinBlocks
+ *
+ * @version 1.0.0
+ * @since   1.0.0
+ */
+final class BankAccountOther extends AbstractBankAccount
+{
+    const TYPE = 'OTHER';
+
+    public function __construct()
+    {
+        $this->setType(self::TYPE);
+        $this->setDetails(new BankAccountOtherDetails());
+    }
+
+    /**
+     * @return BankAccountOtherDetails
+     */
+    public function getDetails(): BankAccountOtherDetails
+    {
+        return $this->details;
+    }
+}
