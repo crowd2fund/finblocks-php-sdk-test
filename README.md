@@ -43,19 +43,17 @@ $sandbox = new FinBlocks('path/to/cert', 'path/to/info', 'path/to/path', true);
 Access to the API resources directly from the client, such as::
 
 ```php
-$finblocksWallets = $finblocks->wallets()->list();
+$finblocksWallets = $finblocks->accountHolders()->list();
 ```
 
-Or create new resources instantiating the one that you need:
+Or create new resources instantiating the ones that you need:
 
 ```php
-use FinBlocks\Model\Wallet\Wallet;
+$accountHolder = $finblocks->factories()->accountHolders()->createIndividual();
+$accountHolder->... // Use the setters to add the expected content for this model.
 
-$wallet = new Wallet();
-$wallet->setAccountHolderId('12345678');
-$wallet->setCurrency('GBP');
-
-$finblocksWallets = $finblocks->wallets()->create($wallet);
+// The Endpoint will return a new object, that you can assign to the existing variable.
+$accountHolder = $finblocks->accountHolders()->createIndividual($accountHolder);
 ```
 
 All available API resources are provided by this SDK.
