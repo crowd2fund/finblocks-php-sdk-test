@@ -43,7 +43,7 @@ $sandbox = new FinBlocks('path/to/cert', 'path/to/info', 'path/to/path', true);
 Access to the API resources directly from the client, such as::
 
 ```php
-$finblocksWallets = $finblocks->accountHolders()->list();
+$finblocksWallets = $finblocks->api()->accountHolders()->list();
 ```
 
 Or create new resources instantiating the ones that you need:
@@ -53,53 +53,42 @@ $accountHolder = $finblocks->factories()->accountHolders()->createIndividual();
 $accountHolder->... // Use the setters to add the expected content for this model.
 
 // The Endpoint will return a new object, that you can set to the existing variable.
-$accountHolder = $finblocks->accountHolders()->createIndividual($accountHolder);
+$accountHolder = $finblocks->api()->accountHolders()->createIndividual($accountHolder);
 ```
 
-All available API resources are provided by this SDK.
+You can create new models easily thanks to the built-in factories:
 
 ```php
-// Account Holders
-$finblocks->accountHolders();
+$finblocks->factories()->accountHolders(); // Account Holders
+$finblocks->factories()->bankAccounts();   // Bank Accounts
+$finblocks->factories()->cards();          // Cards
+$finblocks->factories()->deposits();       // Deposits
+$finblocks->factories()->documents();      // Documents
+$finblocks->factories()->kyc();            // KYC
+$finblocks->factories()->mandates();       // Mandates
+$finblocks->factories()->refunds();        // Refunds
+$finblocks->factories()->transfers();      // Transfers
+$finblocks->factories()->wallets();        // Wallets
+$finblocks->factories()->withdrawals();    // Withdrawals
+```
 
-// Bank Accounts
-$finblocks->bankAccounts();
+And all available API resources are provided by this SDK.
 
-// Cards
-$finblocks->cards();
-
-// Deposits
-$finblocks->deposits();
-
-// Documents
-$finblocks->documents();
-
-// Hooks
-$finblocks->hooks();
-
-// KYC
-$finblocks->kyc();
-
-// Mandates
-$finblocks->mandates();
-
-// Network
-$finblocks->network();
-
-// Refunds
-$finblocks->refunds();
-
-// Statements
-$finblocks->statements();
-
-// Transfers
-$finblocks->transfers();
-
-// Wallets
-$finblocks->wallets();
-
-// Withdrawals
-$finblocks->withdrawals();
+```php
+$finblocks->api()->accountHolders(); // Account Holders
+$finblocks->api()->bankAccounts();   // Bank Accounts
+$finblocks->api()->cards();          // Cards
+$finblocks->api()->deposits();       // Deposits
+$finblocks->api()->documents();      // Documents
+$finblocks->api()->hooks();          // Hooks
+$finblocks->api()->kyc();            // KYC
+$finblocks->api()->mandates();       // Mandates
+$finblocks->api()->network();        // Network
+$finblocks->api()->refunds();        // Refunds
+$finblocks->api()->statements();     // Statements
+$finblocks->api()->transfers();      // Transfers
+$finblocks->api()->wallets();        // Wallets
+$finblocks->api()->withdrawals();    // Withdrawals
 ```
 
 ## Contributing
