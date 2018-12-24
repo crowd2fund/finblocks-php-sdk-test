@@ -52,7 +52,7 @@ Or create new resources instantiating the ones that you need:
 $accountHolder = $finblocks->factories()->accountHolders()->createIndividual();
 $accountHolder->... // Use the setters to add the expected content for this model.
 
-// The Endpoint will return a new object, that you can assign to the existing variable.
+// The Endpoint will return a new object, that you can set to the existing variable.
 $accountHolder = $finblocks->accountHolders()->createIndividual($accountHolder);
 ```
 
@@ -104,4 +104,4 @@ $finblocks->withdrawals();
 
 ## Contributing
 
-As an OpenSource project, all _Issues_ reports and _Pull Requests_ are welcome. 
+As an OpenSource project, all _Issues_ and _Pull Requests_ are welcome. 
