@@ -34,6 +34,24 @@ class HttpResponse
     }
 
     /**
+     * @return bool
+     */
+    public function isSuccessful(): bool
+    {
+        return ($this->statusCode >= 200 && $this->statusCode < 300);
+    }
+
+    /**
+     * This is an alias for self::isSuccessful();
+     *
+     * @return bool
+     */
+    public function wasSuccessful(): bool
+    {
+        return $this->isSuccessful();
+    }
+
+    /**
      * @return int
      */
     public function getStatusCode(): int
