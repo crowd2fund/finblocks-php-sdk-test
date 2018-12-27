@@ -25,40 +25,40 @@ class HttpClientTest extends TestCase
      */
     protected function setUp()
     {
-        $this->httpClient = new HttpClient('cert', 'info', 'path', true);
+        $this->httpClient = new HttpClient('key', 'cert', 'info', true);
     }
 
     public function testHttpGetRequest()
     {
-        $httpResponse = $this->httpClient->get('/endpoint', []);
+        $httpResponse = $this->httpClient->get('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
     }
 
     public function testHttpPostRequest()
     {
-        $httpResponse = $this->httpClient->post('/endpoint', []);
+        $httpResponse = $this->httpClient->post('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
     }
 
     public function testHttpPutRequest()
     {
-        $httpResponse = $this->httpClient->put('/endpoint', []);
+        $httpResponse = $this->httpClient->put('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
     }
 
     public function testHttpPatchRequest()
     {
-        $httpResponse = $this->httpClient->patch('/endpoint', []);
+        $httpResponse = $this->httpClient->patch('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
     }
 
     public function testHttpDeleteRequest()
     {
-        $httpResponse = $this->httpClient->delete('/endpoint', []);
+        $httpResponse = $this->httpClient->delete('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
     }

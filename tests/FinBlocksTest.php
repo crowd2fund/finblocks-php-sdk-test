@@ -20,9 +20,12 @@ class FinBlocksTest extends TestCase
      */
     private $finblocks;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
-        $this->finblocks = new FinBlocks();
+        $this->finblocks = new FinBlocks('', '', '', true);
     }
 
     public function testFactories()

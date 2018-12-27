@@ -2,6 +2,7 @@
 
 namespace FinBlocks;
 
+use FinBlocks\Client\HttpClient;
 use FinBlocks\Factory\ModelsFactories;
 
 /**
@@ -13,6 +14,24 @@ use FinBlocks\Factory\ModelsFactories;
  */
 class FinBlocks
 {
+    /**
+     * @var HttpClient
+     */
+    private $httpClient;
+
+    /**
+     * FinBlocks constructor.
+     *
+     * @param string $key     Path to the SSL Certificate Key file
+     * @param string $cert    Path to the SSL Certificate file
+     * @param string $info    Path to the CA Certificate file
+     * @param bool   $sandbox Use SANDBOX environment
+     */
+    public function __construct(string $key, string $cert, string $info, bool $sandbox = false)
+    {
+        $this->httpClient = new HttpClient($key, $cert, $info, $sandbox);
+    }
+
     /**
      * Models Factories.
      *

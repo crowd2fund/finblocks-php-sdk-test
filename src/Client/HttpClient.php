@@ -14,17 +14,17 @@ class HttpClient
     /**
      * @var string
      */
-    private $pathToSslCert;
+    private $pathToKey;
 
     /**
      * @var string
      */
-    private $pathToSslInfo;
+    private $pathToCert;
 
     /**
      * @var string
      */
-    private $pathToSslPath;
+    private $pathToInfo;
 
     /**
      * @var bool
@@ -39,18 +39,18 @@ class HttpClient
     /**
      * HttpClient constructor.
      *
-     * @param string|null $pathToSslCert
-     * @param string|null $pathToSslInfo
-     * @param string|null $pathToSslPath
-     * @param bool        $sandbox
+     * @param string $key     Path to the SSL Certificate Key file
+     * @param string $cert    Path to the SSL Certificate file
+     * @param string $info    Path to the CA Certificate file
+     * @param bool   $sandbox Use SANDBOX environment
      */
-    public function __construct(string $pathToSslCert = null, string $pathToSslInfo = null, string $pathToSslPath = null, bool $sandbox = false)
+    public function __construct(string $key, string $cert, string $info, bool $sandbox = false)
     {
-        $this->pathToSslCert = $pathToSslCert;
-        $this->pathToSslInfo = $pathToSslInfo;
-        $this->pathToSslPath = $pathToSslPath;
-        $this->sandbox = $sandbox;
-        $this->server = sprintf('https://api.%sfinblocks.net/v1', $this->sandbox ? 'sandbox.' : '');
+        $this->pathToKey = $key;
+        $this->pathToCert = $cert;
+        $this->pathToInfo = $info;
+
+        $this->server = sprintf('https://api.%sfinblocks.net/v1', ($sandbox ? 'sandbox.' : ''));
     }
 
     /**
@@ -131,27 +131,36 @@ class HttpClient
     {
         $curl = curl_init();
 
+        // Verbose output
+        //curl_setopt($curl, CURLOPT_VERBOSE, 1);
+
         // HTTP Method
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
 
         if ('GET' === $method) {
-            // HTTP Parameters
-            $query = http_build_query($parameters);
-
             // API Endpoint
-            curl_setopt($curl, CURLOPT_URL, sprintf('%s%s?%s', $this->server, $apiEndpoint, $query));
+            $apiResource = sprintf('%s%s%s', $this->server, $apiEndpoint, (!empty($parameters) ? sprintf('?%s', http_build_query($parameters)) : ''));
+            curl_setopt($curl, CURLOPT_URL, $apiResource);
         } else {
             // API Endpoint
-            curl_setopt($curl, CURLOPT_URL, sprintf('%s%s', $this->server, $apiEndpoint));
+            $apiResource = sprintf('%s%s', $this->server, $apiEndpoint);
+            curl_setopt($curl, CURLOPT_URL, $apiResource);
 
-            // HTTP Parameters
-            $body = json_encode($parameters);
+            // HTTP Body
+            if (!empty($parameters)) {
+                $body = json_encode($parameters);
 
-            // HTTP Parameters
-            if (!empty($body)) {
+                curl_setopt($curl, CURLOPT_POST, true);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
             }
         }
+
+        // SSL Certificate and Key
+        curl_setopt($curl, CURLOPT_CAINFO, $this->pathToInfo);
+        curl_setopt($curl, CURLOPT_SSLKEY, $this->pathToKey);
+        curl_setopt($curl, CURLOPT_SSLCERT, $this->pathToCert);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
 
         // Get HttpResponse Headers
         curl_setopt($curl, CURLOPT_HEADER, true);
@@ -162,11 +171,15 @@ class HttpClient
         // Handle the response
         $response = curl_exec($curl);
 
-        $lines = explode(PHP_EOL, $response);
+        if (empty($response)) {
+            $httpResponse = new HttpResponse(401, '');
+        } else {
+            $lines = explode(PHP_EOL, $response);
 
-        preg_match('/HTTP\/(\d+)\.(\d+)\s(\d+)/', reset($lines), $matchesForStatusCode);
+            preg_match('/HTTP\/(\d+)\.(\d+)\s(\d+)/', reset($lines), $matchesForStatusCode);
 
-        $httpResponse = new HttpResponse(end($matchesForStatusCode), end($lines));
+            $httpResponse = new HttpResponse(end($matchesForStatusCode), end($lines));
+        }
 
         return $httpResponse;
     }

@@ -26,7 +26,7 @@ class FactoryTest extends TestCase
      */
     protected function setUp()
     {
-        $this->finblocks = new FinBlocks();
+        $this->finblocks = new FinBlocks('', '', '', true);
     }
 
     public function testAccountHoldersFactory()
