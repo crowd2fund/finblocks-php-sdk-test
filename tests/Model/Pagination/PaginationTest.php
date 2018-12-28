@@ -166,6 +166,25 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
+    public function testTransactionsPagination()
+    {
+        $model = new Pagination\TransactionsPagination();
+
+        $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
+
+        $this->assertInternalType('string', $model->getLinks()->getSelf());
+        $this->assertInternalType('string', $model->getLinks()->getFirst());
+        $this->assertInternalType('string', $model->getLinks()->getPrev());
+        $this->assertInternalType('string', $model->getLinks()->getNext());
+        $this->assertInternalType('string', $model->getLinks()->getLast());
+
+        $this->assertInternalType('integer', $model->getTotal());
+        $this->assertInternalType('array', $model->getEmbedded());
+
+        $this->assertEquals(0, $model->getTotal());
+        $this->assertEquals([], $model->getEmbedded());
+    }
+
     public function testTransfersPagination()
     {
         $model = new Pagination\TransfersPagination();
