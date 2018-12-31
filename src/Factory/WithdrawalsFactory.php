@@ -14,12 +14,23 @@ use FinBlocks\Model\Withdrawal\Withdrawal;
 class WithdrawalsFactory
 {
     /**
-     * Creates a new Withdrawal's Model.
+     * Creates a new Model.
      *
      * @return Withdrawal
      */
     public function create(): Withdrawal
     {
-        return new Withdrawal();
+        return Withdrawal::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return Withdrawal
+     */
+    public function createFromPayload(string $jsonData): Withdrawal
+    {
+        return Withdrawal::createFromPayload($jsonData);
     }
 }

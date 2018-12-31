@@ -15,10 +15,31 @@ final class BankAccountOther extends AbstractBankAccount
 {
     const TYPE = 'OTHER';
 
-    public function __construct()
+    /**
+     * BankAccountOther constructor.
+     *
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
     {
         $this->setType(self::TYPE);
-        $this->setDetails(new BankAccountOtherDetails());
+        $this->setDetails(BankAccountOtherDetails::create());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

@@ -70,6 +70,31 @@ class Mandate implements BaseModelInterface
     private $createdAt;
 
     /**
+     * Mandate constructor.
+     *
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
+    }
+
+    /**
      * @return string
      */
     public function getId(): string

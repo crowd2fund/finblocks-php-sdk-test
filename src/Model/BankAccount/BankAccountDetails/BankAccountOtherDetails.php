@@ -31,6 +31,31 @@ final class BankAccountOtherDetails implements BaseModelInterface
     private $accountNumber;
 
     /**
+     * BankAccountOtherDetails constructor.
+     *
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
+    }
+
+    /**
      * @param string $country
      */
     public function setCountry(string $country)

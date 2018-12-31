@@ -16,9 +16,9 @@ use PHPUnit\Framework\TestCase;
  */
 class DocumentTest extends TestCase
 {
-    public function testModelSettersForIdCard()
+    public function testCreateEmptyModelAndSettersForIdCard()
     {
-        $model = new DocumentIdCard();
+        $model = DocumentIdCard::create();
         $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -30,7 +30,7 @@ class DocumentTest extends TestCase
 
     public function testCreateArrayForIdCard()
     {
-        $model = new DocumentIdCard();
+        $model = DocumentIdCard::create();
         $model->setFront('front');
         $model->setBack('back');
 
@@ -48,13 +48,13 @@ class DocumentTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new DocumentIdCard();
+        $model = DocumentIdCard::create();
         $model->httpUpdate();
     }
 
-    public function testModelSettersForPassport()
+    public function testCreateEmptyModelAndSettersForPassport()
     {
-        $model = new DocumentPassport();
+        $model = DocumentPassport::create();
         $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -66,7 +66,7 @@ class DocumentTest extends TestCase
 
     public function testCreateArrayForPassport()
     {
-        $model = new DocumentPassport();
+        $model = DocumentPassport::create();
         $model->setFront('front');
 
         $array = $model->httpCreate();
@@ -82,7 +82,7 @@ class DocumentTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new DocumentPassport();
+        $model = DocumentPassport::create();
         $model->httpUpdate();
     }
 }

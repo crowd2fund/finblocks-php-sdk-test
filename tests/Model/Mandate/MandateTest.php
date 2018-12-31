@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class MandateTest extends TestCase
 {
-    public function testSettersForCardModel()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Mandate();
+        $model = Mandate::create();
         $model->setBankAccountId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -32,7 +32,7 @@ class MandateTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Mandate();
+        $model = Mandate::create();
         $model->setReturnUrl('https://www.domain.com/return-url');
 
         $array = $model->httpCreate();
@@ -51,7 +51,7 @@ class MandateTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new Mandate();
+        $model = Mandate::create();
         $model->httpUpdate();
     }
 }

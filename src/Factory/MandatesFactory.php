@@ -14,12 +14,23 @@ use FinBlocks\Model\Mandate\Mandate;
 class MandatesFactory
 {
     /**
-     * Creates a new Mandate's Model.
+     * Creates a new Model.
      *
      * @return Mandate
      */
     public function create(): Mandate
     {
-        return new Mandate();
+        return Mandate::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return Mandate
+     */
+    public function createFromPayload(string $jsonData): Mandate
+    {
+        return Mandate::createFromPayload($jsonData);
     }
 }

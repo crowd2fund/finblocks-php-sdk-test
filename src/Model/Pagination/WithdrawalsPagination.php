@@ -11,8 +11,32 @@ use FinBlocks\Model\Withdrawal\Withdrawal;
  * @version 1.0.0
  * @since   1.0.0
  */
-class WithdrawalsPagination extends AbstractPagination
+final class WithdrawalsPagination extends AbstractPagination
 {
+    /**
+     * @param string|null $jsonData
+     */
+    protected function __construct(string $jsonData = null)
+    {
+        parent::__construct($jsonData);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
+    }
+
     /**
      * @return Withdrawal[]
      */

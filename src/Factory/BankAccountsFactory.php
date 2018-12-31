@@ -18,48 +18,107 @@ use FinBlocks\Model\BankAccount\BankAccountUs;
 class BankAccountsFactory
 {
     /**
-     * Creates a new CA's Bank Account Model.
+     * Creates a new Model.
      *
      * @return BankAccountCa
      */
     public function createCa(): BankAccountCa
     {
-        return new BankAccountCa();
+        return BankAccountCa::create();
     }
     /**
-     * Creates a new GB's Bank Account Model.
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return BankAccountCa
+     */
+    public function createCaFromPayload(string $jsonData): BankAccountCa
+    {
+        return BankAccountCa::createFromPayload($jsonData);
+    }
+
+    /**
+     * Creates a new Model.
      *
      * @return BankAccountGb
      */
     public function createGb(): BankAccountGb
     {
-        return new BankAccountGb();
+        return BankAccountGb::create();
     }
     /**
-     * Creates a new IBAN's Bank Account Model.
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return BankAccountGb
+     */
+    public function createGbFromPayload(string $jsonData): BankAccountGb
+    {
+        return BankAccountGb::createFromPayload($jsonData);
+    }
+
+    /**
+     * Creates a new Model.
      *
      * @return BankAccountIban
      */
     public function createIban(): BankAccountIban
     {
-        return new BankAccountIban();
+        return BankAccountIban::create();
     }
     /**
-     * Creates a new OTHER's Bank Account Model.
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return BankAccountIban
+     */
+    public function createIbanFromPayload(string $jsonData): BankAccountIban
+    {
+        return BankAccountIban::createFromPayload($jsonData);
+    }
+
+    /**
+     * Creates a new Model.
      *
      * @return BankAccountOther
      */
     public function createOther(): BankAccountOther
     {
-        return new BankAccountOther();
+        return BankAccountOther::create();
     }
     /**
-     * Creates a new US's Bank Account Model.
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return BankAccountOther
+     */
+    public function createOtherFromPayload(string $jsonData): BankAccountOther
+    {
+        return BankAccountOther::createFromPayload($jsonData);
+    }
+
+    /**
+     * Creates a new Model.
      *
      * @return BankAccountUs
      */
     public function createUs(): BankAccountUs
     {
-        return new BankAccountUs();
+        return BankAccountUs::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return BankAccountUs
+     */
+    public function createUsFromPayload(string $jsonData): BankAccountUs
+    {
+        return BankAccountUs::createFromPayload($jsonData);
     }
 }

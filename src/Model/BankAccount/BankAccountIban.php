@@ -15,10 +15,31 @@ final class BankAccountIban extends AbstractBankAccount
 {
     const TYPE = 'IBAN';
 
-    public function __construct()
+    /**
+     * BankAccountIban constructor.
+     *
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
     {
         $this->setType(self::TYPE);
-        $this->setDetails(new BankAccountIbanDetails());
+        $this->setDetails(BankAccountIbanDetails::create());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

@@ -17,9 +17,9 @@ use PHPUnit\Framework\TestCase;
  */
 class DepositTest extends TestCase
 {
-    public function testModelSettersForBankWire()
+    public function testCreateEmptyModelAndSettersForBankWire()
     {
-        $model = new DepositBankWire();
+        $model = DepositBankWire::create();
         $model->setCreditedWalletId('12345678');
 
         // There's no Getter, please refer to the testCreateArrayForBankWire's method.
@@ -36,7 +36,7 @@ class DepositTest extends TestCase
 
     public function testCreateArrayForBankWire()
     {
-        $model = new DepositBankWire();
+        $model = DepositBankWire::create();
         $model->setReturnUrl('url');
 
         $array = $model->httpCreate();
@@ -52,13 +52,13 @@ class DepositTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new DepositBankWire();
+        $model = DepositBankWire::create();
         $model->httpUpdate();
     }
 
-    public function testModelSettersForCard()
+    public function testCreateEmptyModelAndSettersForCard()
     {
-        $model = new DepositCard();
+        $model = DepositCard::create();
         $model->setCreditedWalletId('12345678');
         $model->setCardId('87654321');
         $model->setSecureMode(true);
@@ -79,7 +79,7 @@ class DepositTest extends TestCase
 
     public function testCreateArrayForCard()
     {
-        $model = new DepositCard();
+        $model = DepositCard::create();
         $model->setReturnUrl('url');
 
         $array = $model->httpCreate();
@@ -97,13 +97,13 @@ class DepositTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new DepositCard();
+        $model = DepositCard::create();
         $model->httpUpdate();
     }
 
-    public function testModelSettersForDirectDebit()
+    public function testCreateEmptyModelAndSettersForDirectDebit()
     {
-        $model = new DepositDirectDebit();
+        $model = DepositDirectDebit::create();
         $model->setCreditedWalletId('12345678');
         $model->setMandateId('87654321');
 
@@ -122,7 +122,7 @@ class DepositTest extends TestCase
 
     public function testCreateArrayForDirectDebit()
     {
-        $model = new DepositDirectDebit();
+        $model = DepositDirectDebit::create();
         $model->setCreditedWalletId('12345678');
         $model->setReturnUrl('url');
 
@@ -140,7 +140,7 @@ class DepositTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new DepositDirectDebit();
+        $model = DepositDirectDebit::create();
         $model->httpUpdate();
     }
 }

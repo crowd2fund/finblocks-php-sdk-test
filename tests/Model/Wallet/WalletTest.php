@@ -16,9 +16,9 @@ use PHPUnit\Framework\TestCase;
  */
 class WalletTest extends TestCase
 {
-    public function testSettersForMoneyModel()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Wallet();
+        $model = Wallet::create();
         $model->setAccountHolderId('accountHolderId');
         $model->setCurrency('GBP');
         $model->setLabel('label');
@@ -34,7 +34,7 @@ class WalletTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Wallet();
+        $model = Wallet::create();
 
         $array = $model->httpCreate();
 
@@ -48,7 +48,7 @@ class WalletTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new Wallet();
+        $model = Wallet::create();
         $model->httpUpdate();
     }
 }

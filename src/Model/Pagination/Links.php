@@ -9,7 +9,7 @@ namespace FinBlocks\Model\Pagination;
  * @version 1.0.0
  * @since   1.0.0
  */
-class Links
+final class Links
 {
     /**
      * @var string
@@ -35,6 +35,29 @@ class Links
      * @var string
      */
     private $last;
+
+    /**
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
+    }
 
     /**
      * @return string

@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class WithdrawalTest extends TestCase
 {
-    public function testSettersForWithdrawalModel()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Withdrawal();
+        $model = Withdrawal::create();
         $model->setWalletId('12345678');
         $model->setBankAccountId('87654321');
         $model->setBankWireReference('asdfg qwerty');
@@ -33,7 +33,7 @@ class WithdrawalTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Withdrawal();
+        $model = Withdrawal::create();
 
         $array = $model->httpCreate();
 
@@ -59,7 +59,7 @@ class WithdrawalTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new Withdrawal();
+        $model = Withdrawal::create();
         $model->httpUpdate();
     }
 }

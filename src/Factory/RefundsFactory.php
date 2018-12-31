@@ -14,12 +14,23 @@ use FinBlocks\Model\Refund\Refund;
 class RefundsFactory
 {
     /**
-     * Creates a new Refund's Model.
+     * Creates a new Model.
      *
      * @return Refund
      */
     public function create(): Refund
     {
-        return new Refund();
+        return Refund::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return Refund
+     */
+    public function createFromPayload(string $jsonData): Refund
+    {
+        return Refund::createFromPayload($jsonData);
     }
 }

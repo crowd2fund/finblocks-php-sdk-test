@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class TransferTest extends TestCase
 {
-    public function testModelSetters()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Transfer();
+        $model = Transfer::create();
         $model->setDebitedWalletId('12345678');
         $model->setCreditedWalletId('87654321');
         $model->setLabel('label');
@@ -31,7 +31,7 @@ class TransferTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Transfer();
+        $model = Transfer::create();
 
         $array = $model->httpCreate();
 
@@ -56,7 +56,7 @@ class TransferTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new Transfer();
+        $model = Transfer::create();
         $model->httpUpdate();
     }
 }

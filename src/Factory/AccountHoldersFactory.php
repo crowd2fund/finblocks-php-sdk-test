@@ -15,22 +15,44 @@ use FinBlocks\Model\AccountHolder\AccountHolderIndividual;
 class AccountHoldersFactory
 {
     /**
-     * Creates a new Individual's Account Holder Model.
+     * Creates a new Model.
      *
      * @return AccountHolderIndividual
      */
     public function createIndividual(): AccountHolderIndividual
     {
-        return new AccountHolderIndividual();
+        return AccountHolderIndividual::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return AccountHolderIndividual
+     */
+    public function createIndividualFromPayload(string $jsonData): AccountHolderIndividual
+    {
+        return AccountHolderIndividual::createFromPayload($jsonData);
     }
 
     /**
-     * Creates a new Business's Account Holder  Model.
+     * Creates a new Model.
      *
      * @return AccountHolderBusiness
      */
     public function createBusiness(): AccountHolderBusiness
     {
-        return new AccountHolderBusiness();
+        return AccountHolderBusiness::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return AccountHolderBusiness
+     */
+    public function createBusinessFromPayload(string $jsonData): AccountHolderBusiness
+    {
+        return AccountHolderBusiness::createFromPayload($jsonData);
     }
 }

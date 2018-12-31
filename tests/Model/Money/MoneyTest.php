@@ -14,9 +14,9 @@ use PHPUnit\Framework\TestCase;
  */
 class MoneyTest extends TestCase
 {
-    public function testSettersForMoneyModel()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Money();
+        $model = Money::create();
         $model->setCurrency('GBP');
         $model->setAmount(10000);
 
@@ -26,7 +26,7 @@ class MoneyTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Money();
+        $model = Money::create();
 
         $array = $model->httpCreate();
 
@@ -36,7 +36,7 @@ class MoneyTest extends TestCase
 
     public function testUpdateArray()
     {
-        $model = new Money();
+        $model = Money::create();
 
         $array = $model->httpUpdate();
 

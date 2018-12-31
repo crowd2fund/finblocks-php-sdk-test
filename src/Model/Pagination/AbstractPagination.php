@@ -2,6 +2,9 @@
 
 namespace FinBlocks\Model\Pagination;
 
+use FinBlocks\Exception\FinBlocksException;
+use FinBlocks\Model\BaseModelInterface;
+
 /**
  * @author    David Garcia <me@davidgarcia.cat>
  * @copyright FinBlocks
@@ -9,7 +12,7 @@ namespace FinBlocks\Model\Pagination;
  * @version 1.0.0
  * @since   1.0.0
  */
-abstract class AbstractPagination
+abstract class AbstractPagination implements BaseModelInterface
 {
     /**
      * @var int
@@ -29,9 +32,9 @@ abstract class AbstractPagination
     /**
      * AbstractPagination constructor.
      */
-    public function __construct()
+    protected function __construct(string $jsonData = null)
     {
-        $this->_links = new Links();
+        $this->_links = Links::create();
     }
 
     /**
@@ -54,4 +57,14 @@ abstract class AbstractPagination
      * @return array
      */
     abstract public function getEmbedded(): array;
+
+    public function httpCreate(): array
+    {
+        throw new FinBlocksException('Impossible to create the returned pagination');
+    }
+
+    public function httpUpdate(): array
+    {
+        throw new FinBlocksException('Impossible to update the returned pagination');
+    }
 }

@@ -14,12 +14,23 @@ use FinBlocks\Model\Wallet\Wallet;
 class WalletsFactory
 {
     /**
-     * Creates a new Wallet's Model.
+     * Creates a new Model.
      *
      * @return Wallet
      */
     public function create(): Wallet
     {
-        return new Wallet();
+        return Wallet::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return Wallet
+     */
+    public function createFromPayload(string $jsonData): Wallet
+    {
+        return Wallet::createFromPayload($jsonData);
     }
 }

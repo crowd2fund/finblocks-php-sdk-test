@@ -36,6 +36,31 @@ final class BankAccountCaDetails implements BaseModelInterface
     private $accountNumber;
 
     /**
+     * BankAccountCaDetails constructor.
+     *
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
+    }
+
+    /**
      * @param string $bankName
      */
     public function setBankName(string $bankName)

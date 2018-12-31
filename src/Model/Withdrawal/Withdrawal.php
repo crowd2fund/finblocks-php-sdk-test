@@ -79,11 +79,52 @@ class Withdrawal implements BaseModelInterface
 
     /**
      * Withdrawal constructor.
+     *
+     * @param string|null $jsonData
      */
-    public function __construct()
+    private function __construct(string $jsonData = null)
     {
-        $this->debitedFunds = new Money();
-        $this->fees = new Money();
+        if (!empty($jsonData)) {
+            try {
+                $arrayData = json_decode($jsonData, true);
+
+                if (JSON_ERROR_NONE !== json_last_error()) {
+                    throw new \InvalidArgumentException(json_last_error_msg(), json_last_error());
+                }
+
+                foreach ($arrayData as $property => $content) {
+                    switch ($property) {
+                        case 'debitedFunds':
+                        case 'fees':
+                        $this->$property = Money::createFromPayload(json_encode($content));
+                            break;
+                        default:
+                            $this->$property = $content;
+                    }
+                }
+            } catch (\Throwable $throwable) {
+                throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
+            }
+        } else {
+            $this->debitedFunds = Money::create();
+            $this->fees = Money::create();
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

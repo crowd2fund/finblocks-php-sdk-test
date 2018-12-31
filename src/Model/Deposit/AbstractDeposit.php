@@ -80,13 +80,15 @@ abstract class AbstractDeposit implements BaseModelInterface
 
     /**
      * AbstractDeposit constructor.
+     *
+     * @param string|null $jsonData
      */
-    public function __construct()
+    protected function __construct(string $jsonData = null)
     {
-        $this->billingAddress = new Address();
-        $this->debitedFunds = new Money();
-        $this->creditedFunds = new Money();
-        $this->fees = new Money();
+        $this->billingAddress = Address::create();
+        $this->debitedFunds = Money::create();
+        $this->creditedFunds = Money::create();
+        $this->fees = Money::create();
     }
 
     /**

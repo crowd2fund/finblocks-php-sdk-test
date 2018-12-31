@@ -15,10 +15,31 @@ final class BankAccountCa extends AbstractBankAccount
 {
     const TYPE = 'CA';
 
-    public function __construct()
+    /**
+     * BankAccountCa constructor.
+     *
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
     {
         $this->setType(self::TYPE);
-        $this->setDetails(new BankAccountCaDetails());
+        $this->setDetails(BankAccountCaDetails::create());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

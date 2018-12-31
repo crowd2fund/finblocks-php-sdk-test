@@ -12,9 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class BankAccountTest extends TestCase
 {
-    public function testModelSettersForCa()
+    public function testCreateEmptyModelAndSettersForCa()
     {
-        $model = new BankAccountCa();
+        $model = BankAccountCa::create();
         $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -34,7 +34,7 @@ class BankAccountTest extends TestCase
 
     public function testCreateArrayForCa()
     {
-        $model = new BankAccountCa();
+        $model = BankAccountCa::create();
 
         $array = $model->httpCreate();
 
@@ -55,13 +55,13 @@ class BankAccountTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new BankAccountCa();
+        $model = BankAccountCa::create();
         $model->httpUpdate();
     }
 
-    public function testModelSettersForGb()
+    public function testCreateEmptyModelAndSettersForGb()
     {
-        $model = new BankAccountGb();
+        $model = BankAccountGb::create();
         $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -77,7 +77,7 @@ class BankAccountTest extends TestCase
 
     public function testCreateArrayForGb()
     {
-        $model = new BankAccountGb();
+        $model = BankAccountGb::create();
 
         $array = $model->httpCreate();
 
@@ -96,13 +96,13 @@ class BankAccountTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new BankAccountGb();
+        $model = BankAccountGb::create();
         $model->httpUpdate();
     }
 
-    public function testModelSettersForIban()
+    public function testCreateEmptyModelAndSettersForIban()
     {
-        $model = new BankAccountIban();
+        $model = BankAccountIban::create();
         $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -118,7 +118,7 @@ class BankAccountTest extends TestCase
 
     public function testCreateArrayForIban()
     {
-        $model = new BankAccountIban();
+        $model = BankAccountIban::create();
 
         $array = $model->httpCreate();
 
@@ -137,13 +137,13 @@ class BankAccountTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new BankAccountIban();
+        $model = BankAccountIban::create();
         $model->httpUpdate();
     }
 
-    public function testModelSettersForOther()
+    public function testCreateEmptyModelAndSettersForOther()
     {
-        $model = new BankAccountOther();
+        $model = BankAccountOther::create();
         $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -161,7 +161,7 @@ class BankAccountTest extends TestCase
 
     public function testCreateArrayForOther()
     {
-        $model = new BankAccountOther();
+        $model = BankAccountOther::create();
 
         $array = $model->httpCreate();
 
@@ -181,13 +181,13 @@ class BankAccountTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new BankAccountOther();
+        $model = BankAccountOther::create();
         $model->httpUpdate();
     }
 
-    public function testModelSettersForUs()
+    public function testCreateEmptyModelAndSettersForUs()
     {
-        $model = new BankAccountUs();
+        $model = BankAccountUs::create();
         $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -203,7 +203,7 @@ class BankAccountTest extends TestCase
 
     public function testCreateArrayForUs()
     {
-        $model = new BankAccountUs();
+        $model = BankAccountUs::create();
 
         $array = $model->httpCreate();
 
@@ -222,7 +222,7 @@ class BankAccountTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new BankAccountUs();
+        $model = BankAccountUs::create();
         $model->httpUpdate();
     }
 }

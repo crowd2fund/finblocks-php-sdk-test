@@ -23,13 +23,29 @@ final class AccountHolderBusiness extends AbstractAccountHolder
     /**
      * AccountHolderBusiness constructor.
      */
-    public function __construct()
+    protected function __construct(string $jsonData = null)
     {
         parent::__construct();
 
         $this->setType(self::TYPE);
 
-        $this->company = new Company();
+        $this->company = Company::create();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

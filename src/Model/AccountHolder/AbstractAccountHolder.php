@@ -85,9 +85,9 @@ abstract class AbstractAccountHolder implements BaseModelInterface
      */
     private $address;
 
-    public function __construct()
+    protected function __construct(string $jsonData = null)
     {
-        $this->address = new Address();
+        $this->address = Address::create();
     }
 
     /**

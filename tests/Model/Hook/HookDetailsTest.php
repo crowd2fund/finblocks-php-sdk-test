@@ -14,9 +14,9 @@ use PHPUnit\Framework\TestCase;
  */
 class HookDetailsTest extends TestCase
 {
-    public function testModelSetters()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new HookDetails();
+        $model = HookDetails::create();
 
         $model->setUrl('url');
         $model->setActive(true);

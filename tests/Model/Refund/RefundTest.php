@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class RefundTest extends TestCase
 {
-    public function testModelSetters()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Refund();
+        $model = Refund::create();
         $model->setDebitedWalletId('12345678');
         $model->setCreditedWalletId('87654321');
         $model->setLabel('label');
@@ -31,7 +31,7 @@ class RefundTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Refund();
+        $model = Refund::create();
 
         $array = $model->httpCreate();
 
@@ -56,7 +56,7 @@ class RefundTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new Refund();
+        $model = Refund::create();
         $model->httpUpdate();
     }
 }

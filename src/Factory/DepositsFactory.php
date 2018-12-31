@@ -16,32 +16,65 @@ use FinBlocks\Model\Deposit\DepositDirectDebit;
 class DepositsFactory
 {
     /**
-     * Creates a new Bank Wire Deposit's Model.
+     * Creates a new Model.
      *
      * @return DepositBankWire
      */
     public function createBankWire(): DepositBankWire
     {
-        return new DepositBankWire();
+        return DepositBankWire::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return DepositBankWire
+     */
+    public function createBankWireFromPayload(string $jsonData): DepositBankWire
+    {
+        return DepositBankWire::createFromPayload($jsonData);
     }
 
     /**
-     * Creates a new Card Deposit's Model.
+     * Creates a new Model.
      *
      * @return DepositCard
      */
     public function createCard(): DepositCard
     {
-        return new DepositCard();
+        return DepositCard::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return DepositCard
+     */
+    public function createCardFromPayload(string $jsonData): DepositCard
+    {
+        return DepositCard::createFromPayload($jsonData);
     }
 
     /**
-     * Creates a new Direct Debit Deposit's Model.
+     * Creates a new Model.
      *
      * @return DepositDirectDebit
      */
     public function createDirectDebit(): DepositDirectDebit
     {
-        return new DepositDirectDebit();
+        return DepositDirectDebit::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return DepositDirectDebit
+     */
+    public function createDirectDebitFromPayload(string $jsonData): DepositDirectDebit
+    {
+        return DepositDirectDebit::createFromPayload($jsonData);
     }
 }

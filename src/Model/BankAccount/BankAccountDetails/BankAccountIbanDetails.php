@@ -26,6 +26,31 @@ final class BankAccountIbanDetails implements BaseModelInterface
     private $iban;
 
     /**
+     * BankAccountIbanDetails constructor.
+     *
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
+    }
+
+    /**
      * @param string $bic
      */
     public function setBic(string $bic)

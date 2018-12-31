@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class AccountHolderTest extends TestCase
 {
-    public function testModelSettersForIndividual()
+    public function testCreateEmptyModelAndSettersForIndividual()
     {
-        $model = new AccountHolderIndividual();
+        $model = AccountHolderIndividual::create();
         $model->setEmail('mailbox@domain.com');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -45,7 +45,7 @@ class AccountHolderTest extends TestCase
 
     public function testCreateArrayForIndividual()
     {
-        $model = new AccountHolderIndividual();
+        $model = AccountHolderIndividual::create();
         $model->setDateOfBirth(\DateTime::createFromFormat('Y-m-d', '1983-04-10'));
 
         $array = $model->httpCreate();
@@ -77,7 +77,7 @@ class AccountHolderTest extends TestCase
 
     public function testUpdateArrayForIndividual()
     {
-        $model = new AccountHolderIndividual();
+        $model = AccountHolderIndividual::create();
         $model->setDateOfBirth(\DateTime::createFromFormat('Y-m-d', '1983-04-10'));
 
         $array = $model->httpCreate();
@@ -107,9 +107,9 @@ class AccountHolderTest extends TestCase
         $this->assertArrayHasKey('country', $array['address']);
     }
 
-    public function testModelSettersForBusiness()
+    public function testCreateEmptyModelAndSettersForBusiness()
     {
-        $model = new AccountHolderBusiness();
+        $model = AccountHolderBusiness::create();
         $model->setEmail('mailbox@domain.com');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -137,7 +137,7 @@ class AccountHolderTest extends TestCase
 
     public function testCreateArrayForBusiness()
     {
-        $model = new AccountHolderBusiness();
+        $model = AccountHolderBusiness::create();
         $model->setDateOfBirth(\DateTime::createFromFormat('Y-m-d', '1983-04-10'));
 
         $array = $model->httpCreate();
@@ -188,7 +188,7 @@ class AccountHolderTest extends TestCase
 
     public function testUpdateArrayForBusiness()
     {
-        $model = new AccountHolderBusiness();
+        $model = AccountHolderBusiness::create();
         $model->setDateOfBirth(\DateTime::createFromFormat('Y-m-d', '1983-04-10'));
 
         $array = $model->httpCreate();

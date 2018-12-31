@@ -79,12 +79,30 @@ class Transfer implements BaseModelInterface
 
     /**
      * Transfer constructor.
+     *
+     * @param string|null $jsonData
      */
-    public function __construct()
+    private function __construct(string $jsonData = null)
     {
-        $this->debitedFunds = new Money();
-        $this->creditedFunds = new Money();
-        $this->fees = new Money();
+        $this->debitedFunds = Money::create();
+        $this->creditedFunds = Money::create();
+        $this->fees = Money::create();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

@@ -14,9 +14,9 @@ use PHPUnit\Framework\TestCase;
  */
 class AddressTest extends TestCase
 {
-    public function testSettersForAddressModel()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Address();
+        $model = Address::create();
         $model->setFlatNumber('3');
         $model->setBuildingNumber('28');
         $model->setBuildingName('n/a');
@@ -40,7 +40,7 @@ class AddressTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Address();
+        $model = Address::create();
 
         $array = $model->httpCreate();
 
@@ -57,7 +57,7 @@ class AddressTest extends TestCase
 
     public function testUpdateArray()
     {
-        $model = new Address();
+        $model = Address::create();
 
         $array = $model->httpUpdate();
 

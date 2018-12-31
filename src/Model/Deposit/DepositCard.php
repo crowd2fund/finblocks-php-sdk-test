@@ -24,6 +24,32 @@ final class DepositCard extends AbstractDeposit
     private $secureMode = false;
 
     /**
+     * DepositCard constructor.
+     *
+     * @param string|null $jsonData
+     */
+    protected function __construct(string $jsonData = null)
+    {
+        parent::__construct();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
+    }
+
+    /**
      * @param string $cardId
      */
     public function setCardId(string $cardId)

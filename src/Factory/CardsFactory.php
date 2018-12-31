@@ -14,12 +14,23 @@ use FinBlocks\Model\Card\Card;
 class CardsFactory
 {
     /**
-     * Creates a new Card's Model.
+     * Creates a new Model.
      *
      * @return Card
      */
     public function create(): Card
     {
-        return new Card();
+        return Card::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return Card
+     */
+    public function createFromPayload(string $jsonData): Card
+    {
+        return Card::createFromPayload($jsonData);
     }
 }

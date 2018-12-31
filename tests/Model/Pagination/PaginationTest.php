@@ -14,9 +14,9 @@ use PHPUnit\Framework\TestCase;
  */
 class PaginationTest extends TestCase
 {
-    public function testAccountHoldersPagination()
+    public function testCreateEmptyModelAccountHoldersPagination()
     {
-        $model = new Pagination\AccountHoldersPagination();
+        $model = Pagination\AccountHoldersPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -33,9 +33,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testBankAccountsPagination()
+    public function testCreateEmptyModelBankAccountsPagination()
     {
-        $model = new Pagination\BankAccountsPagination();
+        $model = Pagination\BankAccountsPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -52,9 +52,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testCardsPagination()
+    public function testCreateEmptyModelCardsPagination()
     {
-        $model = new Pagination\CardsPagination();
+        $model = Pagination\CardsPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -71,9 +71,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testDepositsPagination()
+    public function testCreateEmptyModelDepositsPagination()
     {
-        $model = new Pagination\DepositsPagination();
+        $model = Pagination\DepositsPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -90,9 +90,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testDocumentsPagination()
+    public function testCreateEmptyModelDocumentsPagination()
     {
-        $model = new Pagination\DocumentsPagination();
+        $model = Pagination\DocumentsPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -109,9 +109,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testKnowYourCustomersPagination()
+    public function testCreateEmptyModelKnowYourCustomersPagination()
     {
-        $model = new Pagination\KnowYourCustomersPagination();
+        $model = Pagination\KnowYourCustomersPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -128,9 +128,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testMandatesPagination()
+    public function testCreateEmptyModelMandatesPagination()
     {
-        $model = new Pagination\MandatesPagination();
+        $model = Pagination\MandatesPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -147,9 +147,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testRefundsPagination()
+    public function testCreateEmptyModelRefundsPagination()
     {
-        $model = new Pagination\RefundsPagination();
+        $model = Pagination\RefundsPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -166,9 +166,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testTransactionsPagination()
+    public function testCreateEmptyModelTransactionsPagination()
     {
-        $model = new Pagination\TransactionsPagination();
+        $model = Pagination\TransactionsPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -185,9 +185,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testTransfersPagination()
+    public function testCreateEmptyModelTransfersPagination()
     {
-        $model = new Pagination\TransfersPagination();
+        $model = Pagination\TransfersPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -204,9 +204,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testWalletsPagination()
+    public function testCreateEmptyModelWalletsPagination()
     {
-        $model = new Pagination\WalletsPagination();
+        $model = Pagination\WalletsPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
@@ -223,9 +223,9 @@ class PaginationTest extends TestCase
         $this->assertEquals([], $model->getEmbedded());
     }
 
-    public function testWithdrawalsPagination()
+    public function testCreateEmptyModelWithdrawalsPagination()
     {
-        $model = new Pagination\WithdrawalsPagination();
+        $model = Pagination\WithdrawalsPagination::create();
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 

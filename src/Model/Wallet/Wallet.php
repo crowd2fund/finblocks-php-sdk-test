@@ -52,10 +52,28 @@ class Wallet implements BaseModelInterface
 
     /**
      * Wallet constructor.
+     *
+     * @param string|null $jsonData
      */
-    public function __construct()
+    private function __construct(string $jsonData = null)
     {
-        $this->balance = new Money();
+        $this->balance = Money::create();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

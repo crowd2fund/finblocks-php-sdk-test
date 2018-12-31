@@ -136,33 +136,51 @@ class Hook implements BaseModelInterface
 
     /**
      * Hook constructor.
+     *
+     * @param string|null $jsonData
      */
-    public function __construct()
+    private function __construct(string $jsonData = null)
     {
-        $this->depositCreated = new HookDetails();
-        $this->depositSucceeded = new HookDetails();
-        $this->depositFailed = new HookDetails();
-        $this->depositRefundCreated = new HookDetails();
-        $this->depositRefundSucceeded = new HookDetails();
-        $this->depositRefundFailed = new HookDetails();
-        $this->kycCreated = new HookDetails();
-        $this->kycSucceeded = new HookDetails();
-        $this->kycFailed = new HookDetails();
-        $this->mandateCreated = new HookDetails();
-        $this->mandateSucceeded = new HookDetails();
-        $this->mandateFailed = new HookDetails();
-        $this->transferCreated = new HookDetails();
-        $this->transferSucceeded = new HookDetails();
-        $this->transferFailed = new HookDetails();
-        $this->transferRefundCreated = new HookDetails();
-        $this->transferRefundSucceeded = new HookDetails();
-        $this->transferRefundFailed = new HookDetails();
-        $this->withdrawalCreated = new HookDetails();
-        $this->withdrawalSucceeded = new HookDetails();
-        $this->withdrawalFailed = new HookDetails();
-        $this->withdrawalRefundCreated = new HookDetails();
-        $this->withdrawalRefundSucceeded = new HookDetails();
-        $this->withdrawalRefundFailed = new HookDetails();
+        $this->depositCreated = HookDetails::create();
+        $this->depositSucceeded = HookDetails::create();
+        $this->depositFailed = HookDetails::create();
+        $this->depositRefundCreated = HookDetails::create();
+        $this->depositRefundSucceeded = HookDetails::create();
+        $this->depositRefundFailed = HookDetails::create();
+        $this->kycCreated = HookDetails::create();
+        $this->kycSucceeded = HookDetails::create();
+        $this->kycFailed = HookDetails::create();
+        $this->mandateCreated = HookDetails::create();
+        $this->mandateSucceeded = HookDetails::create();
+        $this->mandateFailed = HookDetails::create();
+        $this->transferCreated = HookDetails::create();
+        $this->transferSucceeded = HookDetails::create();
+        $this->transferFailed = HookDetails::create();
+        $this->transferRefundCreated = HookDetails::create();
+        $this->transferRefundSucceeded = HookDetails::create();
+        $this->transferRefundFailed = HookDetails::create();
+        $this->withdrawalCreated = HookDetails::create();
+        $this->withdrawalSucceeded = HookDetails::create();
+        $this->withdrawalFailed = HookDetails::create();
+        $this->withdrawalRefundCreated = HookDetails::create();
+        $this->withdrawalRefundSucceeded = HookDetails::create();
+        $this->withdrawalRefundFailed = HookDetails::create();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

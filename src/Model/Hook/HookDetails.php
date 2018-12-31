@@ -26,6 +26,31 @@ class HookDetails implements BaseModelInterface
     private $active = false;
 
     /**
+     * HookDetails constructor.
+     *
+     * @param string|null $jsonData
+     */
+    private function __construct(string $jsonData = null)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
+    }
+
+    /**
      * @param string|null $url
      */
     public function setUrl(string $url = null)

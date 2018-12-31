@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class CardTest extends TestCase
 {
-    public function testSettersForCardModel()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Card();
+        $model = Card::create();
         $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -32,7 +32,7 @@ class CardTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Card();
+        $model = Card::create();
         $model->setToken('tokenised');
 
         $array = $model->httpCreate();
@@ -49,7 +49,7 @@ class CardTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new Card();
+        $model = Card::create();
         $model->httpUpdate();
     }
 }

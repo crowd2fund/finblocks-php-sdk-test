@@ -15,22 +15,44 @@ use FinBlocks\Model\Document\DocumentPassport;
 class DocumentsFactory
 {
     /**
-     * Creates a new ID Card Document's Model.
+     * Creates a new Model.
      *
      * @return DocumentIdCard
      */
     public function createIdCard(): DocumentIdCard
     {
-        return new DocumentIdCard();
+        return DocumentIdCard::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return DocumentIdCard
+     */
+    public function createIdCardFromPayload(string $jsonData): DocumentIdCard
+    {
+        return DocumentIdCard::createFromPayload($jsonData);
     }
 
     /**
-     * Creates a new Passport Document's Model.
+     * Creates a new Model.
      *
      * @return DocumentPassport
      */
     public function createPassport(): DocumentPassport
     {
-        return new DocumentPassport();
+        return DocumentPassport::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return DocumentPassport
+     */
+    public function createPassportFromPayload(string $jsonData): DocumentPassport
+    {
+        return DocumentPassport::createFromPayload($jsonData);
     }
 }

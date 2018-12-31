@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class KnowYourCustomerTest extends TestCase
 {
-    public function testSettersForCardModel()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new KnowYourCustomer();
+        $model = KnowYourCustomer::create();
         $model->setDocumentId('documentId');
         $model->setLabel('label');
         $model->setTag('tag');
@@ -29,7 +29,7 @@ class KnowYourCustomerTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new KnowYourCustomer();
+        $model = KnowYourCustomer::create();
 
         $array = $model->httpCreate();
 
@@ -44,7 +44,7 @@ class KnowYourCustomerTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = new KnowYourCustomer();
+        $model = KnowYourCustomer::create();
         $model->httpUpdate();
     }
 }

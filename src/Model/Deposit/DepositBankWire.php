@@ -15,12 +15,33 @@ final class DepositBankWire extends AbstractDeposit
 {
     const TYPE = 'bankWire';
 
-    public function __construct()
+    /**
+     * DepositBankWire constructor.
+     *
+     * @param string|null $jsonData
+     */
+    protected function __construct(string $jsonData = null)
     {
         parent::__construct();
 
-        $this->declaredDebitedFunds = new Money();
-        $this->declaredFees = new Money();
+        $this->declaredDebitedFunds = Money::create();
+        $this->declaredFees = Money::create();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload(string $jsonData)
+    {
+        return new self($jsonData);
     }
 
     /**

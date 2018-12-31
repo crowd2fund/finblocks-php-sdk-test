@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class CompanyTest extends TestCase
 {
-    public function testSettersForCompanyModel()
+    public function testCreateEmptyModelAndSetters()
     {
-        $model = new Company();
+        $model = Company::create();
         $model->setName('FINBLOCKS LTD');
         $model->setNumber('11269670');
         $model->setEmail('info@finblocks.net');
@@ -33,7 +33,7 @@ class CompanyTest extends TestCase
 
     public function testCreateArray()
     {
-        $model = new Company();
+        $model = Company::create();
 
         $array = $model->httpCreate();
 
@@ -46,7 +46,7 @@ class CompanyTest extends TestCase
 
     public function testUpdateArray()
     {
-        $model = new Company();
+        $model = Company::create();
 
         $array = $model->httpUpdate();
 

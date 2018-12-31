@@ -14,12 +14,23 @@ use FinBlocks\Model\KnowYourCustomer\KnowYourCustomer;
 class KnowYourCustomersFactory
 {
     /**
-     * Creates a new Mandate's Model.
+     * Creates a new Model.
      *
      * @return KnowYourCustomer
      */
     public function create(): KnowYourCustomer
     {
-        return new KnowYourCustomer();
+        return KnowYourCustomer::create();
+    }
+    /**
+     * Creates a new Model filling their properties with the JSON payload.
+     *
+     * @param string $jsonData
+     *
+     * @return KnowYourCustomer
+     */
+    public function createFromPayload(string $jsonData): KnowYourCustomer
+    {
+        return KnowYourCustomer::createFromPayload($jsonData);
     }
 }
