@@ -3,6 +3,7 @@
 namespace FinBlocks\Tests\Model\Withdrawal;
 
 use FinBlocks\Exception\FinBlocksException;
+use FinBlocks\Model\Money\Money;
 use FinBlocks\Model\Withdrawal\Withdrawal;
 use PHPUnit\Framework\TestCase;
 
@@ -29,6 +30,61 @@ class WithdrawalTest extends TestCase
         $this->assertEquals('asdfg qwerty', $model->getBankWireReference());
         $this->assertEquals('label', $model->getLabel());
         $this->assertEquals('tag', $model->getTag());
+    }
+
+    public function testCreateFilledModelFromJsonPayload()
+    {
+        $model = Withdrawal::createFromPayload('{
+  "id": "1111",
+  "label": "Withdrawal\'s Label",
+  "tag": "Withdrawal\'s Tag",
+  "status": "succeeded",
+  "nature": "withdrawal",
+  "walletId": "2222",
+  "bankAccountId": "3333",
+  "bankWireReference": "qwerty",
+  "debitedFunds": {
+    "currency": "GBP",
+    "amount": 100000
+  },
+  "fees": {
+    "currency": "GBP",
+    "amount": 0
+  },
+  "createdAt": "2018-12-31T11:31:34.343Z",
+  "executedAt": "2018-12-31T11:31:34.343Z"
+}');
+
+        $this->assertEquals('1111', $model->getId());
+        $this->assertEquals('Withdrawal\'s Label', $model->getLabel());
+        $this->assertEquals('Withdrawal\'s Tag', $model->getTag());
+        $this->assertEquals('succeeded', $model->getStatus());
+        $this->assertEquals('withdrawal', $model->getNature());
+        $this->assertEquals('2222', $model->getWalletId());
+        $this->assertEquals('3333', $model->getBankAccountId());
+        $this->assertEquals('qwerty', $model->getBankWireReference());
+
+        $this->assertInstanceOf(Money::class, $model->getDebitedFunds());
+        $this->assertInstanceOf(Money::class, $model->getFees());
+
+        $this->assertEquals('GBP', $model->getDebitedFunds()->getCurrency());
+        $this->assertEquals(100000, $model->getDebitedFunds()->getAmount());
+
+        $this->assertEquals('GBP', $model->getFees()->getCurrency());
+        $this->assertEquals(0, $model->getFees()->getAmount());
+
+        $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $model->getExecutedAt());
+
+        $this->assertEquals('2018-12-31 11:31:34', $model->getCreatedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2018-12-31 11:31:34', $model->getExecutedAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Withdrawal::createFromPayload('This is not a JSON payload');
     }
 
     public function testCreateArray()

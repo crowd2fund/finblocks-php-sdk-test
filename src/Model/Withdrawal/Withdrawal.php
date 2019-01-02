@@ -96,7 +96,11 @@ class Withdrawal implements BaseModelInterface
                     switch ($property) {
                         case 'debitedFunds':
                         case 'fees':
-                        $this->$property = Money::createFromPayload(json_encode($content));
+                            $this->$property = Money::createFromPayload(json_encode($content));
+                            break;
+                        case 'createdAt':
+                        case 'executedAt':
+                            $this->$property = new \DateTime($content);
                             break;
                         default:
                             $this->$property = $content;
