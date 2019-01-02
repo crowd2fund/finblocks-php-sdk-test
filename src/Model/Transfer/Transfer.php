@@ -101,7 +101,7 @@ class Transfer implements BaseModelInterface
                             break;
                         case 'createdAt':
                         case 'executedAt':
-                        $this->$property = !empty($content) ? new \DateTime($content) : $content;
+                            $this->$property = !empty($content) ? new \DateTime($content) : $content;
                             break;
                         default:
                             $this->$property = $content;
