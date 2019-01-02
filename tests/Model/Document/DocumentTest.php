@@ -28,6 +28,35 @@ class DocumentTest extends TestCase
         $this->assertEquals('tag', $model->getTag());
     }
 
+    public function testCreateFilledModelFromJsonPayloadForIdCard()
+    {
+        $model = DocumentPassport::createFromPayload('{
+  "id": "1111",
+  "accountHolderId": "2222",
+  "label": "Document\'s Label",
+  "tag": "Document\'s Tag",
+  "type": "idCard",
+  "createdAt": "2019-01-02T12:53:25.835Z"
+}');
+
+        $this->assertEquals('1111', $model->getId());
+        $this->assertEquals('2222', $model->getAccountHolderId());
+        $this->assertEquals('Document\'s Label', $model->getLabel());
+        $this->assertEquals('Document\'s Tag', $model->getTag());
+        $this->assertEquals('idCard', $model->getType());
+
+        $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
+
+        $this->assertEquals('2019-01-02 12:53:25', $model->getCreatedAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayloadForIdCard()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        DocumentIdCard::createFromPayload('This is not a JSON payload');
+    }
+
     public function testCreateArrayForIdCard()
     {
         $model = DocumentIdCard::create();
@@ -62,6 +91,35 @@ class DocumentTest extends TestCase
         $this->assertEquals('12345678', $model->getAccountHolderId());
         $this->assertEquals('label', $model->getLabel());
         $this->assertEquals('tag', $model->getTag());
+    }
+
+    public function testCreateFilledModelFromJsonPayloadForPassport()
+    {
+        $model = DocumentPassport::createFromPayload('{
+  "id": "1111",
+  "accountHolderId": "2222",
+  "label": "Document\'s Label",
+  "tag": "Document\'s Tag",
+  "type": "passport",
+  "createdAt": "2019-01-02T12:53:25.835Z"
+}');
+
+        $this->assertEquals('1111', $model->getId());
+        $this->assertEquals('2222', $model->getAccountHolderId());
+        $this->assertEquals('Document\'s Label', $model->getLabel());
+        $this->assertEquals('Document\'s Tag', $model->getTag());
+        $this->assertEquals('passport', $model->getType());
+
+        $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
+
+        $this->assertEquals('2019-01-02 12:53:25', $model->getCreatedAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayloadForPassport()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        DocumentPassport::createFromPayload('This is not a JSON payload');
     }
 
     public function testCreateArrayForPassport()

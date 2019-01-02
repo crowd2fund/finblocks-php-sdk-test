@@ -23,9 +23,13 @@ final class DocumentIdCard extends AbstractDocument
      *
      * @param string|null $jsonData
      */
-    private function __construct(string $jsonData = null)
+    protected function __construct(string $jsonData = null)
     {
-        $this->setType(self::TYPE);
+        if (!empty($jsonData)) {
+            parent::__construct($jsonData);
+        } else {
+            $this->setType(self::TYPE);
+        }
     }
 
     /**
