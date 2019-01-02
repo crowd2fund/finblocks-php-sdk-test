@@ -40,7 +40,7 @@ $finblocks = new FinBlocks('path/to/key', 'path/to/cert', 'path/to/ca');
 $sandbox = new FinBlocks('path/to/key', 'path/to/cert', 'path/to/ca', true);
 ```
 
-Access to the API resources directly from the client, such as::
+Access to the API resources directly from the client, such as:
 
 ```php
 $finblocksWallets = $finblocks->api()->accountHolders()->list();
