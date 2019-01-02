@@ -2,6 +2,8 @@
 
 namespace FinBlocks\Model\Deposit;
 
+use FinBlocks\Exception\FinBlocksException;
+use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\Money\Money;
 
 /**
@@ -22,10 +24,43 @@ final class DepositBankWire extends AbstractDeposit
      */
     protected function __construct(string $jsonData = null)
     {
-        parent::__construct();
+        if (!empty($jsonData)) {
+            try {
+                $arrayData = json_decode($jsonData, true);
 
-        $this->declaredDebitedFunds = Money::create();
-        $this->declaredFees = Money::create();
+                if (JSON_ERROR_NONE !== json_last_error()) {
+                    throw new \InvalidArgumentException(json_last_error_msg(), json_last_error());
+                }
+
+                foreach ($arrayData as $property => $content) {
+                    switch ($property) {
+                        case 'billingAddress':
+                            $this->$property = Address::createFromPayload(json_encode($content));
+                            break;
+                        case 'debitedFunds':
+                        case 'creditedFunds':
+                        case 'fees':
+                        case 'declaredDebitedFunds':
+                        case 'declaredFees':
+                            $this->$property = Money::createFromPayload(json_encode($content));
+                            break;
+                        case 'createdAt':
+                        case 'executedAt':
+                            $this->$property = !empty($content) ? new \DateTime($content) : $content;
+                            break;
+                        default:
+                            $this->$property = $content;
+                    }
+                }
+            } catch (\Throwable $throwable) {
+                throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
+            }
+        } else {
+            parent::__construct();
+
+            $this->declaredDebitedFunds = Money::create();
+            $this->declaredFees = Money::create();
+        }
     }
 
     /**

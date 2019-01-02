@@ -21,22 +21,22 @@ abstract class AbstractDeposit implements BaseModelInterface
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * @var string
      */
-    private $status;
+    protected $status;
 
     /**
      * @var string
      */
-    private $nature = self::NATURE;
+    protected $nature = self::NATURE;
 
     /**
      * @var string
@@ -46,44 +46,42 @@ abstract class AbstractDeposit implements BaseModelInterface
     /**
      * @var Address
      */
-    private $billingAddress;
+    protected $billingAddress;
 
     /**
      * @var string
      */
-    private $creditedWalletId;
+    protected $creditedWalletId;
 
     /**
      * @var Money
      */
-    private $debitedFunds;
+    protected $debitedFunds;
 
     /**
      * @var Money
      */
-    private $creditedFunds;
+    protected $creditedFunds;
 
     /**
      * @var Money
      */
-    private $fees;
+    protected $fees;
 
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime|null
      */
-    private $executedAt;
+    protected $executedAt;
 
     /**
      * AbstractDeposit constructor.
-     *
-     * @param string|null $jsonData
      */
-    protected function __construct(string $jsonData = null)
+    protected function __construct()
     {
         $this->billingAddress = Address::create();
         $this->debitedFunds = Money::create();
