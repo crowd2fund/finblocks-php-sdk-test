@@ -71,7 +71,7 @@ class Wallet implements BaseModelInterface
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
                         case 'createdAt':
-                            $this->$property = new \DateTime($content);
+                            $this->$property = !empty($content) ? new \DateTime($content) : $content;
                             break;
                         default:
                             $this->$property = $content;

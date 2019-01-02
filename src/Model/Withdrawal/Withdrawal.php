@@ -100,7 +100,7 @@ class Withdrawal implements BaseModelInterface
                             break;
                         case 'createdAt':
                         case 'executedAt':
-                            $this->$property = new \DateTime($content);
+                            $this->$property = !empty($content) ? new \DateTime($content) : $content;
                             break;
                         default:
                             $this->$property = $content;
