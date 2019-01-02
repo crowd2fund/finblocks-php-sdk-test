@@ -2,6 +2,7 @@
 
 namespace FinBlocks\Tests\Model\Address;
 
+use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Address\Address;
 use PHPUnit\Framework\TestCase;
 
@@ -36,6 +37,38 @@ class AddressTest extends TestCase
         $this->assertEquals('England', $model->getState());
         $this->assertEquals('EC1N 6TD', $model->getPostcode());
         $this->assertEquals('GBR', $model->getCountry());
+    }
+
+    public function testCreateFilledModelFromJsonPayload()
+    {
+        $model = Address::createFromPayload('{
+    "flatNumber": "3",
+    "buildingNumber": "28",
+    "buildingName": null,
+    "street": "Ely Place",
+    "subStreet": null,
+    "town": "London",
+    "state": "England",
+    "postcode": "EC1N 6TD",
+    "country": "GBR"
+  }');
+
+        $this->assertEquals('3', $model->getFlatNumber());
+        $this->assertEquals('28', $model->getBuildingNumber());
+        $this->assertEquals(null, $model->getBuildingName());
+        $this->assertEquals('Ely Place', $model->getStreet());
+        $this->assertEquals(null, $model->getSubStreet());
+        $this->assertEquals('London', $model->getTown());
+        $this->assertEquals('England', $model->getState());
+        $this->assertEquals('EC1N 6TD', $model->getPostcode());
+        $this->assertEquals('GBR', $model->getCountry());
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Address::createFromPayload('This is not a JSON payload');
     }
 
     public function testCreateArray()
