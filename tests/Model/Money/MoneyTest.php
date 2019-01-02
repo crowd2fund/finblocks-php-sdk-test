@@ -2,6 +2,7 @@
 
 namespace FinBlocks\Tests\Model\Money;
 
+use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Money\Money;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +23,24 @@ class MoneyTest extends TestCase
 
         $this->assertEquals('GBP', $model->getCurrency());
         $this->assertEquals(10000, $model->getAmount());
+    }
+
+    public function testCreateFilledModelFromJsonPayload()
+    {
+        $model = Money::createFromPayload('{
+  "currency": "GBP",
+  "amount": 100000
+}');
+
+        $this->assertEquals('GBP', $model->getCurrency());
+        $this->assertEquals(100000, $model->getAmount());
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Money::createFromPayload('This is not a JSON payload');
     }
 
     public function testCreateArray()
