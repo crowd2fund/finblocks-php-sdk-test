@@ -141,30 +141,46 @@ class Hook implements BaseModelInterface
      */
     private function __construct(string $jsonData = null)
     {
-        $this->depositCreated = HookDetails::create();
-        $this->depositSucceeded = HookDetails::create();
-        $this->depositFailed = HookDetails::create();
-        $this->depositRefundCreated = HookDetails::create();
-        $this->depositRefundSucceeded = HookDetails::create();
-        $this->depositRefundFailed = HookDetails::create();
-        $this->kycCreated = HookDetails::create();
-        $this->kycSucceeded = HookDetails::create();
-        $this->kycFailed = HookDetails::create();
-        $this->mandateCreated = HookDetails::create();
-        $this->mandateSucceeded = HookDetails::create();
-        $this->mandateFailed = HookDetails::create();
-        $this->transferCreated = HookDetails::create();
-        $this->transferSucceeded = HookDetails::create();
-        $this->transferFailed = HookDetails::create();
-        $this->transferRefundCreated = HookDetails::create();
-        $this->transferRefundSucceeded = HookDetails::create();
-        $this->transferRefundFailed = HookDetails::create();
-        $this->withdrawalCreated = HookDetails::create();
-        $this->withdrawalSucceeded = HookDetails::create();
-        $this->withdrawalFailed = HookDetails::create();
-        $this->withdrawalRefundCreated = HookDetails::create();
-        $this->withdrawalRefundSucceeded = HookDetails::create();
-        $this->withdrawalRefundFailed = HookDetails::create();
+        if (!empty($jsonData)) {
+            try {
+                $arrayData = json_decode($jsonData, true);
+
+                if (JSON_ERROR_NONE !== json_last_error()) {
+                    throw new \InvalidArgumentException(json_last_error_msg(), json_last_error());
+                }
+
+                foreach ($arrayData as $property => $content) {
+                    $this->$property = HookDetails::createFromPayload(json_encode($content));
+                }
+            } catch (\Throwable $throwable) {
+                throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
+            }
+        } else {
+            $this->depositCreated = HookDetails::create();
+            $this->depositSucceeded = HookDetails::create();
+            $this->depositFailed = HookDetails::create();
+            $this->depositRefundCreated = HookDetails::create();
+            $this->depositRefundSucceeded = HookDetails::create();
+            $this->depositRefundFailed = HookDetails::create();
+            $this->kycCreated = HookDetails::create();
+            $this->kycSucceeded = HookDetails::create();
+            $this->kycFailed = HookDetails::create();
+            $this->mandateCreated = HookDetails::create();
+            $this->mandateSucceeded = HookDetails::create();
+            $this->mandateFailed = HookDetails::create();
+            $this->transferCreated = HookDetails::create();
+            $this->transferSucceeded = HookDetails::create();
+            $this->transferFailed = HookDetails::create();
+            $this->transferRefundCreated = HookDetails::create();
+            $this->transferRefundSucceeded = HookDetails::create();
+            $this->transferRefundFailed = HookDetails::create();
+            $this->withdrawalCreated = HookDetails::create();
+            $this->withdrawalSucceeded = HookDetails::create();
+            $this->withdrawalFailed = HookDetails::create();
+            $this->withdrawalRefundCreated = HookDetails::create();
+            $this->withdrawalRefundSucceeded = HookDetails::create();
+            $this->withdrawalRefundFailed = HookDetails::create();
+        }
     }
 
     /**

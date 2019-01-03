@@ -155,4 +155,163 @@ class HookTest extends TestCase
         $this->assertArrayHasKey('url', $array['withdrawalRefundFailed']);
         $this->assertArrayHasKey('active', $array['withdrawalRefundFailed']);
     }
+
+    public function testCreateFilledModelFromJsonPayload()
+    {
+        $model = Hook::createFromPayload('{
+            "kycCreated": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "kycSucceeded": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "kycFailed": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "mandateCreated": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "mandateSucceeded": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "mandateFailed": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "depositCreated": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "depositSucceeded": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "depositFailed": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "depositRefundCreated": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "depositRefundSucceeded": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "depositRefundFailed": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "transferCreated": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "transferSucceeded": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "transferFailed": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "transferRefundCreated": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "transferRefundSucceeded": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "transferRefundFailed": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "withdrawalCreated": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "withdrawalSucceeded": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "withdrawalFailed": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "withdrawalRefundCreated": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "withdrawalRefundSucceeded": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            },
+            "withdrawalRefundFailed": {
+                "url": "https://domain.com/callbacks",
+                "active": true
+            }
+        }');
+
+        $this->assertEquals('https://domain.com/callbacks', $model->getKycCreated()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getKycSucceeded()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getKycFailed()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getMandateCreated()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getMandateSucceeded()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getMandateFailed()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getDepositCreated()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getDepositSucceeded()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getDepositFailed()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getDepositRefundCreated()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getDepositRefundSucceeded()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getDepositRefundFailed()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getTransferCreated()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getTransferSucceeded()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getTransferFailed()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getTransferRefundCreated()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getTransferRefundSucceeded()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getTransferRefundFailed()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getWithdrawalCreated()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getWithdrawalSucceeded()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getWithdrawalFailed()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getWithdrawalRefundCreated()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getWithdrawalRefundSucceeded()->getUrl());
+        $this->assertEquals('https://domain.com/callbacks', $model->getWithdrawalRefundFailed()->getUrl());
+
+        $this->assertEquals(true, $model->getKycCreated()->isActive());
+        $this->assertEquals(true, $model->getKycSucceeded()->isActive());
+        $this->assertEquals(true, $model->getKycFailed()->isActive());
+        $this->assertEquals(true, $model->getMandateCreated()->isActive());
+        $this->assertEquals(true, $model->getMandateSucceeded()->isActive());
+        $this->assertEquals(true, $model->getMandateFailed()->isActive());
+        $this->assertEquals(true, $model->getDepositCreated()->isActive());
+        $this->assertEquals(true, $model->getDepositSucceeded()->isActive());
+        $this->assertEquals(true, $model->getDepositFailed()->isActive());
+        $this->assertEquals(true, $model->getDepositRefundCreated()->isActive());
+        $this->assertEquals(true, $model->getDepositRefundSucceeded()->isActive());
+        $this->assertEquals(true, $model->getDepositRefundFailed()->isActive());
+        $this->assertEquals(true, $model->getTransferCreated()->isActive());
+        $this->assertEquals(true, $model->getTransferSucceeded()->isActive());
+        $this->assertEquals(true, $model->getTransferFailed()->isActive());
+        $this->assertEquals(true, $model->getTransferRefundCreated()->isActive());
+        $this->assertEquals(true, $model->getTransferRefundSucceeded()->isActive());
+        $this->assertEquals(true, $model->getTransferRefundFailed()->isActive());
+        $this->assertEquals(true, $model->getWithdrawalCreated()->isActive());
+        $this->assertEquals(true, $model->getWithdrawalSucceeded()->isActive());
+        $this->assertEquals(true, $model->getWithdrawalFailed()->isActive());
+        $this->assertEquals(true, $model->getWithdrawalRefundCreated()->isActive());
+        $this->assertEquals(true, $model->getWithdrawalRefundSucceeded()->isActive());
+        $this->assertEquals(true, $model->getWithdrawalRefundFailed()->isActive());
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Hook::createFromPayload('This is not a JSON payload');
+    }
 }
