@@ -23,32 +23,32 @@ abstract class AbstractBankAccount implements BaseModelInterface
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * @var string
      */
-    private $accountHolderId;
+    protected $accountHolderId;
 
     /**
      * @var string
      */
-    private $label;
+    protected $label;
 
     /**
      * @var string
      */
-    private $tag;
+    protected $tag;
 
     /**
      * @var bool
      */
-    private $active;
+    protected $active;
 
     /**
      * @var BankAccountCaDetails|BankAccountGbDetails|BankAccountIbanDetails|BankAccountOtherDetails|BankAccountUsDetails
@@ -58,7 +58,7 @@ abstract class AbstractBankAccount implements BaseModelInterface
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @return string
