@@ -34,7 +34,17 @@ final class MandatesPagination extends AbstractPagination
      */
     public static function createFromPayload(string $jsonData)
     {
-        return new self($jsonData);
+        $model = new self($jsonData);
+
+        $array = json_decode($jsonData, true);
+
+        foreach ($array['_embedded'] as $arrayModel) {
+            $itemModel = Mandate::createFromPayload(json_encode($arrayModel));
+
+            array_push($model->_embedded, $itemModel);
+        }
+
+        return $model;
     }
 
     /**
