@@ -15,10 +15,6 @@ use PHPUnit\Framework\TestCase;
  */
 class HookTest extends TestCase
 {
-    public function testCreateEmptyModelAndSetters()
-    {
-    }
-
     public function testCreateArray()
     {
         $this->expectException(FinBlocksException::class);
