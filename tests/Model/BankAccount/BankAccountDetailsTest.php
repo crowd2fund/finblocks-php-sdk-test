@@ -99,7 +99,7 @@ class BankAccountDetailsTest extends TestCase
     {
         $this->expectException(FinBlocksException::class);
 
-        BankAccountCaDetails::createFromPayload('This is not a JSON payload');
+        BankAccountGbDetails::createFromPayload('This is not a JSON payload');
     }
 
     public function testCreateArrayForGb()
