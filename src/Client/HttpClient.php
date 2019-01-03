@@ -27,11 +27,6 @@ class HttpClient
     private $pathToInfo;
 
     /**
-     * @var bool
-     */
-    private $sandbox;
-
-    /**
      * @var string
      */
     private $server;
