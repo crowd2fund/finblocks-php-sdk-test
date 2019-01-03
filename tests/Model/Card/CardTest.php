@@ -30,6 +30,40 @@ class CardTest extends TestCase
         $this->assertEquals('tag', $model->getTag());
     }
 
+    public function testCreateFilledModelFromJsonPayload()
+    {
+        $model = Card::createFromPayload('{
+  "id": "1111",
+  "accountHolderId": "2222",
+  "label": "Card\'s Label",
+  "tag": "Card\'s Tag",
+  "lastFour": "7890",
+  "status": "active",
+  "createdAt": "2019-01-03T09:51:11.091Z",
+  "expiresAt": "2019-01-03T09:51:11.091Z"
+}');
+
+        $this->assertEquals('1111', $model->getId());
+        $this->assertEquals('2222', $model->getAccountHolderId());
+        $this->assertEquals('Card\'s Label', $model->getLabel());
+        $this->assertEquals('Card\'s Tag', $model->getTag());
+        $this->assertEquals('7890', $model->getLastFour());
+        $this->assertEquals('active', $model->getStatus());
+
+        $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $model->getExpiresAt());
+
+        $this->assertEquals('2019-01-03 09:51:11', $model->getCreatedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2019-01-03 09:51:11', $model->getExpiresAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Card::createFromPayload('This is not a JSON payload');
+    }
+
     public function testCreateArray()
     {
         $model = Card::create();
