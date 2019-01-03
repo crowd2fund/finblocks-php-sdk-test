@@ -2,6 +2,7 @@
 
 namespace FinBlocks\Tests\Model\AccountHolder\Company;
 
+use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\AccountHolder\Company\Company;
 use FinBlocks\Model\Address\Address;
 use PHPUnit\Framework\TestCase;
@@ -29,6 +30,51 @@ class CompanyTest extends TestCase
         $this->assertEquals(Company::TYPE_BUSINESS, $model->getType());
 
         $this->assertInstanceOf(Address::class, $model->getAddress());
+    }
+
+    public function testCreateFilledModelFromJsonPayload()
+    {
+        $model = Company::createFromPayload('{
+    "number": "1234567890",
+    "name": "Company Name",
+    "email": "company@test.finblocks.net",
+    "type": "business",
+    "address": {
+      "flatNumber": "3",
+      "buildingNumber": "28",
+      "buildingName": null,
+      "street": "Ely Place",
+      "subStreet": null,
+      "town": "London",
+      "state": "England",
+      "postcode": "EC1N 6TD",
+      "country": "GBR"
+    }
+  }');
+
+        $this->assertEquals('1234567890', $model->getNumber());
+        $this->assertEquals('Company Name', $model->getName());
+        $this->assertEquals('company@test.finblocks.net', $model->getEmail());
+        $this->assertEquals(Company::TYPE_BUSINESS, $model->getType());
+
+        $this->assertInstanceOf(Address::class, $model->getAddress());
+
+        $this->assertEquals('3', $model->getAddress()->getFlatNumber());
+        $this->assertEquals('28', $model->getAddress()->getBuildingNumber());
+        $this->assertEquals(null, $model->getAddress()->getBuildingName());
+        $this->assertEquals('Ely Place', $model->getAddress()->getStreet());
+        $this->assertEquals(null, $model->getAddress()->getSubStreet());
+        $this->assertEquals('London', $model->getAddress()->getTown());
+        $this->assertEquals('England', $model->getAddress()->getState());
+        $this->assertEquals('EC1N 6TD', $model->getAddress()->getPostcode());
+        $this->assertEquals('GBR', $model->getAddress()->getCountry());
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Company::createFromPayload('This is not a JSON payload');
     }
 
     public function testCreateArray()
