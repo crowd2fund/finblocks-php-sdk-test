@@ -2,6 +2,7 @@
 
 namespace FinBlocks\Model\AccountHolder;
 
+use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\BaseModelInterface;
 use Webmozart\Assert\Assert;
@@ -18,74 +19,74 @@ abstract class AbstractAccountHolder implements BaseModelInterface
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * @var string
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string|null
      */
-    private $label;
+    protected $label;
 
     /**
      * @var string|null
      */
-    private $tag;
+    protected $tag;
 
     /**
      * @var string
      */
-    private $givenName;
+    protected $givenName;
 
     /**
      * @var string|null
      */
-    private $middleName;
+    protected $middleName;
 
     /**
      * @var string
      */
-    private $familyName;
+    protected $familyName;
 
     /**
      * @var \DateTime
      */
-    private $dateOfBirth;
+    protected $dateOfBirth;
 
     /**
      * @var string
      */
-    private $nationality;
+    protected $nationality;
 
     /**
      * @var string|null
      */
-    private $occupation;
+    protected $occupation;
 
     /**
      * @var int|null
      */
-    private $incomeRange;
+    protected $incomeRange;
 
     /**
      * @var string
      */
-    private $kyc;
+    protected $kyc;
 
     /**
      * @var Address
      */
-    private $address;
+    protected $address;
 
-    protected function __construct(string $jsonData = null)
+    protected function __construct()
     {
         $this->address = Address::create();
     }
