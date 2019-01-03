@@ -62,6 +62,16 @@ class ModelsFactories
     }
 
     /**
+     * Hook's Factory.
+     *
+     * @return HooksFactory
+     */
+    public function hooks(): HooksFactory
+    {
+        return new HooksFactory();
+    }
+
+    /**
      * KYC's Factory.
      *
      * @return KnowYourCustomersFactory
