@@ -88,11 +88,11 @@ abstract class AbstractPagination implements BaseModelInterface
 
     public function httpCreate(): array
     {
-        throw new FinBlocksException('Impossible to create the returned pagination');
+        throw new FinBlocksException('Impossible to create paginated content');
     }
 
     public function httpUpdate(): array
     {
-        throw new FinBlocksException('Impossible to update the returned pagination');
+        throw new FinBlocksException('Impossible to update paginated content');
     }
 }

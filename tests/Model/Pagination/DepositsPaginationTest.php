@@ -209,4 +209,27 @@ class DepositsPaginationTest extends TestCase
             ]
         }');
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\DepositsPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\DepositsPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\DepositsPagination::createFromPayload('This is not a JSON payload');
+    }
 }

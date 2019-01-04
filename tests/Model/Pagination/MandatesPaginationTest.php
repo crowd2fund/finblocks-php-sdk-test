@@ -68,4 +68,27 @@ class MandatesPaginationTest extends TestCase
 
         $this->assertInstanceOf(Model\Mandate\Mandate::class, $model->getEmbedded()[0]);
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\MandatesPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\MandatesPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\MandatesPagination::createFromPayload('This is not a JSON payload');
+    }
 }

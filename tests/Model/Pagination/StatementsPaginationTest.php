@@ -323,4 +323,27 @@ class StatementsPaginationTest extends TestCase
             ]
         }');
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\StatementsPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\StatementsPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\StatementsPagination::createFromPayload('This is not a JSON payload');
+    }
 }

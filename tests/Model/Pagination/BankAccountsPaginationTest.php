@@ -171,4 +171,27 @@ class BankAccountsPaginationTest extends TestCase
             ]
         }');
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\BankAccountsPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\BankAccountsPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\BankAccountsPagination::createFromPayload('This is not a JSON payload');
+    }
 }

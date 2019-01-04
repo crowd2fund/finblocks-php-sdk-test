@@ -169,4 +169,27 @@ class AccountHoldersPaginationTest extends TestCase
             ]
         }');
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\AccountHoldersPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\AccountHoldersPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\AccountHoldersPagination::createFromPayload('This is not a JSON payload');
+    }
 }

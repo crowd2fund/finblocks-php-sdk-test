@@ -66,4 +66,27 @@ class KnowYourCustomersPaginationTest extends TestCase
 
         $this->assertInstanceOf(Model\KnowYourCustomer\KnowYourCustomer::class, $model->getEmbedded()[0]);
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\KnowYourCustomersPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\KnowYourCustomersPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\KnowYourCustomersPagination::createFromPayload('This is not a JSON payload');
+    }
 }

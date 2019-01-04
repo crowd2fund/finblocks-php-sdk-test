@@ -68,4 +68,27 @@ class WalletsPaginationTest extends TestCase
 
         $this->assertInstanceOf(Model\Wallet\Wallet::class, $model->getEmbedded()[0]);
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\WalletsPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\WalletsPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\WalletsPagination::createFromPayload('This is not a JSON payload');
+    }
 }

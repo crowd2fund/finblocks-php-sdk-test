@@ -66,4 +66,27 @@ class CardsPaginationTest extends TestCase
 
         $this->assertInstanceOf(Model\Card\Card::class, $model->getEmbedded()[0]);
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\CardsPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\CardsPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\CardsPagination::createFromPayload('This is not a JSON payload');
+    }
 }

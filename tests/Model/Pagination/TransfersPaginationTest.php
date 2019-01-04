@@ -79,4 +79,27 @@ class TransfersPaginationTest extends TestCase
 
         $this->assertInstanceOf(Model\Transfer\Transfer::class, $model->getEmbedded()[0]);
     }
+
+    public function testCreateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\TransfersPagination::create();
+        $model->httpCreate();
+    }
+
+    public function testUpdateArray()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = Pagination\TransfersPagination::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\TransfersPagination::createFromPayload('This is not a JSON payload');
+    }
 }
