@@ -2,7 +2,11 @@
 
 namespace FinBlocks\Model\Pagination;
 
+use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Deposit\AbstractDeposit;
+use FinBlocks\Model\Deposit\DepositBankWire;
+use FinBlocks\Model\Deposit\DepositCard;
+use FinBlocks\Model\Deposit\DepositDirectDebit;
 
 /**
  * @author    David Garcia <me@davidgarcia.cat>
@@ -34,7 +38,37 @@ final class DepositsPagination extends AbstractPagination
      */
     public static function createFromPayload(string $jsonData)
     {
-        return new self($jsonData);
+        try {
+            $model = new self($jsonData);
+
+            $array = json_decode($jsonData, true);
+
+            foreach ($array['_embedded'] as $arrayModel) {
+                if (!array_key_exists('type', $arrayModel)) {
+                    throw new \RuntimeException('Unable to retrieve the type of deposit');
+                }
+
+                switch ($arrayModel['type']) {
+                    case DepositBankWire::TYPE:
+                        $itemModel = DepositBankWire::createFromPayload(json_encode($arrayModel));
+                        break;
+                    case DepositCard::TYPE:
+                        $itemModel = DepositCard::createFromPayload(json_encode($arrayModel));
+                        break;
+                    case DepositDirectDebit::TYPE:
+                        $itemModel = DepositDirectDebit::createFromPayload(json_encode($arrayModel));
+                        break;
+                    default:
+                        throw new \RuntimeException('Invalid deposit\'s type');
+                }
+
+                array_push($model->_embedded, $itemModel);
+            }
+
+            return $model;
+        } catch (\Throwable $throwable) {
+            throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
+        }
     }
 
     /**
