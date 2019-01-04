@@ -34,4 +34,141 @@ class BankAccountsPaginationTest extends TestCase
         $this->assertEquals(0, $model->getTotal());
         $this->assertEquals([], $model->getEmbedded());
     }
+
+    public function testCreateEmptyModelBankAccountsPaginationFromPayload()
+    {
+        $model = Pagination\BankAccountsPagination::createFromPayload('{
+            "total": 0,
+            "_links": {
+                "self": "string",
+                "first": "string",
+                "prev": "string",
+                "next": "string",
+                "last": "string"
+            },
+            "_embedded": [
+                {
+                    "id": "string",
+                    "type": "GB",
+                    "accountHolderId": "string",
+                    "label": "string",
+                    "tag": "string",
+                    "active": true,
+                    "createdAt": "2019-01-04T10:35:37.252Z",
+                    "details": {
+                        "sortCode": "string",
+                        "accountNumber": "string"
+                    }
+                },
+                {
+                    "id": "string",
+                    "type": "IBAN",
+                    "accountHolderId": "string",
+                    "label": "string",
+                    "tag": "string",
+                    "active": true,
+                    "createdAt": "2019-01-04T10:35:37.252Z",
+                    "details": {
+                        "bic": "string",
+                        "iban": "string"
+                    }
+                },
+                {
+                    "id": "string",
+                    "type": "CA",
+                    "accountHolderId": "string",
+                    "label": "string",
+                    "tag": "string",
+                    "active": true,
+                    "createdAt": "2019-01-04T10:35:37.252Z",
+                    "details": {
+                        "branchCode": "string",
+                        "institutionNumber": "string",
+                        "accountNumber": "string",
+                        "bankName": "string"
+                    }
+                },
+                {
+                    "id": "string",
+                    "type": "US",
+                    "accountHolderId": "string",
+                    "label": "string",
+                    "tag": "string",
+                    "active": true,
+                    "createdAt": "2019-01-04T10:35:37.252Z",
+                    "details": {
+                        "accountNumber": "string",
+                        "aba": "string"
+                    }
+                },
+                {
+                    "id": "string",
+                    "type": "OTHER",
+                    "accountHolderId": "string",
+                    "label": "string",
+                    "tag": "string",
+                    "active": true,
+                    "createdAt": "2019-01-04T10:35:37.252Z",
+                    "details": {
+                        "country": "string",
+                        "bic": "string",
+                        "accountNumber": "string"
+                    }
+                }
+            ]
+        }');
+
+        $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
+
+        $this->assertCount(5, $model->getEmbedded());
+
+        $this->assertInstanceOf(Model\BankAccount\BankAccountGb::class, $model->getEmbedded()[0]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountIban::class, $model->getEmbedded()[1]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountCa::class, $model->getEmbedded()[2]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountUs::class, $model->getEmbedded()[3]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountOther::class, $model->getEmbedded()[4]);
+    }
+
+    public function testCreateModelBankAccountsPaginationForUnknownTypeFromPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\BankAccountsPagination::createFromPayload('{
+            "total": 0,
+            "_links": {
+                "self": "string",
+                "first": "string",
+                "prev": "string",
+                "next": "string",
+                "last": "string"
+            },
+            "_embedded": [
+                {
+                    "id": "string"
+                }
+            ]
+        }');
+    }
+
+    public function testCreateModelBankAccountsPaginationForInvalidTypeFromPayload()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Pagination\BankAccountsPagination::createFromPayload('{
+            "total": 0,
+            "_links": {
+                "self": "string",
+                "first": "string",
+                "prev": "string",
+                "next": "string",
+                "last": "string"
+            },
+            "_embedded": [
+                {
+                    "id": "string",
+                    "type": "unknown"
+                }
+            ]
+        }');
+    }
 }
