@@ -25,7 +25,7 @@ class HttpClientTest extends TestCase
      */
     protected function setUp()
     {
-        $this->httpClient = new HttpClient('key', 'cert', 'info', true);
+        $this->httpClient = new HttpClient('', '', '', true);
     }
 
     public function testHttpGetRequest()
@@ -33,13 +33,15 @@ class HttpClientTest extends TestCase
         $httpResponse = $this->httpClient->get('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
+        $this->assertEquals(401, $httpResponse->getStatusCode());
     }
 
     public function testHttpPostRequest()
     {
-        $httpResponse = $this->httpClient->post('/', []);
+        $httpResponse = $this->httpClient->post('/', ['parameter' => 'content']);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
+        $this->assertEquals(401, $httpResponse->getStatusCode());
     }
 
     public function testHttpPutRequest()
@@ -47,6 +49,7 @@ class HttpClientTest extends TestCase
         $httpResponse = $this->httpClient->put('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
+        $this->assertEquals(401, $httpResponse->getStatusCode());
     }
 
     public function testHttpPatchRequest()
@@ -54,6 +57,7 @@ class HttpClientTest extends TestCase
         $httpResponse = $this->httpClient->patch('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
+        $this->assertEquals(401, $httpResponse->getStatusCode());
     }
 
     public function testHttpDeleteRequest()
@@ -61,5 +65,6 @@ class HttpClientTest extends TestCase
         $httpResponse = $this->httpClient->delete('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
+        $this->assertEquals(401, $httpResponse->getStatusCode());
     }
 }
