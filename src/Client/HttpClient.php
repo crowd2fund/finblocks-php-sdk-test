@@ -147,9 +147,10 @@ class HttpClient
 
             // HTTP Body
             if (!empty($parameters)) {
-                $body = json_encode($parameters);
+                $payload = json_encode($parameters);
                 curl_setopt($curl, CURLOPT_POST, true);
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+                curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
             }
         }
 
