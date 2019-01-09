@@ -33,30 +33,37 @@ require 'vendor/autoload.php';
 Pass the path to your certificates when instantiating the client:
 
 ```php
+// Include the `use` statement
 use FinBlocks\FinBlocks;
 
-$finblocks = new FinBlocks('path/to/key', 'path/to/cert', 'path/to/ca');
+// Instantiate the production environment passing the certificates as arguments 
+$finBlocksProd = new FinBlocks('path/to/prod/key', 'path/to/prod/cert', 'path/to/prod/ca');
 
-$sandbox = new FinBlocks('path/to/key', 'path/to/cert', 'path/to/ca', true);
+// You can switch to the Sandbox environment just setting `true` as the 4th argument
+$finBlocksDev  = new FinBlocks('path/to/dev/key', 'path/to/dev/cert', 'path/to/dev/ca', true);
 ```
 
-Access to the API resources directly from the client, such as:
+Access to the API resources directly from the client. Here's an example:
 
 ```php
-$finblocksWallets = $finblocks->api()->accountHolders()->list();
+// Get the first 20 Account Holders, or other pages when including arguments
+$paginatedAccountHolders = $finblocks->api()->accountHolders()->list();
 ```
 
-Or create new resources instantiating the ones that you need:
+Or create new resources instantiating the ones that you need through the built-in factories:
 
 ```php
+// Use the built-in factories to create empty models
 $accountHolder = $finblocks->factories()->accountHolders()->createIndividual();
-$accountHolder->... // Use the setters to add the expected content for this model.
 
-// The Endpoint will return a new object, that you can set to the existing variable.
+// Then use the setters for each model to fill them with the expected values
+$accountHolder->setEmail('mailbox@domain.com');
+
+// The API Endpoint will return a new object, that you can set to the existing variable
 $accountHolder = $finblocks->api()->accountHolders()->createIndividual($accountHolder);
 ```
 
-You can create new models easily thanks to the built-in factories:
+You can create any new model that you need easily thanks to the built-in factories. Please note that depending on the model/resource, we provide a `->create()` method but we also might expect a other methods when dealing with discriminator:
 
 ```php
 $finblocks->factories()->accountHolders(); // Account Holders
@@ -70,9 +77,9 @@ $finblocks->factories()->refunds();        // Refunds
 $finblocks->factories()->transfers();      // Transfers
 $finblocks->factories()->wallets();        // Wallets
 $finblocks->factories()->withdrawals();    // Withdrawals
-```
+``` 
 
-And all available API resources are provided by this SDK.
+All the available API endpoints are provided by this SDK, where we can use methods list, show, create, update or disable resources, according to our API requirements:
 
 ```php
 $finblocks->api()->accountHolders(); // Account Holders
@@ -93,4 +100,10 @@ $finblocks->api()->withdrawals();    // Withdrawals
 
 ## Contributing
 
-As an OpenSource project, all _Issues_ and _Pull Requests_ are welcome. 
+FinBlocks PHP SDK is an Open Source library, offered under the MIT license. As an Open Source project, we would love to be informed about any potential bug that you might find using it, but we would love to see you being part of the community that can maintain the SDK. 
+
+## Security Issues
+
+FinBlocks takes security very seriously. If you think that you have found a security vulnerability, please don't use a bug tracker or the _Issues_ page. Instead, please reach out your FinBlocks's account manager.
+
+For each report, we first try to confirm the vulnerability. When it is confirmed, the core team works on a solution. Our team will get back to you once the security vulnerability has been fixed.
