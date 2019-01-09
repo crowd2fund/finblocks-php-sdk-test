@@ -46,6 +46,10 @@ class HttpClient
         $this->pathToInfo = $info;
 
         $this->server = sprintf('https://api.%sfinblocks.net/v1', ($sandbox ? 'sandbox.' : ''));
+
+        //TODO: Remove this Server IP and keep just the previous call.
+        // This is in use just for an earlier testing stage, and needs to be removed.
+        $this->server = 'http://35.177.183.140';
     }
 
     /**
@@ -144,18 +148,18 @@ class HttpClient
             // HTTP Body
             if (!empty($parameters)) {
                 $body = json_encode($parameters);
-
                 curl_setopt($curl, CURLOPT_POST, true);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
             }
         }
 
         // SSL Certificate and Key
-        curl_setopt($curl, CURLOPT_CAINFO, $this->pathToInfo);
-        curl_setopt($curl, CURLOPT_SSLKEY, $this->pathToKey);
-        curl_setopt($curl, CURLOPT_SSLCERT, $this->pathToCert);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
+        //TODO: Restore the following commented lines to enable again the SSL authentication.
+        //curl_setopt($curl, CURLOPT_CAINFO, $this->pathToInfo);
+        //curl_setopt($curl, CURLOPT_SSLKEY, $this->pathToKey);
+        //curl_setopt($curl, CURLOPT_SSLCERT, $this->pathToCert);
+        //curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+        //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
 
         // Get HttpResponse Headers
         curl_setopt($curl, CURLOPT_HEADER, true);
