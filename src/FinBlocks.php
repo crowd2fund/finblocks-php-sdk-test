@@ -2,6 +2,7 @@
 
 namespace FinBlocks;
 
+use FinBlocks\API\ApiEndpoints;
 use FinBlocks\Client\HttpClient;
 use FinBlocks\Factory\ModelsFactories;
 
@@ -30,6 +31,16 @@ class FinBlocks
     public function __construct(string $key, string $cert, string $info, bool $sandbox = false)
     {
         $this->httpClient = new HttpClient($key, $cert, $info, $sandbox);
+    }
+
+    /**
+     * API Endpoints.
+     *
+     * @return ApiEndpoints
+     */
+    public function api(): ApiEndpoints
+    {
+        return new ApiEndpoints($this->httpClient);
     }
 
     /**

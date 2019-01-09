@@ -2,6 +2,7 @@
 
 namespace FinBlocks\Tests;
 
+use FinBlocks\API\ApiEndpoints;
 use FinBlocks\Factory\ModelsFactories;
 use FinBlocks\FinBlocks;
 use PHPUnit\Framework\TestCase;
@@ -25,11 +26,16 @@ class FinBlocksTest extends TestCase
      */
     protected function setUp()
     {
-        $this->finblocks = new FinBlocks('', '', '', true);
+        $this->finBlocks = new FinBlocks('', '', '', true);
+    }
+
+    public function testApiEndpoints()
+    {
+        $this->assertInstanceOf(ApiEndpoints::class, $this->finBlocks->api());
     }
 
     public function testFactories()
     {
-        $this->assertInstanceOf(ModelsFactories::class, $this->finblocks->factories());
+        $this->assertInstanceOf(ModelsFactories::class, $this->finBlocks->factories());
     }
 }

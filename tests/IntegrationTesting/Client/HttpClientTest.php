@@ -30,6 +30,8 @@ class HttpClientTest extends TestCase
 
     public function testHttpGetRequest()
     {
+        $this->markTestIncomplete('SSL Authentication not implemented yet');
+
         $httpResponse = $this->httpClient->get('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
@@ -38,6 +40,8 @@ class HttpClientTest extends TestCase
 
     public function testHttpPostRequest()
     {
+        $this->markTestIncomplete('SSL Authentication not implemented yet');
+
         $httpResponse = $this->httpClient->post('/', ['parameter' => 'content']);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
@@ -46,6 +50,8 @@ class HttpClientTest extends TestCase
 
     public function testHttpPutRequest()
     {
+        $this->markTestIncomplete('SSL Authentication not implemented yet');
+
         $httpResponse = $this->httpClient->put('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
@@ -54,6 +60,8 @@ class HttpClientTest extends TestCase
 
     public function testHttpPatchRequest()
     {
+        $this->markTestIncomplete('SSL Authentication not implemented yet');
+
         $httpResponse = $this->httpClient->patch('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);
@@ -62,6 +70,8 @@ class HttpClientTest extends TestCase
 
     public function testHttpDeleteRequest()
     {
+        $this->markTestIncomplete('SSL Authentication not implemented yet');
+
         $httpResponse = $this->httpClient->delete('/', []);
 
         $this->assertInstanceOf(HttpResponse::class, $httpResponse);

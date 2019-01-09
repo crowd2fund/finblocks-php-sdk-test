@@ -11,7 +11,7 @@ namespace FinBlocks\Exception;
  */
 class SerializerException extends \RuntimeException
 {
-    public function __construct($message, $code, \Throwable $throwable)
+    public function __construct($message, $code, \Throwable $throwable = null)
     {
         parent::__construct($message, $code, $throwable);
     }
