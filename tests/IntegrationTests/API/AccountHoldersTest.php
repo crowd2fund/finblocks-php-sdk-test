@@ -53,8 +53,7 @@ class AccountHoldersTest extends AbstractApiTests
         $this->assertEquals('GBR', $returnedContent->getNationality());
         $this->assertEquals('Unknown', $returnedContent->getOccupation());
         $this->assertEquals(6, $returnedContent->getIncomeRange());
-        //TODO: Enable this check again
-        //$this->assertEquals('pending', $returnedContent->getKyc());
+        $this->assertEquals('pending', $returnedContent->getKyc());
 
         $this->assertEquals('3', $returnedContent->getAddress()->getFlatNumber());
         $this->assertEquals('28', $returnedContent->getAddress()->getBuildingNumber());
@@ -66,10 +65,9 @@ class AccountHoldersTest extends AbstractApiTests
         $this->assertEquals('EC1N 6TD', $returnedContent->getAddress()->getPostcode());
         $this->assertEquals('GBR', $returnedContent->getAddress()->getCountry());
 
-        //$reloadedContent = $this->finBlocks->api()->accountHolders()->show($returnedContent->getId());
-        //$reloadedContent = $this->finBlocks->api()->accountHolders()->show('accountholder-e5e2ad73-096b-4401-8df6-ec5c2cb6bb55');
+        $reloadedContent = $this->finBlocks->api()->accountHolders()->show($returnedContent->getId());
 
-        //$this->assertEquals(true, in_array($reloadedContent->getKyc(), ['pending', 'basic']));
+        $this->assertEquals(true, in_array($reloadedContent->getKyc(), ['pending', 'basic']));
     }
 
     public function testCreateAccountHolderBusiness()
@@ -129,8 +127,7 @@ class AccountHoldersTest extends AbstractApiTests
         $this->assertEquals('GBR', $returnedContent->getNationality());
         $this->assertEquals('CEO', $returnedContent->getOccupation());
         $this->assertEquals(6, $returnedContent->getIncomeRange());
-        //TODO: Enable this check again
-        //$this->assertEquals('pending', $returnedContent->getKyc());
+        $this->assertEquals('pending', $returnedContent->getKyc());
 
         $this->assertEquals('3', $returnedContent->getAddress()->getFlatNumber());
         $this->assertEquals('28', $returnedContent->getAddress()->getBuildingNumber());
@@ -157,9 +154,9 @@ class AccountHoldersTest extends AbstractApiTests
         $this->assertEquals('EC1N 6TD', $returnedContent->getCompany()->getAddress()->getPostcode());
         $this->assertEquals('GBR', $returnedContent->getCompany()->getAddress()->getCountry());
 
-        //$reloadedContent = $this->finBlocks->api()->accountHolders()->show($returnedContent->getId());
+        $reloadedContent = $this->finBlocks->api()->accountHolders()->show($returnedContent->getId());
 
-        //$this->assertEquals(true, in_array($reloadedContent->getKyc(), ['pending', 'basic']));
+        $this->assertEquals(true, in_array($reloadedContent->getKyc(), ['pending', 'basic']));
     }
 
     public function testGetPaginatedAccountHolders()

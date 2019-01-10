@@ -2,9 +2,7 @@
 
 namespace FinBlocks\API;
 
-use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Exception\HttpClientException;
 use FinBlocks\Exception\SerializerException;
 use FinBlocks\Model\AccountHolder\AbstractAccountHolder;
 use FinBlocks\Model\AccountHolder\AccountHolderBusiness;
@@ -44,9 +42,6 @@ class AccountHolders extends AbstractHttpApi
             $offset = (($page - 1) * $perPage);
 
             $httpResponse = $this->httpGet('/account-holders', ['offset' => $offset, 'perPage' => $perPage]);
-
-            // TODO: REMOVE THIS LINE, DUE TO IS JUST FOR TESTING REASONS
-            ////$httpResponse = new HttpResponse(200, '{"total":0,"_links":{"self":"string","first":"string","prev":"string","next":"string","last":"string"},"_embedded":[{"id":"1","type":"individual","email":"individual@johnpublic.com","label":"John Q. Public","tag":"Individual Test User","givenName":"John","middleName":"Q.","familyName":"Public","dateOfBirth":"1985-04-23T14:52:27.796Z","nationality":"GBR","occupation":"Unknown","incomeRange":6,"kyc":"restricted","address":{"flatNumber":"3","buildingNumber":"28","buildingName":"n/a","street":"Ely Place","subStreet":"N/A","town":"London","state":"England","postcode":"EC1N 6TD","country":"GBR"}},{"id":"1","type":"business","email":"individual@johnpublic.com","label":"John Q. Public","tag":"Business Test User","givenName":"John","middleName":"Q.","familyName":"Public","dateOfBirth":"1985-04-23T14:52:27.796Z","nationality":"GBR","occupation":"CEO","incomeRange":6,"kyc":"restricted","address":{"flatNumber":"3","buildingNumber":"28","buildingName":"n/a","street":"Ely Place","subStreet":"N/A","town":"London","state":"England","postcode":"EC1N 6TD","country":"GBR"},"company":{"number":"0000000000","name":"John Q. Public LTD","email":"info@johnpublic.com","type":"business","address":{"flatNumber":"3","buildingNumber":"28","buildingName":"n/a","street":"Ely Place","subStreet":"N/A","town":"London","state":"England","postcode":"EC1N 6TD","country":"GBR"}}}]}');
 
             return $this->hydrateResponse($httpResponse, AccountHoldersPagination::class);
         } catch (\Throwable $throwable) {
@@ -116,8 +111,6 @@ class AccountHolders extends AbstractHttpApi
                 case AccountHolderBusiness::TYPE:
                     $model = AccountHolderBusiness::class;
                     break;
-                default:
-                    $model = 'unknown';
             }
 
             return $this->hydrateResponse($httpResponse, $model);
@@ -150,13 +143,6 @@ class AccountHolders extends AbstractHttpApi
             }
 
             $httpResponse = $this->httpPut(sprintf($endpoint, $accountHolder->getId()), $accountHolder->httpUpdate());
-
-            // TODO: REMOVE THIS LINE, DUE TO IS JUST FOR TESTING REASONS
-            /* if ($accountHolder instanceof AccountHolderIndividual) {
-                $httpResponse = new HttpResponse(201, '{"id":"1","type":"individual","email":"individual@johnpublic.com","label":"New Label for Individual","tag":"Individual Test User","givenName":"John","middleName":"Q.","familyName":"Public","dateOfBirth":"1985-04-23T14:52:27.796Z","nationality":"GBR","occupation":"Unknown","incomeRange":6,"kyc":"restricted","address":{"flatNumber":"3","buildingNumber":"28","buildingName":"n/a","street":"Ely Place","subStreet":"N/A","town":"London","state":"England","postcode":"EC1N 6TD","country":"GBR"}}');
-            } else {
-                $httpResponse = new HttpResponse(201, '{"id":"1","type":"business","email":"individual@johnpublic.com","label":"New Label for Business","tag":"Business Test User","givenName":"John","middleName":"Q.","familyName":"Public","dateOfBirth":"1985-04-23T14:52:27.796Z","nationality":"GBR","occupation":"CEO","incomeRange":6,"kyc":"restricted","address":{"flatNumber":"3","buildingNumber":"28","buildingName":"n/a","street":"Ely Place","subStreet":"N/A","town":"London","state":"England","postcode":"EC1N 6TD","country":"GBR"},"company":{"number":"0000000000","name":"John Q. Public LTD","email":"info@johnpublic.com","type":"business","address":{"flatNumber":"3","buildingNumber":"28","buildingName":"n/a","street":"Ely Place","subStreet":"N/A","town":"London","state":"England","postcode":"EC1N 6TD","country":"GBR"}}}');
-            } */
 
             return $this->hydrateResponse($httpResponse, $model);
         } catch (\Throwable $throwable) {
