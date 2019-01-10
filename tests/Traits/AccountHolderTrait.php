@@ -7,6 +7,13 @@ use FinBlocks\Model\AccountHolder\AccountHolderBusiness;
 use FinBlocks\Model\AccountHolder\AccountHolderIndividual;
 use FinBlocks\Model\AccountHolder\Company\Company;
 
+/**
+ * @author    David Garcia <me@davidgarcia.cat>
+ * @copyright FinBlocks
+ *
+ * @version 1.0.0
+ * @since   1.0.0
+ */
 trait AccountHolderTrait
 {
     public function traitCreateAccountHolderIndividualModel(FinBlocks $finBlocks): AccountHolderIndividual

@@ -13,6 +13,13 @@ use FinBlocks\Model\Pagination\WalletsPagination;
 use FinBlocks\Model\Wallet\Wallet;
 use FinBlocks\Tests\Traits\AccountHolderTrait;
 
+/**
+ * @author    David Garcia <me@davidgarcia.cat>
+ * @copyright FinBlocks
+ *
+ * @version 1.0.0
+ * @since   1.0.0
+ */
 class WalletsTest extends AbstractApiTests
 {
     use AccountHolderTrait;

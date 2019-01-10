@@ -10,6 +10,13 @@ use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\Pagination\AccountHoldersPagination;
 use FinBlocks\Tests\Traits\AccountHolderTrait;
 
+/**
+ * @author    David Garcia <me@davidgarcia.cat>
+ * @copyright FinBlocks
+ *
+ * @version 1.0.0
+ * @since   1.0.0
+ */
 class AccountHoldersTest extends AbstractApiTests
 {
     use AccountHolderTrait;

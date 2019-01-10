@@ -15,6 +15,13 @@ use FinBlocks\Model\BankAccount\BankAccountOther;
 use FinBlocks\Model\BankAccount\BankAccountUs;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @author    David Garcia <me@davidgarcia.cat>
+ * @copyright FinBlocks
+ *
+ * @version 1.0.0
+ * @since   1.0.0
+ */
 class BankAccountTest extends TestCase
 {
     public function testCreateEmptyModelAndSettersForCa()

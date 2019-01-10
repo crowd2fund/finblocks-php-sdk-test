@@ -6,6 +6,13 @@ use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Hook\Callback;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @author    David Garcia <me@davidgarcia.cat>
+ * @copyright FinBlocks
+ *
+ * @version 1.0.0
+ * @since   1.0.0
+ */
 class CallbackTest extends TestCase
 {
     public function testCreateFilledModelFromJsonPayload()
