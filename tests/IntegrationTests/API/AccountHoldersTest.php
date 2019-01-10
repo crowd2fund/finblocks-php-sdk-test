@@ -159,6 +159,22 @@ class AccountHoldersTest extends AbstractApiTests
         $this->assertEquals(true, in_array($reloadedContent->getKyc(), ['pending', 'basic']));
     }
 
+    public function testCreateAnIncompleteAccountHolder()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = $this->finBlocks->factories()->accountHolders()->createBusiness();
+
+        $this->finBlocks->api()->accountHolders()->create($model);
+    }
+
+    public function testRetrieveNonExistingAccountHolder()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->accountHolders()->show('non-existing-id');
+    }
+
     public function testGetPaginatedAccountHolders()
     {
         $returnedContent = $this->finBlocks->api()->accountHolders()->list(1, 2);
