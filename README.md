@@ -2,6 +2,7 @@
 
 This is the official's [FinBlocks](https://www.finblocks.net/) PHP SDK.
 
+![PHP Versions](https://img.shields.io/badge/PHP-%3E%3D%207.0%2C%20%3C8.0-1a7cb8.svg)
 [![Build Status](https://scrutinizer-ci.com/g/crowd2fund/finblocks-php-sdk/badges/build.png?b=master&s=f6a62b102bd22ff4537f5cd15e8f59038676f8ab)](https://scrutinizer-ci.com/g/crowd2fund/finblocks-php-sdk/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/crowd2fund/finblocks-php-sdk/badges/quality-score.png?b=master&s=402d0cea20619454ae161e18ccd41f92b064b88e)](https://scrutinizer-ci.com/g/crowd2fund/finblocks-php-sdk/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/crowd2fund/finblocks-php-sdk/badges/coverage.png?b=master&s=1807a04bcf24071a747e22b7748bfbfedc8454de)](https://scrutinizer-ci.com/g/crowd2fund/finblocks-php-sdk/?branch=master)
