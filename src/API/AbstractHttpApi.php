@@ -8,6 +8,7 @@ use FinBlocks\Exception\AbstractHttpException;
 use FinBlocks\Exception\HttpClientException;
 use FinBlocks\Exception\HttpServerException;
 use FinBlocks\Exception\SerializerException;
+use Webmozart\Assert\Assert;
 
 /**
  * @author    David Garcia <me@davidgarcia.cat>
@@ -43,15 +44,15 @@ abstract class AbstractHttpApi
      */
     protected function hydrateResponse(HttpResponse $httpResponse, string $class = null)
     {
-        if (200 !== $httpResponse->getStatusCode() && 201 !== $httpResponse->getStatusCode()) {
+        if (!$httpResponse->wasSuccessful()) {
             $this->handleErrors($httpResponse);
         }
 
-        if (empty($class)) {
-            return $httpResponse;
-        }
-
         try {
+            Assert::stringNotEmpty($class);
+            Assert::classExists($class);
+            Assert::methodExists($class, 'createFromPayload');
+
             return $class::createFromPayload($httpResponse->getBody());
         } catch (\Throwable $throwable) {
             throw new SerializerException($throwable->getMessage(), $throwable->getCode(), $throwable);
@@ -65,7 +66,7 @@ abstract class AbstractHttpApi
      *
      * @throws AbstractHttpException
      */
-    protected function handleErrors(HttpResponse $response)
+    private function handleErrors(HttpResponse $response)
     {
         switch ($response->getStatusCode()) {
             case 400:
