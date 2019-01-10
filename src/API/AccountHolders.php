@@ -61,6 +61,8 @@ class AccountHolders extends AbstractHttpApi
     public function create(AbstractAccountHolder $accountHolder): AbstractAccountHolder
     {
         try {
+            $model = $endpoint = null;
+
             switch ($accountHolder->getType()) {
                 case AccountHolderIndividual::TYPE:
                     $model = AccountHolderIndividual::class;
@@ -104,6 +106,8 @@ class AccountHolders extends AbstractHttpApi
 
             $arrayResponse['type'] = $arrayResponse['type'] ?? null;
 
+            $model = null;
+
             switch ($arrayResponse['type']) {
                 case AccountHolderIndividual::TYPE:
                     $model = AccountHolderIndividual::class;
@@ -131,6 +135,8 @@ class AccountHolders extends AbstractHttpApi
     public function update(AbstractAccountHolder $accountHolder): AbstractAccountHolder
     {
         try {
+            $model = $endpoint = null;
+
             switch ($accountHolder->getType()) {
                 case AccountHolderIndividual::TYPE:
                     $model = AccountHolderIndividual::class;
