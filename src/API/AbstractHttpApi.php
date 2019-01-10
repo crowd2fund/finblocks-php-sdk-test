@@ -38,9 +38,11 @@ abstract class AbstractHttpApi
      * @param HttpResponse $httpResponse
      * @param string|null  $class
      *
+     * @throws HttpClientException
+     * @throws HttpServerException
      * @throws SerializerException
      *
-     * @return mixed|HttpResponse
+     * @return mixed
      */
     protected function hydrateResponse(HttpResponse $httpResponse, string $class = null)
     {
