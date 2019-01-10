@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\Address;
 
 use FinBlocks\Exception\FinBlocksException;
@@ -11,6 +20,7 @@ use Webmozart\Assert\Assert;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 final class Address implements BaseModelInterface
@@ -277,15 +287,15 @@ final class Address implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'flatNumber' => $this->flatNumber,
+            'flatNumber'     => $this->flatNumber,
             'buildingNumber' => $this->buildingNumber,
-            'buildingName' => $this->buildingName,
-            'street' => $this->street,
-            'subStreet' => $this->subStreet,
-            'town' => $this->town,
-            'state' => $this->state,
-            'postcode' => $this->postcode,
-            'country' => $this->country,
+            'buildingName'   => $this->buildingName,
+            'street'         => $this->street,
+            'subStreet'      => $this->subStreet,
+            'town'           => $this->town,
+            'state'          => $this->state,
+            'postcode'       => $this->postcode,
+            'country'        => $this->country,
         ];
     }
 

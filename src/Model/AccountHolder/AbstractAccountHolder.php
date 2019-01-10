@@ -1,8 +1,16 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\AccountHolder;
 
-use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\BaseModelInterface;
 use Webmozart\Assert\Assert;
@@ -12,6 +20,7 @@ use Webmozart\Assert\Assert;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 abstract class AbstractAccountHolder implements BaseModelInterface
@@ -158,7 +167,7 @@ abstract class AbstractAccountHolder implements BaseModelInterface
     /**
      * @param string|null $tag
      */
-    public function setTag(string $tag =  null)
+    public function setTag(string $tag = null)
     {
         Assert::nullOrStringNotEmpty($tag);
         Assert::maxLength($tag, 255);
@@ -326,17 +335,17 @@ abstract class AbstractAccountHolder implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'email' => $this->email,
-            'label' => $this->label,
-            'tag' => $this->tag,
-            'givenName' => $this->givenName,
-            'middleName' => $this->middleName,
-            'familyName' => $this->familyName,
+            'email'       => $this->email,
+            'label'       => $this->label,
+            'tag'         => $this->tag,
+            'givenName'   => $this->givenName,
+            'middleName'  => $this->middleName,
+            'familyName'  => $this->familyName,
             'dateOfBirth' => $this->dateOfBirth->format('Y-m-d'),
             'nationality' => $this->nationality,
-            'occupation' => $this->occupation,
+            'occupation'  => $this->occupation,
             'incomeRange' => $this->incomeRange,
-            'address' => $this->address->httpCreate(),
+            'address'     => $this->address->httpCreate(),
         ];
     }
 

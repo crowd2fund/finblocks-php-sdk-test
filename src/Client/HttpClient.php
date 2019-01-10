@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Client;
 
 /**
@@ -7,6 +16,7 @@ namespace FinBlocks\Client;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 class HttpClient
@@ -166,7 +176,7 @@ class HttpClient
         curl_setopt($curl, CURLOPT_HEADER, true);
 
         // Return the transfer as a string of the return value of curl_exec() instead of outputting it out directly
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         // Handle the response
         $response = curl_exec($curl);

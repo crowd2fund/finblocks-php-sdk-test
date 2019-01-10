@@ -1,14 +1,18 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Tests\IntegrationTests\API;
 
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Model\AccountHolder\AccountHolderBusiness;
-use FinBlocks\Model\AccountHolder\AccountHolderIndividual;
-use FinBlocks\Model\AccountHolder\Company\Company;
-use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\Money\Money;
-use FinBlocks\Model\Pagination\AccountHoldersPagination;
 use FinBlocks\Model\Pagination\WalletsPagination;
 use FinBlocks\Model\Wallet\Wallet;
 use FinBlocks\Tests\Traits\AccountHolderTrait;
@@ -18,6 +22,7 @@ use FinBlocks\Tests\Traits\AccountHolderTrait;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 class WalletsTest extends AbstractApiTests

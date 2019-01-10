@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\Withdrawal;
 
 use FinBlocks\Exception\FinBlocksException;
@@ -11,6 +20,7 @@ use FinBlocks\Model\Money\Money;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 class Withdrawal implements BaseModelInterface
@@ -275,13 +285,13 @@ class Withdrawal implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'walletId' => $this->walletId,
-            'bankAccountId' => $this->bankAccountId,
+            'walletId'          => $this->walletId,
+            'bankAccountId'     => $this->bankAccountId,
             'bankWireReference' => $this->bankWireReference,
-            'debitedFunds' => $this->debitedFunds->httpCreate(),
-            'fees' => $this->fees->httpCreate(),
-            'label' => $this->label,
-            'tag' => $this->tag,
+            'debitedFunds'      => $this->debitedFunds->httpCreate(),
+            'fees'              => $this->fees->httpCreate(),
+            'label'             => $this->label,
+            'tag'               => $this->tag,
         ];
     }
 

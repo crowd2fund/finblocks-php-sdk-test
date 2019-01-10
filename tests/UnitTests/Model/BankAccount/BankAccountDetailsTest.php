@@ -1,18 +1,22 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Finblocks\Tests\UnitTests\Model\BankAccount;
 
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Model\BankAccount\BankAccountCa;
 use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountCaDetails;
 use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountGbDetails;
 use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountIbanDetails;
 use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountOtherDetails;
 use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountUsDetails;
-use FinBlocks\Model\BankAccount\BankAccountGb;
-use FinBlocks\Model\BankAccount\BankAccountIban;
-use FinBlocks\Model\BankAccount\BankAccountOther;
-use FinBlocks\Model\BankAccount\BankAccountUs;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,6 +24,7 @@ use PHPUnit\Framework\TestCase;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 class BankAccountDetailsTest extends TestCase

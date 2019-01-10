@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\BankAccount\BankAccountDetails;
 
 use FinBlocks\Exception\FinBlocksException;
@@ -11,6 +20,7 @@ use Webmozart\Assert\Assert;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 final class BankAccountIbanDetails implements BaseModelInterface
@@ -107,7 +117,7 @@ final class BankAccountIbanDetails implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'bic' => $this->bic,
+            'bic'  => $this->bic,
             'iban' => $this->iban,
         ];
     }
