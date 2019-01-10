@@ -17,11 +17,11 @@
     </filter>
 
     <testsuites>
-        <testsuite name="IntegrationTesting">
-            <directory suffix="Test.php">tests/IntegrationTesting</directory>
+        <testsuite name="IntegrationTests">
+            <directory suffix="Test.php">tests/IntegrationTests</directory>
         </testsuite>
-        <testsuite name="UnitTesting">
-            <directory suffix="Test.php">tests/UnitTesting</directory>
+        <testsuite name="UnitTests">
+            <directory suffix="Test.php">tests/UnitTests</directory>
         </testsuite>
     </testsuites>
 
