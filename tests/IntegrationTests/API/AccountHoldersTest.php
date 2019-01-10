@@ -8,32 +8,15 @@ use FinBlocks\Model\AccountHolder\AccountHolderIndividual;
 use FinBlocks\Model\AccountHolder\Company\Company;
 use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\Pagination\AccountHoldersPagination;
+use FinBlocks\Tests\Traits\AccountHolderTrait;
 
 class AccountHoldersTest extends AbstractApiTests
 {
+    use AccountHolderTrait;
+
     public function testCreateAccountHolderIndividual()
     {
-        $model = $this->finBlocks->factories()->accountHolders()->createIndividual();
-
-        $model->setEmail('individual@johnpublic.com');
-        $model->setLabel('John Q. Public');
-        $model->setTag('Individual Test User');
-        $model->setGivenName('John');
-        $model->setMiddleName('Q.');
-        $model->setFamilyName('Public');
-        $model->setDateOfBirth(\DateTime::createFromFormat('Y-m-d', '1985-04-23'));
-        $model->setNationality('GBR');
-        $model->setOccupation('Unknown');
-        $model->setIncomeRange(6);
-        $model->getAddress()->setFlatNumber('3');
-        $model->getAddress()->setBuildingNumber('28');
-        $model->getAddress()->setBuildingName('n/a');
-        $model->getAddress()->setStreet('Ely Place');
-        $model->getAddress()->setSubStreet('N/A');
-        $model->getAddress()->setTown('London');
-        $model->getAddress()->setState('England');
-        $model->getAddress()->setPostcode('EC1N 6TD');
-        $model->getAddress()->setCountry('GBR');
+        $model = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
 
         $returnedContent = $this->finBlocks->api()->accountHolders()->create($model);
 
@@ -72,41 +55,8 @@ class AccountHoldersTest extends AbstractApiTests
 
     public function testCreateAccountHolderBusiness()
     {
-        $model = $this->finBlocks->factories()->accountHolders()->createBusiness();
-        $model->setEmail('business@johnpublic.com');
-        $model->setLabel('John Q. Public');
-        $model->setTag('Business Test User');
-        $model->setGivenName('John');
-        $model->setMiddleName('Q.');
-        $model->setFamilyName('Public');
-        $model->setDateOfBirth(\DateTime::createFromFormat('Y-m-d', '1985-04-23'));
-        $model->setNationality('GBR');
-        $model->setOccupation('CEO');
-        $model->setIncomeRange(6);
-        $model->getAddress()->setFlatNumber('3');
-        $model->getAddress()->setBuildingNumber('28');
-        $model->getAddress()->setBuildingName('n/a');
-        $model->getAddress()->setStreet('Ely Place');
-        $model->getAddress()->setSubStreet('N/A');
-        $model->getAddress()->setTown('London');
-        $model->getAddress()->setState('England');
-        $model->getAddress()->setPostcode('EC1N 6TD');
-        $model->getAddress()->setCountry('GBR');
-        $model->getCompany()->setEmail('info@johnpublic.com');
-        $model->getCompany()->setName('John Q. Public LTD');
-        $model->getCompany()->setNumber('0000000000');
-        $model->getCompany()->setType(Company::TYPE_BUSINESS);
-        $model->getCompany()->getAddress()->setFlatNumber('3');
-        $model->getCompany()->getAddress()->setBuildingNumber('28');
-        $model->getCompany()->getAddress()->setBuildingName('n/a');
-        $model->getCompany()->getAddress()->setStreet('Ely Place');
-        $model->getCompany()->getAddress()->setSubStreet('N/A');
-        $model->getCompany()->getAddress()->setTown('London');
-        $model->getCompany()->getAddress()->setState('England');
-        $model->getCompany()->getAddress()->setPostcode('EC1N 6TD');
-        $model->getCompany()->getAddress()->setCountry('GBR');
+        $model = $this->traitCreateAccountHolderBusinessModel($this->finBlocks);
 
-        /** @var AccountHolderBusiness $returnedContent */
         $returnedContent = $this->finBlocks->api()->accountHolders()->create($model);
 
         $this->assertInstanceOf(AccountHolderBusiness::class, $returnedContent);
@@ -194,25 +144,37 @@ class AccountHoldersTest extends AbstractApiTests
 
     public function testUpdateAccountHolderIndividual()
     {
+        $model = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+
+        $returnedModel = $this->finBlocks->api()->accountHolders()->create($model);
+
+        $this->assertEquals('John Q. Public', $returnedModel->getLabel());
+
         $newLabel = sprintf('New label for Individual: %s', time());
 
-        $model = $this->finBlocks->api()->accountHolders()->show('accountholder-e5e2ad73-096b-4401-8df6-ec5c2cb6bb55');
-        $model->setLabel($newLabel);
+        $returnedModel->setLabel($newLabel);
 
-        $returnedContent = $this->finBlocks->api()->accountHolders()->update($model);
+        $updatedModel = $this->finBlocks->api()->accountHolders()->update($returnedModel);
 
-        $this->assertInstanceOf(AccountHolderIndividual::class, $returnedContent);
-        $this->assertEquals($newLabel, $returnedContent->getLabel());
+        $this->assertInstanceOf(AccountHolderIndividual::class, $updatedModel);
+        $this->assertEquals($newLabel, $updatedModel->getLabel());
     }
 
     public function testUpdateAccountHolderBusiness()
     {
-        $model = $this->finBlocks->api()->accountHolders()->show('2');
-        $model->setLabel('New Label for Business');
+        $model = $this->traitCreateAccountHolderBusinessModel($this->finBlocks);
 
-        $returnedContent = $this->finBlocks->api()->accountHolders()->update($model);
+        $returnedModel = $this->finBlocks->api()->accountHolders()->create($model);
 
-        $this->assertInstanceOf(AccountHolderBusiness::class, $returnedContent);
-        $this->assertEquals('New Label for Business', $returnedContent->getLabel());
+        $this->assertEquals('John Q. Public', $returnedModel->getLabel());
+
+        $newLabel = sprintf('New label for Business: %s', time());
+
+        $returnedModel->setLabel($newLabel);
+
+        $updatedModel = $this->finBlocks->api()->accountHolders()->update($returnedModel);
+
+        $this->assertInstanceOf(AccountHolderBusiness::class, $updatedModel);
+        $this->assertEquals($newLabel, $updatedModel->getLabel());
     }
 }
