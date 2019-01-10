@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\Hook;
 
 use FinBlocks\Exception\FinBlocksException;
@@ -10,6 +19,7 @@ use FinBlocks\Model\BaseModelInterface;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 class Hook implements BaseModelInterface
@@ -405,29 +415,29 @@ class Hook implements BaseModelInterface
     public function httpUpdate(): array
     {
         return [
-            'depositCreated' => $this->depositCreated->httpUpdate(),
-            'depositFailed' => $this->depositFailed->httpUpdate(),
-            'depositSucceeded' => $this->depositSucceeded->httpUpdate(),
-            'depositRefundCreated' => $this->depositRefundCreated->httpUpdate(),
-            'depositRefundFailed' => $this->depositRefundFailed->httpUpdate(),
-            'depositRefundSucceeded' => $this->depositRefundSucceeded->httpUpdate(),
-            'kycCreated' => $this->kycCreated->httpUpdate(),
-            'kycFailed' => $this->kycFailed->httpUpdate(),
-            'kycSucceeded' => $this->kycSucceeded->httpUpdate(),
-            'mandateCreated' => $this->mandateCreated->httpUpdate(),
-            'mandateFailed' => $this->mandateFailed->httpUpdate(),
-            'mandateSucceeded' => $this->mandateSucceeded->httpUpdate(),
-            'transferCreated' => $this->transferCreated->httpUpdate(),
-            'transferFailed' => $this->transferFailed->httpUpdate(),
-            'transferSucceeded' => $this->transferSucceeded->httpUpdate(),
-            'transferRefundCreated' => $this->transferRefundCreated->httpUpdate(),
-            'transferRefundFailed' => $this->transferRefundFailed->httpUpdate(),
-            'transferRefundSucceeded' => $this->transferRefundSucceeded->httpUpdate(),
-            'withdrawalCreated' => $this->withdrawalCreated->httpUpdate(),
-            'withdrawalFailed' => $this->withdrawalFailed->httpUpdate(),
-            'withdrawalSucceeded' => $this->withdrawalSucceeded->httpUpdate(),
-            'withdrawalRefundCreated' => $this->withdrawalRefundCreated->httpUpdate(),
-            'withdrawalRefundFailed' => $this->withdrawalRefundFailed->httpUpdate(),
+            'depositCreated'            => $this->depositCreated->httpUpdate(),
+            'depositFailed'             => $this->depositFailed->httpUpdate(),
+            'depositSucceeded'          => $this->depositSucceeded->httpUpdate(),
+            'depositRefundCreated'      => $this->depositRefundCreated->httpUpdate(),
+            'depositRefundFailed'       => $this->depositRefundFailed->httpUpdate(),
+            'depositRefundSucceeded'    => $this->depositRefundSucceeded->httpUpdate(),
+            'kycCreated'                => $this->kycCreated->httpUpdate(),
+            'kycFailed'                 => $this->kycFailed->httpUpdate(),
+            'kycSucceeded'              => $this->kycSucceeded->httpUpdate(),
+            'mandateCreated'            => $this->mandateCreated->httpUpdate(),
+            'mandateFailed'             => $this->mandateFailed->httpUpdate(),
+            'mandateSucceeded'          => $this->mandateSucceeded->httpUpdate(),
+            'transferCreated'           => $this->transferCreated->httpUpdate(),
+            'transferFailed'            => $this->transferFailed->httpUpdate(),
+            'transferSucceeded'         => $this->transferSucceeded->httpUpdate(),
+            'transferRefundCreated'     => $this->transferRefundCreated->httpUpdate(),
+            'transferRefundFailed'      => $this->transferRefundFailed->httpUpdate(),
+            'transferRefundSucceeded'   => $this->transferRefundSucceeded->httpUpdate(),
+            'withdrawalCreated'         => $this->withdrawalCreated->httpUpdate(),
+            'withdrawalFailed'          => $this->withdrawalFailed->httpUpdate(),
+            'withdrawalSucceeded'       => $this->withdrawalSucceeded->httpUpdate(),
+            'withdrawalRefundCreated'   => $this->withdrawalRefundCreated->httpUpdate(),
+            'withdrawalRefundFailed'    => $this->withdrawalRefundFailed->httpUpdate(),
             'withdrawalRefundSucceeded' => $this->withdrawalRefundSucceeded->httpUpdate(),
         ];
     }

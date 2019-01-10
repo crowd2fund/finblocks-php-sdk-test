@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\Pagination;
 
 use FinBlocks\Model\Transfer\Transfer;
@@ -9,6 +18,7 @@ use FinBlocks\Model\Transfer\Transfer;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 final class TransfersPagination extends AbstractPagination

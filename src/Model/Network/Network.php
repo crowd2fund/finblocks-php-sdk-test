@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\Network;
 
 use FinBlocks\Exception\FinBlocksException;
@@ -11,6 +20,7 @@ use FinBlocks\Model\BaseModelInterface;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 class Network implements BaseModelInterface
@@ -410,17 +420,17 @@ class Network implements BaseModelInterface
     public function httpUpdate(): array
     {
         return [
-            'techEmails' => $this->techEmails,
-            'adminEmails' => $this->adminEmails,
-            'billingEmails' => $this->billingEmails,
-            'fraudEmails' => $this->fraudEmails,
-            'address' => $this->address->httpUpdate(),
-            'phoneNumber' => $this->phoneNumber,
-            'url' => $this->url,
-            'label' => $this->label,
-            'primaryThemeColour' => $this->primaryThemeColour,
+            'techEmails'          => $this->techEmails,
+            'adminEmails'         => $this->adminEmails,
+            'billingEmails'       => $this->billingEmails,
+            'fraudEmails'         => $this->fraudEmails,
+            'address'             => $this->address->httpUpdate(),
+            'phoneNumber'         => $this->phoneNumber,
+            'url'                 => $this->url,
+            'label'               => $this->label,
+            'primaryThemeColour'  => $this->primaryThemeColour,
             'primaryButtonColour' => $this->primaryButtonColour,
-            'logo' => $this->logo,
+            'logo'                => $this->logo,
         ];
     }
 }

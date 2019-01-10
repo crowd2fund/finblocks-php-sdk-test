@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Factory;
 
 use FinBlocks\Model\AccountHolder\AccountHolderBusiness;
@@ -10,6 +19,7 @@ use FinBlocks\Model\AccountHolder\AccountHolderIndividual;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 class AccountHoldersFactory
@@ -23,6 +33,7 @@ class AccountHoldersFactory
     {
         return AccountHolderIndividual::create();
     }
+
     /**
      * Creates a new Model filling their properties with the JSON payload.
      *
@@ -44,6 +55,7 @@ class AccountHoldersFactory
     {
         return AccountHolderBusiness::create();
     }
+
     /**
      * Creates a new Model filling their properties with the JSON payload.
      *

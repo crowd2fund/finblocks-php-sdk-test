@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\Transfer;
 
 use FinBlocks\Exception\FinBlocksException;
@@ -11,6 +20,7 @@ use FinBlocks\Model\Money\Money;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 class Transfer implements BaseModelInterface
@@ -269,12 +279,12 @@ class Transfer implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'label' => $this->label,
-            'tag' => $this->tag,
-            'debitedWalletId' => $this->debitedWalletId,
+            'label'            => $this->label,
+            'tag'              => $this->tag,
+            'debitedWalletId'  => $this->debitedWalletId,
             'creditedWalletId' => $this->creditedWalletId,
-            'debitedFunds' => $this->debitedFunds->httpCreate(),
-            'fees' => $this->fees->httpCreate(),
+            'debitedFunds'     => $this->debitedFunds->httpCreate(),
+            'fees'             => $this->fees->httpCreate(),
         ];
     }
 

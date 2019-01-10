@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\BankAccount;
 
 use FinBlocks\Exception\FinBlocksException;
@@ -16,6 +25,7 @@ use Webmozart\Assert\Assert;
  * @copyright FinBlocks
  *
  * @version 1.0.0
+ *
  * @since   1.0.0
  */
 abstract class AbstractBankAccount implements BaseModelInterface
@@ -134,7 +144,7 @@ abstract class AbstractBankAccount implements BaseModelInterface
     /**
      * @param string|null $tag
      */
-    public function setTag(string $tag =  null)
+    public function setTag(string $tag = null)
     {
         Assert::nullOrStringNotEmpty($tag);
         Assert::maxLength($tag, 255);
@@ -155,7 +165,7 @@ abstract class AbstractBankAccount implements BaseModelInterface
      */
     public function isActive(): bool
     {
-        return true  === $this->active;
+        return true === $this->active;
     }
 
     /**
@@ -186,9 +196,9 @@ abstract class AbstractBankAccount implements BaseModelInterface
     {
         return [
             'accountHolderId' => $this->accountHolderId,
-            'label' => $this->label,
-            'tag' => $this->tag,
-            'details' => $this->details->httpCreate(),
+            'label'           => $this->label,
+            'tag'             => $this->tag,
+            'details'         => $this->details->httpCreate(),
         ];
     }
 
