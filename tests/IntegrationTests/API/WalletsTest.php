@@ -16,6 +16,7 @@ use FinBlocks\Model\Money\Money;
 use FinBlocks\Model\Pagination\WalletsPagination;
 use FinBlocks\Model\Wallet\Wallet;
 use FinBlocks\Tests\Traits\AccountHolderTrait;
+use FinBlocks\Tests\Traits\WalletTrait;
 
 /**
  * @author    David Garcia <me@davidgarcia.cat>
@@ -28,17 +29,14 @@ use FinBlocks\Tests\Traits\AccountHolderTrait;
 class WalletsTest extends AbstractApiTests
 {
     use AccountHolderTrait;
+    use WalletTrait;
 
     public function testCreateWallet()
     {
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
-        $model = $this->finBlocks->factories()->wallets()->create();
-        $model->setAccountHolderId($accountHolder->getId());
-        $model->setCurrency('GBP');
-        $model->setLabel('Wallet\'s Label');
-        $model->setTag('Wallet\'s Tag');
+        $model = $this->traitCreateWalletModel($this->finBlocks, $accountHolder->getId());
 
         $returnedContent = $this->finBlocks->api()->wallets()->create($model);
 
@@ -48,8 +46,8 @@ class WalletsTest extends AbstractApiTests
 
         $this->assertEquals($accountHolder->getId(), $returnedContent->getAccountHolderId());
         $this->assertEquals('GBP', $returnedContent->getCurrency());
-        $this->assertEquals('Wallet\'s Label', $returnedContent->getLabel());
-        $this->assertEquals('Wallet\'s Tag', $returnedContent->getTag());
+        $this->assertEquals('Label for Wallet', $returnedContent->getLabel());
+        $this->assertEquals('Tag for Wallet', $returnedContent->getTag());
 
         $this->assertInstanceOf(Money::class, $returnedContent->getBalance());
 
@@ -77,9 +75,7 @@ class WalletsTest extends AbstractApiTests
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
-        $model = $this->finBlocks->factories()->wallets()->create();
-        $model->setAccountHolderId($accountHolder->getId());
-        $model->setCurrency('GBP');
+        $model = $this->traitCreateWalletModel($this->finBlocks, $accountHolder->getId(), true);
 
         $returnedContent = $this->finBlocks->api()->wallets()->create($model);
 
@@ -106,11 +102,7 @@ class WalletsTest extends AbstractApiTests
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = $this->finBlocks->factories()->wallets()->create();
-        $model->setAccountHolderId('accountholder-00000000-096b-4401-8df6-ec5c2cb6bb55');
-        $model->setCurrency('GBP');
-        $model->setLabel('label');
-        $model->setTag('tag');
+        $model = $this->traitCreateWalletModel($this->finBlocks, 'accountholder-00000000-096b-4401-8df6-ec5c2cb6bb55');
 
         $this->finBlocks->api()->wallets()->create($model);
     }
@@ -131,10 +123,57 @@ class WalletsTest extends AbstractApiTests
         $this->assertInstanceOf(Wallet::class, $returnedContent->getEmbedded()[0]);
     }
 
-    public function testInvalidArgumentsForPaginatedAccountHolders()
+    public function testGetPaginatedWalletsWithInvalidPage()
     {
         $this->expectException(FinBlocksException::class);
 
         $this->finBlocks->api()->wallets()->list(-1);
+    }
+
+    public function testGetPaginatedWalletsWithInvalidPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->wallets()->list(1, -1);
+    }
+
+    public function testListAllByAccountHolder()
+    {
+        $accountHolder1 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder1 = $this->finBlocks->api()->accountHolders()->create($accountHolder1);
+
+        $accountHolder2 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder2 = $this->finBlocks->api()->accountHolders()->create($accountHolder2);
+
+        $wallet1 = $this->traitCreateWalletModel($this->finBlocks, $accountHolder1->getId());
+        $this->finBlocks->api()->wallets()->create($wallet1);
+
+        $wallet2 = $this->traitCreateWalletModel($this->finBlocks, $accountHolder2->getId());
+        $this->finBlocks->api()->wallets()->create($wallet2);
+
+        $returnedContent = $this->finBlocks->api()->wallets()->listByAccountHolder($accountHolder1->getId());
+
+        $this->assertInstanceOf(WalletsPagination::class, $returnedContent);
+        $this->assertEquals(1, $returnedContent->getTotal());
+    }
+
+    public function testListAllByAccountHolderWithInvalidPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
+
+        $this->finBlocks->api()->wallets()->listByAccountHolder($accountHolder->getId(), -1);
+    }
+
+    public function testListAllByAccountHolderWithInvalidPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
+
+        $this->finBlocks->api()->wallets()->listByAccountHolder($accountHolder->getId(), 1, -1);
     }
 }
