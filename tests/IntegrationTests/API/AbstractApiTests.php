@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since   1.0.0
  */
-class AbstractApiTests extends TestCase
+abstract class AbstractApiTests extends TestCase
 {
     /**
      * @var FinBlocks
