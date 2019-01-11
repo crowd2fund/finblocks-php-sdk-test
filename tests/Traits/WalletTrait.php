@@ -12,8 +12,6 @@
 namespace FinBlocks\Tests\Traits;
 
 use FinBlocks\FinBlocks;
-use FinBlocks\Model\Document\DocumentIdCard;
-use FinBlocks\Model\Document\DocumentPassport;
 use FinBlocks\Model\Wallet\Wallet;
 
 /**
