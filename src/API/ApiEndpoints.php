@@ -32,6 +32,16 @@ class ApiEndpoints extends AbstractHttpApi
     }
 
     /**
+     * API Endpoints for Documents management.
+     *
+     * @return Documents
+     */
+    public function documents(): Documents
+    {
+        return new Documents($this->httpClient);
+    }
+
+    /**
      * API Endpoints for Wallets management.
      *
      * @return Wallets
