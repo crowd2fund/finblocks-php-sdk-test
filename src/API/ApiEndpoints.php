@@ -42,6 +42,16 @@ class ApiEndpoints extends AbstractHttpApi
     }
 
     /**
+     * API Endpoints for KYC management.
+     *
+     * @return KYC
+     */
+    public function kyc(): KYC
+    {
+        return new KYC($this->httpClient);
+    }
+
+    /**
      * API Endpoints for Wallets management.
      *
      * @return Wallets

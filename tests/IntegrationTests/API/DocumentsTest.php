@@ -99,8 +99,6 @@ class DocumentsTest extends AbstractApiTests
 
     public function testListAllWrongPage()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $this->expectException(FinBlocksException::class);
 
         $this->finBlocks->api()->documents()->list(-1);
@@ -108,11 +106,9 @@ class DocumentsTest extends AbstractApiTests
 
     public function testListAllWrongPerPage()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $this->expectException(FinBlocksException::class);
 
-        $this->finBlocks->api()->documents()->list(1, -1);
+        $this->finBlocks->api()->documents()->list(1, 10000);
     }
 
     public function testListAllByAccountHolder()
@@ -135,5 +131,19 @@ class DocumentsTest extends AbstractApiTests
 
         $this->assertInstanceOf(DocumentsPagination::class, $returnedContent);
         $this->assertEquals(1, $returnedContent->getTotal());
+    }
+
+    public function testGetPaginatedKycChecksForGivenAccountHolderWithInvalidPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->documents()->listByAccountHolder('account-holder-id', -1);
+    }
+
+    public function testGetPaginatedKycChecksForGivenAccountHolderWithInvalidPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->documents()->listByAccountHolder('account-holder-id', 1, 10000);
     }
 }
