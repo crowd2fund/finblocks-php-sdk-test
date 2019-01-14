@@ -32,6 +32,8 @@ class DocumentsTest extends AbstractApiTests
 
     public function testCreateDocumentIdCard()
     {
+        $this->markTestIncomplete('Not yet implemented');
+
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -52,6 +54,8 @@ class DocumentsTest extends AbstractApiTests
 
     public function testCreateDocumentPassport()
     {
+        $this->markTestIncomplete('Not yet implemented');
+
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -72,6 +76,8 @@ class DocumentsTest extends AbstractApiTests
 
     public function testListAll()
     {
+        $this->markTestIncomplete('Not yet implemented');
+
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -93,6 +99,8 @@ class DocumentsTest extends AbstractApiTests
 
     public function testListAllWrongPage()
     {
+        $this->markTestIncomplete('Not yet implemented');
+
         $this->expectException(FinBlocksException::class);
 
         $this->finBlocks->api()->documents()->list(-1);
@@ -100,6 +108,8 @@ class DocumentsTest extends AbstractApiTests
 
     public function testListAllWrongPerPage()
     {
+        $this->markTestIncomplete('Not yet implemented');
+
         $this->expectException(FinBlocksException::class);
 
         $this->finBlocks->api()->documents()->list(1, -1);
@@ -107,14 +117,16 @@ class DocumentsTest extends AbstractApiTests
 
     public function testListAllByAccountHolder()
     {
+        $this->markTestIncomplete('Not yet implemented');
+
         $accountHolder1 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder1 = $this->finBlocks->api()->accountHolders()->create($accountHolder1);
 
-        $accountHolder2 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
-        $accountHolder2 = $this->finBlocks->api()->accountHolders()->create($accountHolder2);
-
         $documentIdCard = $this->traitCreateDocumentIdCardModel($this->finBlocks, $accountHolder1->getId());
         $this->finBlocks->api()->documents()->create($documentIdCard);
+
+        $accountHolder2 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder2 = $this->finBlocks->api()->accountHolders()->create($accountHolder2);
 
         $documentPassport = $this->traitCreateDocumentPassportModel($this->finBlocks, $accountHolder2->getId());
         $this->finBlocks->api()->documents()->create($documentPassport);
