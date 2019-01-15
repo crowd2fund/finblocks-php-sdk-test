@@ -55,22 +55,22 @@ class Transfer implements BaseModelInterface
     /**
      * @var string
      */
-    private $debitedWalletId;
+    private $from;
 
     /**
      * @var string
      */
-    private $creditedWalletId;
+    private $to;
 
     /**
      * @var Money
      */
-    private $debitedFunds;
+    private $debitedAmount;
 
     /**
      * @var Money
      */
-    private $creditedFunds;
+    private $creditedAmount;
 
     /**
      * @var Money
@@ -104,8 +104,8 @@ class Transfer implements BaseModelInterface
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'debitedFunds':
-                        case 'creditedFunds':
+                        case 'debitedAmount':
+                        case 'creditedAmount':
                         case 'fees':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
@@ -121,8 +121,8 @@ class Transfer implements BaseModelInterface
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
         } else {
-            $this->debitedFunds = Money::create();
-            $this->creditedFunds = Money::create();
+            $this->debitedAmount = Money::create();
+            $this->creditedAmount = Money::create();
             $this->fees = Money::create();
         }
     }
@@ -200,51 +200,51 @@ class Transfer implements BaseModelInterface
     }
 
     /**
-     * @param string $debitedWalletId
+     * @param string $from
      */
-    public function setDebitedWalletId(string $debitedWalletId)
+    public function setFrom(string $from)
     {
-        $this->debitedWalletId = $debitedWalletId;
+        $this->from = $from;
     }
 
     /**
      * @return string
      */
-    public function getDebitedWalletId(): string
+    public function getFrom(): string
     {
-        return $this->debitedWalletId;
+        return $this->from;
     }
 
     /**
-     * @param string $creditedWalletId
+     * @param string $to
      */
-    public function setCreditedWalletId(string $creditedWalletId)
+    public function setTo(string $to)
     {
-        $this->creditedWalletId = $creditedWalletId;
+        $this->to = $to;
     }
 
     /**
      * @return string
      */
-    public function getCreditedWalletId(): string
+    public function getTo(): string
     {
-        return $this->creditedWalletId;
+        return $this->to;
     }
 
     /**
      * @return Money
      */
-    public function getDebitedFunds(): Money
+    public function getDebitedAmount(): Money
     {
-        return $this->debitedFunds;
+        return $this->debitedAmount;
     }
 
     /**
      * @return Money
      */
-    public function getCreditedFunds(): Money
+    public function getCreditedAmount(): Money
     {
-        return $this->creditedFunds;
+        return $this->creditedAmount;
     }
 
     /**
@@ -281,9 +281,9 @@ class Transfer implements BaseModelInterface
         return [
             'label'            => $this->label,
             'tag'              => $this->tag,
-            'debitedWalletId'  => $this->debitedWalletId,
-            'creditedWalletId' => $this->creditedWalletId,
-            'debitedFunds'     => $this->debitedFunds->httpCreate(),
+            'from'  => $this->from,
+            'to' => $this->to,
+            'debitedAmount'     => $this->debitedAmount->httpCreate(),
             'fees'             => $this->fees->httpCreate(),
         ];
     }

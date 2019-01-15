@@ -47,10 +47,11 @@ final class DepositBankWire extends AbstractDeposit
                         case 'billingAddress':
                             $this->$property = Address::createFromPayload(json_encode($content));
                             break;
-                        case 'debitedFunds':
-                        case 'creditedFunds':
+                        case 'amount':
+                        case 'debitedAmount':
+                        case 'creditedAmount':
                         case 'fees':
-                        case 'declaredDebitedFunds':
+                        case 'declaredDebitedAmount':
                         case 'declaredFees':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
@@ -68,7 +69,7 @@ final class DepositBankWire extends AbstractDeposit
         } else {
             parent::__construct();
 
-            $this->declaredDebitedFunds = Money::create();
+            $this->declaredDebitedAmount = Money::create();
             $this->declaredFees = Money::create();
         }
     }
@@ -92,7 +93,7 @@ final class DepositBankWire extends AbstractDeposit
     /**
      * @var Money
      */
-    private $declaredDebitedFunds;
+    private $declaredDebitedAmount;
 
     /**
      * @var Money
@@ -107,9 +108,9 @@ final class DepositBankWire extends AbstractDeposit
     /**
      * @return Money
      */
-    public function getDeclaredDebitedFunds(): Money
+    public function getDeclaredDebitedAmount(): Money
     {
-        return $this->declaredDebitedFunds;
+        return $this->declaredDebitedAmount;
     }
 
     /**

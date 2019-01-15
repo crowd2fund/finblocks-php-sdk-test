@@ -66,7 +66,7 @@ class WithdrawalsPaginationTest extends TestCase
                     "walletId": "string",
                     "bankAccountId": "string",
                     "bankWireReference": "string",
-                    "debitedFunds": {
+                    "debitedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },

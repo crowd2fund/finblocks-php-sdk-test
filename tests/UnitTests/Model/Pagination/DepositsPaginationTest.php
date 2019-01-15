@@ -62,7 +62,7 @@ class DepositsPaginationTest extends TestCase
                     "type": "bankWire",
                     "nature": "deposit",
                     "status": "created",
-                    "creditedWalletId": "string",
+                    "to": "string",
                     "createdAt": "2019-01-04T10:24:16.101Z",
                     "executedAt": "2019-01-04T10:24:16.101Z",
                     "billingAddress": {
@@ -76,11 +76,11 @@ class DepositsPaginationTest extends TestCase
                         "postcode": "string",
                         "country": "string"
                     },
-                    "debitedFunds": {
+                    "debitedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },
-                    "creditedFunds": {
+                    "creditedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },
@@ -88,7 +88,7 @@ class DepositsPaginationTest extends TestCase
                         "currency": "GBP",
                         "amount": 0
                     },
-                    "declaredDebitedFunds": {
+                    "declaredDebitedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },
@@ -103,7 +103,7 @@ class DepositsPaginationTest extends TestCase
                     "type": "card",
                     "nature": "deposit",
                     "status": "created",
-                    "creditedWalletId": "string",
+                    "to": "string",
                     "createdAt": "2019-01-04T10:24:16.101Z",
                     "executedAt": "2019-01-04T10:24:16.101Z",
                     "billingAddress": {
@@ -117,11 +117,11 @@ class DepositsPaginationTest extends TestCase
                         "postcode": "string",
                         "country": "string"
                     },
-                    "debitedFunds": {
+                    "debitedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },
-                    "creditedFunds": {
+                    "creditedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },
@@ -137,7 +137,7 @@ class DepositsPaginationTest extends TestCase
                     "type": "directDebit",
                     "nature": "deposit",
                     "status": "created",
-                    "creditedWalletId": "string",
+                    "to": "string",
                     "createdAt": "2019-01-04T10:24:16.101Z",
                     "executedAt": "2019-01-04T10:24:16.101Z",
                     "billingAddress": {
@@ -151,11 +151,11 @@ class DepositsPaginationTest extends TestCase
                         "postcode": "string",
                         "country": "string"
                     },
-                    "debitedFunds": {
+                    "debitedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },
-                    "creditedFunds": {
+                    "creditedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },

@@ -32,7 +32,7 @@ class DepositTest extends TestCase
     public function testCreateEmptyModelAndSettersForBankWire()
     {
         $model = DepositBankWire::create();
-        $model->setCreditedWalletId('12345678');
+        $model->setTo('12345678');
 
         // There's no Getter, please refer to the testCreateArrayForBankWire's method.
         $model->setReturnUrl('url');
@@ -41,7 +41,7 @@ class DepositTest extends TestCase
         //$model->setLabel('label');
         //$model->setTag('tag');
 
-        $this->assertEquals('12345678', $model->getCreditedWalletId());
+        $this->assertEquals('12345678', $model->getTo());
         //$this->assertEquals('label', $model->getLabel());
         //$this->assertEquals('tag', $model->getTag());
     }
@@ -53,7 +53,7 @@ class DepositTest extends TestCase
   "type": "bankWire",
   "nature": "deposit",
   "status": "succeeded",
-  "creditedWalletId": "2222",
+  "to": "2222",
   "createdAt": "2019-01-02T13:02:18.341Z",
   "executedAt": "2019-01-02T13:02:18.341Z",
   "billingAddress": {
@@ -67,11 +67,11 @@ class DepositTest extends TestCase
     "postcode": "EC1N 6TD",
     "country": "GBR"
   },
-  "debitedFunds": {
+  "debitedAmount": {
     "currency": "GBP",
     "amount": 200000
   },
-  "creditedFunds": {
+  "creditedAmount": {
     "currency": "GBP",
     "amount": 200000
   },
@@ -79,7 +79,7 @@ class DepositTest extends TestCase
     "currency": "GBP",
     "amount": 0
   },
-  "declaredDebitedFunds": {
+  "declaredDebitedAmount": {
     "currency": "GBP",
     "amount": 250000
   },
@@ -94,7 +94,7 @@ class DepositTest extends TestCase
         $this->assertEquals('bankWire', $model->getType());
         $this->assertEquals('deposit', $model->getNature());
         $this->assertEquals('succeeded', $model->getStatus());
-        $this->assertEquals('2222', $model->getCreditedWalletId());
+        $this->assertEquals('2222', $model->getTo());
         $this->assertEquals('QWERTY', $model->getWireReference());
 
         $this->assertInstanceOf(Address::class, $model->getBillingAddress());
@@ -109,23 +109,23 @@ class DepositTest extends TestCase
         $this->assertEquals('EC1N 6TD', $model->getBillingAddress()->getPostcode());
         $this->assertEquals('GBR', $model->getBillingAddress()->getCountry());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedFunds());
-        $this->assertInstanceOf(Money::class, $model->getCreditedFunds());
+        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
+        $this->assertInstanceOf(Money::class, $model->getCreditedAmount());
         $this->assertInstanceOf(Money::class, $model->getFees());
-        $this->assertInstanceOf(Money::class, $model->getDeclaredDebitedFunds());
+        $this->assertInstanceOf(Money::class, $model->getDeclaredDebitedAmount());
         $this->assertInstanceOf(Money::class, $model->getDeclaredFees());
 
-        $this->assertEquals('GBP', $model->getDebitedFunds()->getCurrency());
-        $this->assertEquals(200000, $model->getDebitedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getDebitedAmount()->getAmount());
 
-        $this->assertEquals('GBP', $model->getCreditedFunds()->getCurrency());
-        $this->assertEquals(200000, $model->getCreditedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getCreditedAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getCreditedAmount()->getAmount());
 
         $this->assertEquals('GBP', $model->getFees()->getCurrency());
         $this->assertEquals(0, $model->getFees()->getAmount());
 
-        $this->assertEquals('GBP', $model->getDeclaredDebitedFunds()->getCurrency());
-        $this->assertEquals(250000, $model->getDeclaredDebitedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getDeclaredDebitedAmount()->getCurrency());
+        $this->assertEquals(250000, $model->getDeclaredDebitedAmount()->getAmount());
 
         $this->assertEquals('GBP', $model->getDeclaredFees()->getCurrency());
         $this->assertEquals(0, $model->getDeclaredFees()->getAmount());
@@ -152,9 +152,9 @@ class DepositTest extends TestCase
         $array = $model->httpCreate();
 
         $this->assertCount(4, $array);
-        $this->assertArrayHasKey('creditedWalletId', $array);
+        $this->assertArrayHasKey('to', $array);
         $this->assertArrayHasKey('returnUrl', $array);
-        $this->assertArrayHasKey('debitedFunds', $array);
+        $this->assertArrayHasKey('amount', $array);
         $this->assertArrayHasKey('fees', $array);
     }
 
@@ -169,7 +169,7 @@ class DepositTest extends TestCase
     public function testCreateEmptyModelAndSettersForCard()
     {
         $model = DepositCard::create();
-        $model->setCreditedWalletId('12345678');
+        $model->setTo('12345678');
         $model->setCardId('87654321');
         $model->setSecureMode(true);
 
@@ -180,7 +180,7 @@ class DepositTest extends TestCase
         //$model->setLabel('label');
         //$model->setTag('tag');
 
-        $this->assertEquals('12345678', $model->getCreditedWalletId());
+        $this->assertEquals('12345678', $model->getTo());
         $this->assertEquals('87654321', $model->getCardId());
         $this->assertEquals(true, $model->isSecureMode());
         //$this->assertEquals('label', $model->getLabel());
@@ -194,7 +194,7 @@ class DepositTest extends TestCase
   "type": "card",
   "nature": "deposit",
   "status": "succeeded",
-  "creditedWalletId": "2222",
+  "to": "2222",
   "createdAt": "2019-01-02T13:02:18.341Z",
   "executedAt": "2019-01-02T13:02:18.341Z",
   "billingAddress": {
@@ -208,11 +208,11 @@ class DepositTest extends TestCase
     "postcode": "EC1N 6TD",
     "country": "GBR"
   },
-  "debitedFunds": {
+  "debitedAmount": {
     "currency": "GBP",
     "amount": 200000
   },
-  "creditedFunds": {
+  "creditedAmount": {
     "currency": "GBP",
     "amount": 200000
   },
@@ -228,7 +228,7 @@ class DepositTest extends TestCase
         $this->assertEquals('card', $model->getType());
         $this->assertEquals('deposit', $model->getNature());
         $this->assertEquals('succeeded', $model->getStatus());
-        $this->assertEquals('2222', $model->getCreditedWalletId());
+        $this->assertEquals('2222', $model->getTo());
         $this->assertEquals('3333', $model->getCardId());
         $this->assertEquals(true, $model->isSecureMode());
 
@@ -244,15 +244,15 @@ class DepositTest extends TestCase
         $this->assertEquals('EC1N 6TD', $model->getBillingAddress()->getPostcode());
         $this->assertEquals('GBR', $model->getBillingAddress()->getCountry());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedFunds());
-        $this->assertInstanceOf(Money::class, $model->getCreditedFunds());
+        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
+        $this->assertInstanceOf(Money::class, $model->getCreditedAmount());
         $this->assertInstanceOf(Money::class, $model->getFees());
 
-        $this->assertEquals('GBP', $model->getDebitedFunds()->getCurrency());
-        $this->assertEquals(200000, $model->getDebitedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getDebitedAmount()->getAmount());
 
-        $this->assertEquals('GBP', $model->getCreditedFunds()->getCurrency());
-        $this->assertEquals(200000, $model->getCreditedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getCreditedAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getCreditedAmount()->getAmount());
 
         $this->assertEquals('GBP', $model->getFees()->getCurrency());
         $this->assertEquals(0, $model->getFees()->getAmount());
@@ -279,9 +279,9 @@ class DepositTest extends TestCase
         $array = $model->httpCreate();
 
         $this->assertCount(6, $array);
-        $this->assertArrayHasKey('creditedWalletId', $array);
+        $this->assertArrayHasKey('to', $array);
         $this->assertArrayHasKey('returnUrl', $array);
-        $this->assertArrayHasKey('debitedFunds', $array);
+        $this->assertArrayHasKey('amount', $array);
         $this->assertArrayHasKey('fees', $array);
         $this->assertArrayHasKey('cardId', $array);
         $this->assertArrayHasKey('secureMode', $array);
@@ -298,7 +298,7 @@ class DepositTest extends TestCase
     public function testCreateEmptyModelAndSettersForDirectDebit()
     {
         $model = DepositDirectDebit::create();
-        $model->setCreditedWalletId('12345678');
+        $model->setTo('12345678');
         $model->setMandateId('87654321');
 
         // There's no Getter, please refer to the testCreateArrayForBankWire's method.
@@ -308,7 +308,7 @@ class DepositTest extends TestCase
         //$model->setLabel('label');
         //$model->setTag('tag');
 
-        $this->assertEquals('12345678', $model->getCreditedWalletId());
+        $this->assertEquals('12345678', $model->getTo());
         $this->assertEquals('87654321', $model->getMandateId());
         //$this->assertEquals('label', $model->getLabel());
         //$this->assertEquals('tag', $model->getTag());
@@ -321,7 +321,7 @@ class DepositTest extends TestCase
   "type": "directDebit",
   "nature": "deposit",
   "status": "succeeded",
-  "creditedWalletId": "2222",
+  "to": "2222",
   "createdAt": "2019-01-02T13:02:18.341Z",
   "executedAt": "2019-01-02T13:02:18.341Z",
   "billingAddress": {
@@ -335,11 +335,11 @@ class DepositTest extends TestCase
     "postcode": "EC1N 6TD",
     "country": "GBR"
   },
-  "debitedFunds": {
+  "debitedAmount": {
     "currency": "GBP",
     "amount": 200000
   },
-  "creditedFunds": {
+  "creditedAmount": {
     "currency": "GBP",
     "amount": 200000
   },
@@ -354,7 +354,7 @@ class DepositTest extends TestCase
         $this->assertEquals('directDebit', $model->getType());
         $this->assertEquals('deposit', $model->getNature());
         $this->assertEquals('succeeded', $model->getStatus());
-        $this->assertEquals('2222', $model->getCreditedWalletId());
+        $this->assertEquals('2222', $model->getTo());
         $this->assertEquals('3333', $model->getMandateId());
 
         $this->assertInstanceOf(Address::class, $model->getBillingAddress());
@@ -369,15 +369,15 @@ class DepositTest extends TestCase
         $this->assertEquals('EC1N 6TD', $model->getBillingAddress()->getPostcode());
         $this->assertEquals('GBR', $model->getBillingAddress()->getCountry());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedFunds());
-        $this->assertInstanceOf(Money::class, $model->getCreditedFunds());
+        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
+        $this->assertInstanceOf(Money::class, $model->getCreditedAmount());
         $this->assertInstanceOf(Money::class, $model->getFees());
 
-        $this->assertEquals('GBP', $model->getDebitedFunds()->getCurrency());
-        $this->assertEquals(200000, $model->getDebitedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getDebitedAmount()->getAmount());
 
-        $this->assertEquals('GBP', $model->getCreditedFunds()->getCurrency());
-        $this->assertEquals(200000, $model->getCreditedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getCreditedAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getCreditedAmount()->getAmount());
 
         $this->assertEquals('GBP', $model->getFees()->getCurrency());
         $this->assertEquals(0, $model->getFees()->getAmount());
@@ -399,15 +399,15 @@ class DepositTest extends TestCase
     public function testCreateArrayForDirectDebit()
     {
         $model = DepositDirectDebit::create();
-        $model->setCreditedWalletId('12345678');
+        $model->setTo('12345678');
         $model->setReturnUrl('url');
 
         $array = $model->httpCreate();
 
         $this->assertCount(5, $array);
-        $this->assertArrayHasKey('creditedWalletId', $array);
+        $this->assertArrayHasKey('to', $array);
         $this->assertArrayHasKey('returnUrl', $array);
-        $this->assertArrayHasKey('debitedFunds', $array);
+        $this->assertArrayHasKey('amount', $array);
         $this->assertArrayHasKey('fees', $array);
         $this->assertArrayHasKey('mandateId', $array);
     }

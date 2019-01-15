@@ -52,8 +52,8 @@ final class DepositDirectDebit extends AbstractDeposit
                         case 'billingAddress':
                             $this->$property = Address::createFromPayload(json_encode($content));
                             break;
-                        case 'debitedFunds':
-                        case 'creditedFunds':
+                        case 'debitedAmount':
+                        case 'creditedAmount':
                         case 'fees':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;

@@ -70,7 +70,7 @@ class Withdrawal implements BaseModelInterface
     /**
      * @var Money
      */
-    private $debitedFunds;
+    private $debitedAmount;
 
     /**
      * @var Money
@@ -104,7 +104,7 @@ class Withdrawal implements BaseModelInterface
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'debitedFunds':
+                        case 'debitedAmount':
                         case 'fees':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
@@ -120,7 +120,7 @@ class Withdrawal implements BaseModelInterface
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
         } else {
-            $this->debitedFunds = Money::create();
+            $this->debitedAmount = Money::create();
             $this->fees = Money::create();
         }
     }
@@ -248,9 +248,9 @@ class Withdrawal implements BaseModelInterface
     /**
      * @return Money
      */
-    public function getDebitedFunds(): Money
+    public function getDebitedAmount(): Money
     {
-        return $this->debitedFunds;
+        return $this->debitedAmount;
     }
 
     /**
@@ -288,7 +288,7 @@ class Withdrawal implements BaseModelInterface
             'walletId'          => $this->walletId,
             'bankAccountId'     => $this->bankAccountId,
             'bankWireReference' => $this->bankWireReference,
-            'debitedFunds'      => $this->debitedFunds->httpCreate(),
+            'debitedAmount'      => $this->debitedAmount->httpCreate(),
             'fees'              => $this->fees->httpCreate(),
             'label'             => $this->label,
             'tag'               => $this->tag,

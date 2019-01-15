@@ -53,7 +53,7 @@ class WithdrawalTest extends TestCase
   "walletId": "2222",
   "bankAccountId": "3333",
   "bankWireReference": "qwerty",
-  "debitedFunds": {
+  "debitedAmount": {
     "currency": "GBP",
     "amount": 100000
   },
@@ -74,11 +74,11 @@ class WithdrawalTest extends TestCase
         $this->assertEquals('3333', $model->getBankAccountId());
         $this->assertEquals('qwerty', $model->getBankWireReference());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedFunds());
+        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
         $this->assertInstanceOf(Money::class, $model->getFees());
 
-        $this->assertEquals('GBP', $model->getDebitedFunds()->getCurrency());
-        $this->assertEquals(100000, $model->getDebitedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
+        $this->assertEquals(100000, $model->getDebitedAmount()->getAmount());
 
         $this->assertEquals('GBP', $model->getFees()->getCurrency());
         $this->assertEquals(0, $model->getFees()->getAmount());
@@ -107,14 +107,14 @@ class WithdrawalTest extends TestCase
         $this->assertArrayHasKey('walletId', $array);
         $this->assertArrayHasKey('bankAccountId', $array);
         $this->assertArrayHasKey('bankWireReference', $array);
-        $this->assertArrayHasKey('debitedFunds', $array);
+        $this->assertArrayHasKey('debitedAmount', $array);
         $this->assertArrayHasKey('fees', $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
 
-        $this->assertCount(2, $array['debitedFunds']);
-        $this->assertArrayHasKey('amount', $array['debitedFunds']);
-        $this->assertArrayHasKey('currency', $array['debitedFunds']);
+        $this->assertCount(2, $array['debitedAmount']);
+        $this->assertArrayHasKey('amount', $array['debitedAmount']);
+        $this->assertArrayHasKey('currency', $array['debitedAmount']);
 
         $this->assertCount(2, $array['fees']);
         $this->assertArrayHasKey('amount', $array['fees']);

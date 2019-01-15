@@ -63,13 +63,13 @@ class TransfersPaginationTest extends TestCase
                     "nature": "transfer",
                     "label": "string",
                     "tag": "string",
-                    "debitedWalletId": "string",
-                    "creditedWalletId": "string",
-                    "debitedFunds": {
+                    "from": "string",
+                    "to": "string",
+                    "debitedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },
-                    "creditedFunds": {
+                    "creditedAmount": {
                         "currency": "GBP",
                         "amount": 0
                     },

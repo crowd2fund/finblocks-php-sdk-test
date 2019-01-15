@@ -61,17 +61,22 @@ abstract class AbstractDeposit implements BaseModelInterface
     /**
      * @var string
      */
-    protected $creditedWalletId;
+    protected $to;
 
     /**
      * @var Money
      */
-    protected $debitedFunds;
+    protected $amount;
 
     /**
      * @var Money
      */
-    protected $creditedFunds;
+    protected $debitedAmount;
+
+    /**
+     * @var Money
+     */
+    protected $creditedAmount;
 
     /**
      * @var Money
@@ -94,8 +99,9 @@ abstract class AbstractDeposit implements BaseModelInterface
     protected function __construct()
     {
         $this->billingAddress = Address::create();
-        $this->debitedFunds = Money::create();
-        $this->creditedFunds = Money::create();
+        $this->amount = Money::create();
+        $this->debitedAmount = Money::create();
+        $this->creditedAmount = Money::create();
         $this->fees = Money::create();
     }
 
@@ -148,35 +154,43 @@ abstract class AbstractDeposit implements BaseModelInterface
     }
 
     /**
-     * @param string $creditedWalletId
+     * @param string $to
      */
-    public function setCreditedWalletId(string $creditedWalletId)
+    public function setTo(string $to)
     {
-        $this->creditedWalletId = $creditedWalletId;
+        $this->to = $to;
     }
 
     /**
      * @return string
      */
-    public function getCreditedWalletId(): string
+    public function getTo(): string
     {
-        return $this->creditedWalletId;
+        return $this->to;
     }
 
     /**
      * @return Money
      */
-    public function getDebitedFunds(): Money
+    public function getAmount(): Money
     {
-        return $this->debitedFunds;
+        return $this->amount;
     }
 
     /**
      * @return Money
      */
-    public function getCreditedFunds(): Money
+    public function getDebitedAmount(): Money
     {
-        return $this->creditedFunds;
+        return $this->debitedAmount;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getCreditedAmount(): Money
+    {
+        return $this->creditedAmount;
     }
 
     /**
@@ -209,10 +223,10 @@ abstract class AbstractDeposit implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'returnUrl'        => $this->returnUrl,
-            'creditedWalletId' => $this->creditedWalletId,
-            'debitedFunds'     => $this->debitedFunds->httpCreate(),
-            'fees'             => $this->fees->httpCreate(),
+            'returnUrl' => $this->returnUrl,
+            'to'        => $this->to,
+            'amount'    => $this->amount->httpCreate(),
+            'fees'      => $this->fees->httpCreate(),
         ];
     }
 

@@ -29,13 +29,13 @@ class TransferTest extends TestCase
     public function testCreateEmptyModelAndSetters()
     {
         $model = Transfer::create();
-        $model->setDebitedWalletId('12345678');
-        $model->setCreditedWalletId('87654321');
+        $model->setFrom('12345678');
+        $model->setTo('87654321');
         $model->setLabel('label');
         $model->setTag('tag');
 
-        $this->assertEquals('12345678', $model->getDebitedWalletId());
-        $this->assertEquals('87654321', $model->getCreditedWalletId());
+        $this->assertEquals('12345678', $model->getFrom());
+        $this->assertEquals('87654321', $model->getTo());
         $this->assertEquals('label', $model->getLabel());
         $this->assertEquals('tag', $model->getTag());
     }
@@ -48,13 +48,13 @@ class TransferTest extends TestCase
   "nature": "transfer",
   "label": "Transfer\'s Label",
   "tag": "Transfer\'s Tag",
-  "debitedWalletId": "2222",
-  "creditedWalletId": "3333",
-  "debitedFunds": {
+  "from": "2222",
+  "to": "3333",
+  "debitedAmount": {
     "currency": "GBP",
     "amount": 11000
   },
-  "creditedFunds": {
+  "creditedAmount": {
     "currency": "GBP",
     "amount": 10000
   },
@@ -71,18 +71,18 @@ class TransferTest extends TestCase
         $this->assertEquals('transfer', $model->getNature());
         $this->assertEquals('Transfer\'s Label', $model->getLabel());
         $this->assertEquals('Transfer\'s Tag', $model->getTag());
-        $this->assertEquals('2222', $model->getDebitedWalletId());
-        $this->assertEquals('3333', $model->getCreditedWalletId());
+        $this->assertEquals('2222', $model->getFrom());
+        $this->assertEquals('3333', $model->getTo());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedFunds());
-        $this->assertInstanceOf(Money::class, $model->getCreditedFunds());
+        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
+        $this->assertInstanceOf(Money::class, $model->getCreditedAmount());
         $this->assertInstanceOf(Money::class, $model->getFees());
 
-        $this->assertEquals('GBP', $model->getDebitedFunds()->getCurrency());
-        $this->assertEquals(11000, $model->getDebitedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
+        $this->assertEquals(11000, $model->getDebitedAmount()->getAmount());
 
-        $this->assertEquals('GBP', $model->getCreditedFunds()->getCurrency());
-        $this->assertEquals(10000, $model->getCreditedFunds()->getAmount());
+        $this->assertEquals('GBP', $model->getCreditedAmount()->getCurrency());
+        $this->assertEquals(10000, $model->getCreditedAmount()->getAmount());
 
         $this->assertEquals('GBP', $model->getFees()->getCurrency());
         $this->assertEquals(1000, $model->getFees()->getAmount());
@@ -108,16 +108,16 @@ class TransferTest extends TestCase
         $array = $model->httpCreate();
 
         $this->assertCount(6, $array);
-        $this->assertArrayHasKey('debitedWalletId', $array);
-        $this->assertArrayHasKey('creditedWalletId', $array);
-        $this->assertArrayHasKey('debitedFunds', $array);
+        $this->assertArrayHasKey('from', $array);
+        $this->assertArrayHasKey('to', $array);
+        $this->assertArrayHasKey('debitedAmount', $array);
         $this->assertArrayHasKey('fees', $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
 
-        $this->assertCount(2, $array['debitedFunds']);
-        $this->assertArrayHasKey('currency', $array['debitedFunds']);
-        $this->assertArrayHasKey('amount', $array['debitedFunds']);
+        $this->assertCount(2, $array['debitedAmount']);
+        $this->assertArrayHasKey('currency', $array['debitedAmount']);
+        $this->assertArrayHasKey('amount', $array['debitedAmount']);
 
         $this->assertCount(2, $array['fees']);
         $this->assertArrayHasKey('currency', $array['fees']);
