@@ -60,6 +60,10 @@ abstract class AbstractHttpApi
             $this->handleErrors($httpResponse);
         }
 
+        if (204 === $httpResponse->getStatusCode()) {
+            return null;
+        }
+
         try {
             Assert::stringNotEmpty($class);
             Assert::classExists($class);

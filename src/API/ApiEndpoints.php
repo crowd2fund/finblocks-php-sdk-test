@@ -32,6 +32,16 @@ class ApiEndpoints extends AbstractHttpApi
     }
 
     /**
+     * API Endpoints for Bank Accounts management.
+     *
+     * @return BankAccounts
+     */
+    public function bankAccounts(): BankAccounts
+    {
+        return new BankAccounts($this->httpClient);
+    }
+
+    /**
      * API Endpoints for Documents management.
      *
      * @return Documents

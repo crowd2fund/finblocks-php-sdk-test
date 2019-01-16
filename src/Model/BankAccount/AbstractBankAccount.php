@@ -177,11 +177,6 @@ abstract class AbstractBankAccount implements BaseModelInterface
     }
 
     /**
-     * @return BankAccountCaDetails|BankAccountGbDetails|BankAccountIbanDetails|BankAccountOtherDetails|BankAccountUsDetails
-     */
-    abstract public function getDetails();
-
-    /**
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
