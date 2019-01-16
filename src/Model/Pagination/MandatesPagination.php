@@ -48,10 +48,10 @@ final class MandatesPagination extends AbstractPagination
 
         $array = json_decode($jsonData, true);
 
-        foreach ($array['_embedded'] as $arrayModel) {
+        foreach ($array['items'] as $arrayModel) {
             $itemModel = Mandate::createFromPayload(json_encode($arrayModel));
 
-            array_push($model->_embedded, $itemModel);
+            array_push($model->items, $itemModel);
         }
 
         return $model;
@@ -60,8 +60,8 @@ final class MandatesPagination extends AbstractPagination
     /**
      * @return Mandate[]
      */
-    public function getEmbedded(): array
+    public function getItems(): array
     {
-        return $this->_embedded;
+        return $this->items;
     }
 }

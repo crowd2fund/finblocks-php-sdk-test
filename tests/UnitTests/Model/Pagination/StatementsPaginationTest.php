@@ -39,24 +39,24 @@ class StatementsPaginationTest extends TestCase
         $this->assertInternalType('string', $model->getLinks()->getLast());
 
         $this->assertInternalType('integer', $model->getTotal());
-        $this->assertInternalType('array', $model->getEmbedded());
+        $this->assertInternalType('array', $model->getItems());
 
         $this->assertEquals(0, $model->getTotal());
-        $this->assertEquals([], $model->getEmbedded());
+        $this->assertEquals([], $model->getItems());
     }
 
     public function testCreateEmptyModelStatementsPaginationFromPayload()
     {
         $model = Pagination\StatementsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "type": "bankWire",
@@ -236,14 +236,14 @@ class StatementsPaginationTest extends TestCase
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
-        $this->assertCount(6, $model->getEmbedded());
+        $this->assertCount(6, $model->getItems());
 
-        $this->assertInstanceOf(Model\Deposit\DepositBankWire::class, $model->getEmbedded()[0]);
-        $this->assertInstanceOf(Model\Deposit\DepositCard::class, $model->getEmbedded()[1]);
-        $this->assertInstanceOf(Model\Deposit\DepositDirectDebit::class, $model->getEmbedded()[2]);
-        $this->assertInstanceOf(Model\Refund\Refund::class, $model->getEmbedded()[3]);
-        $this->assertInstanceOf(Model\Transfer\Transfer::class, $model->getEmbedded()[4]);
-        $this->assertInstanceOf(Model\Withdrawal\Withdrawal::class, $model->getEmbedded()[5]);
+        $this->assertInstanceOf(Model\Deposit\DepositBankWire::class, $model->getItems()[0]);
+        $this->assertInstanceOf(Model\Deposit\DepositCard::class, $model->getItems()[1]);
+        $this->assertInstanceOf(Model\Deposit\DepositDirectDebit::class, $model->getItems()[2]);
+        $this->assertInstanceOf(Model\Refund\Refund::class, $model->getItems()[3]);
+        $this->assertInstanceOf(Model\Transfer\Transfer::class, $model->getItems()[4]);
+        $this->assertInstanceOf(Model\Withdrawal\Withdrawal::class, $model->getItems()[5]);
     }
 
     public function testCreateModelStatementsPaginationForUnknownNatureFromPayload()
@@ -252,14 +252,14 @@ class StatementsPaginationTest extends TestCase
 
         Pagination\StatementsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string"
                 }
@@ -273,14 +273,14 @@ class StatementsPaginationTest extends TestCase
 
         Pagination\StatementsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "nature": "unknown"
@@ -295,14 +295,14 @@ class StatementsPaginationTest extends TestCase
 
         Pagination\StatementsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "nature": "deposit"
@@ -317,14 +317,14 @@ class StatementsPaginationTest extends TestCase
 
         Pagination\StatementsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "type": "unknown",

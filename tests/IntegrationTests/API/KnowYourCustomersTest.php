@@ -107,8 +107,8 @@ class KnowYourCustomersTest extends AbstractApiTests
 
         $this->assertInstanceOf(KnowYourCustomersPagination::class, $returnedContent);
         $this->assertGreaterThanOrEqual(1, $returnedContent->getTotal());
-        $this->assertInternalType('array', $returnedContent->getEmbedded());
-        $this->assertInstanceOf(KnowYourCustomer::class, $returnedContent->getEmbedded()[0]);
+        $this->assertInternalType('array', $returnedContent->getItems());
+        $this->assertInstanceOf(KnowYourCustomer::class, $returnedContent->getItems()[0]);
     }
 
     public function testErrorWhenGettingPaginatedResultsWithInvalidPage()
@@ -143,9 +143,9 @@ class KnowYourCustomersTest extends AbstractApiTests
 
         $this->assertInstanceOf(KnowYourCustomersPagination::class, $returnedContent);
         $this->assertEquals(1, $returnedContent->getTotal());
-        $this->assertInternalType('array', $returnedContent->getEmbedded());
-        $this->assertInstanceOf(KnowYourCustomer::class, $returnedContent->getEmbedded()[0]);
-        $this->assertEquals($kyc->getId(), $returnedContent->getEmbedded()[0]->getId());
+        $this->assertInternalType('array', $returnedContent->getItems());
+        $this->assertInstanceOf(KnowYourCustomer::class, $returnedContent->getItems()[0]);
+        $this->assertEquals($kyc->getId(), $returnedContent->getItems()[0]->getId());
     }
 
     public function testGetPaginatedKycChecksForGivenAccountHolderWithInvalidPage()

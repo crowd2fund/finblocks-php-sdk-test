@@ -52,7 +52,7 @@ final class DocumentsPagination extends AbstractPagination
 
             $array = json_decode($jsonData, true);
 
-            foreach ($array['_embedded'] as $arrayModel) {
+            foreach ($array['items'] as $arrayModel) {
                 if (!array_key_exists('type', $arrayModel)) {
                     throw new \RuntimeException('Unable to retrieve the type of document');
                 }
@@ -68,7 +68,7 @@ final class DocumentsPagination extends AbstractPagination
                         throw new \RuntimeException('Invalid document\'s type');
                 }
 
-                array_push($model->_embedded, $itemModel);
+                array_push($model->items, $itemModel);
             }
 
             return $model;
@@ -80,8 +80,8 @@ final class DocumentsPagination extends AbstractPagination
     /**
      * @return AbstractDocument[]
      */
-    public function getEmbedded(): array
+    public function getItems(): array
     {
-        return $this->_embedded;
+        return $this->items;
     }
 }

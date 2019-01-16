@@ -121,8 +121,8 @@ class WalletsTest extends AbstractApiTests
         $returnedContent = $this->finBlocks->api()->wallets()->list(1, 1);
 
         $this->assertInstanceOf(WalletsPagination::class, $returnedContent);
-        $this->assertInternalType('array', $returnedContent->getEmbedded());
-        $this->assertInstanceOf(Wallet::class, $returnedContent->getEmbedded()[0]);
+        $this->assertInternalType('array', $returnedContent->getItems());
+        $this->assertInstanceOf(Wallet::class, $returnedContent->getItems()[0]);
     }
 
     public function testGetPaginatedWalletsWithInvalidPage()

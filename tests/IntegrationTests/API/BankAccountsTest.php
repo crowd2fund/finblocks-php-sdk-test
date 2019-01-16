@@ -352,9 +352,9 @@ class BankAccountsTest extends AbstractApiTests
 
         $this->assertInstanceOf(BankAccountsPagination::class, $returnedContent);
         $this->assertGreaterThanOrEqual(1, $returnedContent->getTotal());
-        $this->assertInternalType('array', $returnedContent->getEmbedded());
-        $this->assertCount(1, $returnedContent->getEmbedded());
-        $this->assertInstanceOf(AbstractBankAccount::class, $returnedContent->getEmbedded()[0]);
+        $this->assertInternalType('array', $returnedContent->getItems());
+        $this->assertCount(1, $returnedContent->getItems());
+        $this->assertInstanceOf(AbstractBankAccount::class, $returnedContent->getItems()[0]);
     }
 
     public function testRetrievePaginatedBankAccountsWithInvalidPage()
@@ -427,10 +427,10 @@ class BankAccountsTest extends AbstractApiTests
 
         $this->assertInstanceOf(BankAccountsPagination::class, $returnedContent);
         $this->assertEquals(2, $returnedContent->getTotal());
-        $this->assertInternalType('array', $returnedContent->getEmbedded());
-        $this->assertCount(1, $returnedContent->getEmbedded());
-        $this->assertInstanceOf(AbstractBankAccount::class, $returnedContent->getEmbedded()[0]);
-        $this->assertEquals($bankAccount1->getId(), $returnedContent->getEmbedded()[0]->getId());
+        $this->assertInternalType('array', $returnedContent->getItems());
+        $this->assertCount(1, $returnedContent->getItems());
+        $this->assertInstanceOf(AbstractBankAccount::class, $returnedContent->getItems()[0]);
+        $this->assertEquals($bankAccount1->getId(), $returnedContent->getItems()[0]->getId());
     }
 
     public function testRetrievePaginatedBankAccountsForTheGivenAccountHolderWithInvalidPage()

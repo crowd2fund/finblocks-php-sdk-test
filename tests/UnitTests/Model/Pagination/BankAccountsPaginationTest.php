@@ -39,24 +39,24 @@ class BankAccountsPaginationTest extends TestCase
         $this->assertInternalType('string', $model->getLinks()->getLast());
 
         $this->assertInternalType('integer', $model->getTotal());
-        $this->assertInternalType('array', $model->getEmbedded());
+        $this->assertInternalType('array', $model->getItems());
 
         $this->assertEquals(0, $model->getTotal());
-        $this->assertEquals([], $model->getEmbedded());
+        $this->assertEquals([], $model->getItems());
     }
 
     public function testCreateEmptyModelBankAccountsPaginationFromPayload()
     {
         $model = Pagination\BankAccountsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "type": "GB",
@@ -130,13 +130,13 @@ class BankAccountsPaginationTest extends TestCase
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
-        $this->assertCount(5, $model->getEmbedded());
+        $this->assertCount(5, $model->getItems());
 
-        $this->assertInstanceOf(Model\BankAccount\BankAccountGb::class, $model->getEmbedded()[0]);
-        $this->assertInstanceOf(Model\BankAccount\BankAccountIban::class, $model->getEmbedded()[1]);
-        $this->assertInstanceOf(Model\BankAccount\BankAccountCa::class, $model->getEmbedded()[2]);
-        $this->assertInstanceOf(Model\BankAccount\BankAccountUs::class, $model->getEmbedded()[3]);
-        $this->assertInstanceOf(Model\BankAccount\BankAccountOther::class, $model->getEmbedded()[4]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountGb::class, $model->getItems()[0]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountIban::class, $model->getItems()[1]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountCa::class, $model->getItems()[2]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountUs::class, $model->getItems()[3]);
+        $this->assertInstanceOf(Model\BankAccount\BankAccountOther::class, $model->getItems()[4]);
     }
 
     public function testCreateModelBankAccountsPaginationForUnknownTypeFromPayload()
@@ -145,14 +145,14 @@ class BankAccountsPaginationTest extends TestCase
 
         Pagination\BankAccountsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string"
                 }
@@ -166,14 +166,14 @@ class BankAccountsPaginationTest extends TestCase
 
         Pagination\BankAccountsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "type": "unknown"

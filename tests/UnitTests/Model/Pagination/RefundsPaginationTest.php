@@ -39,24 +39,24 @@ class RefundsPaginationTest extends TestCase
         $this->assertInternalType('string', $model->getLinks()->getLast());
 
         $this->assertInternalType('integer', $model->getTotal());
-        $this->assertInternalType('array', $model->getEmbedded());
+        $this->assertInternalType('array', $model->getItems());
 
         $this->assertEquals(0, $model->getTotal());
-        $this->assertEquals([], $model->getEmbedded());
+        $this->assertEquals([], $model->getItems());
     }
 
     public function testCreateEmptyModelRefundsPaginationFromPayload()
     {
         $model = Pagination\RefundsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "status": "string",
@@ -85,9 +85,9 @@ class RefundsPaginationTest extends TestCase
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
-        $this->assertCount(1, $model->getEmbedded());
+        $this->assertCount(1, $model->getItems());
 
-        $this->assertInstanceOf(Model\Refund\Refund::class, $model->getEmbedded()[0]);
+        $this->assertInstanceOf(Model\Refund\Refund::class, $model->getItems()[0]);
     }
 
     public function testCreateArray()

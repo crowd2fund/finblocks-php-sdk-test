@@ -39,24 +39,24 @@ class DocumentsPaginationTest extends TestCase
         $this->assertInternalType('string', $model->getLinks()->getLast());
 
         $this->assertInternalType('integer', $model->getTotal());
-        $this->assertInternalType('array', $model->getEmbedded());
+        $this->assertInternalType('array', $model->getItems());
 
         $this->assertEquals(0, $model->getTotal());
-        $this->assertEquals([], $model->getEmbedded());
+        $this->assertEquals([], $model->getItems());
     }
 
     public function testCreateEmptyModelDocumentsPaginationFromPayload()
     {
         $model = Pagination\DocumentsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "accountHolderId": "string",
@@ -78,10 +78,10 @@ class DocumentsPaginationTest extends TestCase
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
-        $this->assertCount(2, $model->getEmbedded());
+        $this->assertCount(2, $model->getItems());
 
-        $this->assertInstanceOf(Model\Document\DocumentIdCard::class, $model->getEmbedded()[0]);
-        $this->assertInstanceOf(Model\Document\DocumentPassport::class, $model->getEmbedded()[1]);
+        $this->assertInstanceOf(Model\Document\DocumentIdCard::class, $model->getItems()[0]);
+        $this->assertInstanceOf(Model\Document\DocumentPassport::class, $model->getItems()[1]);
     }
 
     public function testCreateModelDocumentsPaginationForUnknownTypeFromPayload()
@@ -90,14 +90,14 @@ class DocumentsPaginationTest extends TestCase
 
         Pagination\DocumentsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string"
                 }
@@ -111,14 +111,14 @@ class DocumentsPaginationTest extends TestCase
 
         Pagination\DocumentsPagination::createFromPayload('{
             "total": 0,
-            "_links": {
+            "links": {
                 "self": "string",
                 "first": "string",
                 "prev": "string",
                 "next": "string",
                 "last": "string"
             },
-            "_embedded": [
+            "items": [
                 {
                     "id": "string",
                     "type": "unknown"

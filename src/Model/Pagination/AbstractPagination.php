@@ -32,12 +32,12 @@ abstract class AbstractPagination implements BaseModelInterface
     /**
      * @var Links
      */
-    private $_links;
+    private $links;
 
     /**
      * @var array
      */
-    protected $_embedded = [];
+    protected $items = [];
 
     /**
      * AbstractPagination constructor.
@@ -57,10 +57,10 @@ abstract class AbstractPagination implements BaseModelInterface
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case '_links':
+                        case 'links':
                             $this->$property = Links::createFromPayload(json_encode($content));
                             break;
-                        case '_embedded':
+                        case 'items':
                             // This field must be ignored, and handled individually for each type of Pagination.
                             break;
                         default:
@@ -71,7 +71,7 @@ abstract class AbstractPagination implements BaseModelInterface
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
         } else {
-            $this->_links = Links::create();
+            $this->links = Links::create();
         }
     }
 
@@ -88,13 +88,13 @@ abstract class AbstractPagination implements BaseModelInterface
      */
     public function getLinks(): Links
     {
-        return $this->_links;
+        return $this->links;
     }
 
     /**
      * @return array
      */
-    abstract public function getEmbedded(): array;
+    abstract public function getItems(): array;
 
     public function httpCreate(): array
     {

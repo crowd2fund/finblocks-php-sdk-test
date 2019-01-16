@@ -149,9 +149,9 @@ class AccountHoldersTest extends AbstractApiTests
         $returnedContent = $this->finBlocks->api()->accountHolders()->list(1, 2);
 
         $this->assertInstanceOf(AccountHoldersPagination::class, $returnedContent);
-        $this->assertInternalType('array', $returnedContent->getEmbedded());
-        $this->assertInstanceOf(AccountHolderIndividual::class, $returnedContent->getEmbedded()[0]);
-        $this->assertInstanceOf(AccountHolderBusiness::class, $returnedContent->getEmbedded()[1]);
+        $this->assertInternalType('array', $returnedContent->getItems());
+        $this->assertInstanceOf(AccountHolderIndividual::class, $returnedContent->getItems()[0]);
+        $this->assertInstanceOf(AccountHolderBusiness::class, $returnedContent->getItems()[1]);
     }
 
     public function testInvalidArgumentsForPaginatedAccountHolders()

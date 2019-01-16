@@ -56,7 +56,7 @@ final class StatementsPagination extends AbstractPagination
 
             $array = json_decode($jsonData, true);
 
-            foreach ($array['_embedded'] as $arrayModel) {
+            foreach ($array['items'] as $arrayModel) {
                 if (!array_key_exists('nature', $arrayModel)) {
                     throw new \RuntimeException('Unable to retrieve the nature of this transaction');
                 }
@@ -94,7 +94,7 @@ final class StatementsPagination extends AbstractPagination
                         throw new \RuntimeException('Invalid transaction\'s nature');
                 }
 
-                array_push($model->_embedded, $itemModel);
+                array_push($model->items, $itemModel);
             }
 
             return $model;
@@ -106,8 +106,8 @@ final class StatementsPagination extends AbstractPagination
     /**
      * @return AbstractDeposit[]|Refund[]|Transfer[]|Withdrawal[]
      */
-    public function getEmbedded(): array
+    public function getItems(): array
     {
-        return $this->_embedded;
+        return $this->items;
     }
 }

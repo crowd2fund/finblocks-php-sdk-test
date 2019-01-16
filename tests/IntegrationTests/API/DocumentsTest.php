@@ -90,9 +90,9 @@ class DocumentsTest extends AbstractApiTests
         $returnedContent = $this->finBlocks->api()->documents()->list(1, 2);
 
         $this->assertInstanceOf(DocumentsPagination::class, $returnedContent);
-        $this->assertGreaterThanOrEqual(2, count($returnedContent->getEmbedded()));
+        $this->assertGreaterThanOrEqual(2, count($returnedContent->getItems()));
 
-        foreach ($returnedContent->getEmbedded() as $document) {
+        foreach ($returnedContent->getItems() as $document) {
             $this->assertInstanceOf(AbstractDocument::class, $document);
         }
     }
