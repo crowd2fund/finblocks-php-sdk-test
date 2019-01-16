@@ -60,7 +60,7 @@ abstract class AbstractHttpApi
             $this->handleErrors($httpResponse);
         }
 
-        if (204 === $httpResponse->getStatusCode()) {
+        if (HttpResponse::NO_CONTENT === $httpResponse->getStatusCode()) {
             return null;
         }
 
@@ -85,21 +85,21 @@ abstract class AbstractHttpApi
     private function handleErrors(HttpResponse $response)
     {
         switch ($response->getStatusCode()) {
-            case 400:
+            case HttpResponse::BAD_REQUEST:
                 throw HttpClientException::badRequest($response);
-            case 401:
+            case HttpResponse::UNAUTHORIZED:
                 throw HttpClientException::unauthorized($response);
-            case 403:
+            case HttpResponse::FORBIDDEN:
                 throw HttpClientException::forbidden($response);
-            case 404:
+            case HttpResponse::NOT_FOUND:
                 throw HttpClientException::notFound($response);
-            case 413:
+            case HttpResponse::PAYLOAD_TOO_LARGE:
                 throw HttpClientException::payloadTooLarge($response);
-            case 429:
+            case HttpResponse::TOO_MANY_REQUESTS:
                 throw HttpClientException::tooManyRequests($response);
-            case 503:
+            case HttpResponse::SERVICE_UNAVAILABLE:
                 throw HttpServerException::serviceUnavailableError($response);
-            case 500: default:
+            case HttpResponse::INTERNAL_SERVER_ERROR: default:
                 throw HttpServerException::internalServerError($response);
         }
     }
