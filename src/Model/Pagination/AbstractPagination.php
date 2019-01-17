@@ -43,7 +43,6 @@ abstract class AbstractPagination implements BaseModelInterface
      * AbstractPagination constructor.
      *
      * @param string|null $jsonData
-     * @param string|null $class
      */
     protected function __construct(string $jsonData = null)
     {
