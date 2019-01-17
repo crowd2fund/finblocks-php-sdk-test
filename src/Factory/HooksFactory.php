@@ -11,7 +11,6 @@
 
 namespace FinBlocks\Factory;
 
-use FinBlocks\Model\Hook\Callback;
 use FinBlocks\Model\Hook\Hook;
 
 /**
@@ -51,10 +50,10 @@ class HooksFactory
      *
      * @param string $jsonData
      *
-     * @return callable
+     * @return \FinBlocks\Model\Hook\Callback
      */
-    public function createCallbackFromPayload(string $jsonData): Callback
+    public function createCallbackFromPayload(string $jsonData): \FinBlocks\Model\Hook\Callback
     {
-        return Callback::createFromPayload($jsonData);
+        return \FinBlocks\Model\Hook\Callback::createFromPayload($jsonData);
     }
 }
