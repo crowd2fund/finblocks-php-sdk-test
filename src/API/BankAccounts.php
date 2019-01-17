@@ -66,8 +66,6 @@ class BankAccounts extends AbstractHttpApi
      * Creates an Account Holder.
      *
      * @param AbstractBankAccount $bankAccount
-     * @param string              $apiEndpoint
-     * @param string              $model
      *
      * @throws FinBlocksException
      *
@@ -76,6 +74,8 @@ class BankAccounts extends AbstractHttpApi
     public function create(AbstractBankAccount $bankAccount): AbstractBankAccount
     {
         try {
+            $apiEndpoint = $model = null;
+
             switch ($bankAccount->getType()) {
                 case BankAccountGb::TYPE:
                     $model = BankAccountGb::class;
@@ -128,6 +128,8 @@ class BankAccounts extends AbstractHttpApi
             if (JSON_ERROR_NONE !== json_last_error()) {
                 throw new \RuntimeException(json_last_error_msg(), json_last_error());
             }
+
+            $model = null;
 
             switch ($arrayResponse['type']) {
                 case BankAccountGb::TYPE:
