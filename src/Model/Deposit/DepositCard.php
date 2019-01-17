@@ -44,6 +44,8 @@ final class DepositCard extends AbstractDeposit
      */
     protected function __construct(string $jsonData = null)
     {
+        parent::__construct();
+
         if (!empty($jsonData)) {
             try {
                 $arrayData = json_decode($jsonData, true);
@@ -73,8 +75,6 @@ final class DepositCard extends AbstractDeposit
             } catch (\Throwable $throwable) {
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
-        } else {
-            parent::__construct();
         }
     }
 
