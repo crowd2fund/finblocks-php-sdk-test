@@ -62,6 +62,16 @@ class ApiEndpoints extends AbstractHttpApi
     }
 
     /**
+     * API Endpoints for Mandates management.
+     *
+     * @return Mandates
+     */
+    public function mandates(): Mandates
+    {
+        return new Mandates($this->httpClient);
+    }
+
+    /**
      * API Endpoints for Wallets management.
      *
      * @return Wallets
