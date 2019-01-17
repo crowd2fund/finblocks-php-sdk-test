@@ -64,7 +64,7 @@ final class AccountHolderIndividual extends AbstractAccountHolder
     }
 
     /**
-     * {@inheritdoc}
+     * @return AccountHolderIndividual
      */
     public static function create()
     {
@@ -72,7 +72,7 @@ final class AccountHolderIndividual extends AbstractAccountHolder
     }
 
     /**
-     * {@inheritdoc}
+     * @return AccountHolderIndividual
      */
     public static function createFromPayload(string $jsonData)
     {
