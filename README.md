@@ -9,6 +9,8 @@ This is the official's [FinBlocks](https://www.finblocks.net/) PHP SDK.
 [![SymfonyInsight](https://insight.symfony.com/projects/e94f0c04-15ca-4fad-ac02-d63396e42e63/mini.svg)](https://insight.symfony.com/projects/e94f0c04-15ca-4fad-ac02-d63396e42e63)
 [![StyleCI](https://github.styleci.io/repos/162704104/shield?branch=master)](https://github.styleci.io/repos/162704104)
 
+# NOT READY FOR PRODUCTION
+
 ## Prerequisites
 
 * PHP 7.0 or later
