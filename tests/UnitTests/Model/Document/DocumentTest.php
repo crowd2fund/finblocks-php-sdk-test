@@ -29,11 +29,9 @@ class DocumentTest extends TestCase
     public function testCreateEmptyModelAndSettersForIdCard()
     {
         $model = DocumentIdCard::create();
-        $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
 
-        $this->assertEquals('12345678', $model->getAccountHolderId());
         $this->assertEquals('label', $model->getLabel());
         $this->assertEquals('tag', $model->getTag());
     }
@@ -41,16 +39,14 @@ class DocumentTest extends TestCase
     public function testCreateFilledModelFromJsonPayloadForIdCard()
     {
         $model = DocumentPassport::createFromPayload('{
-  "id": "1111",
-  "accountHolderId": "2222",
-  "label": "Document\'s Label",
-  "tag": "Document\'s Tag",
-  "type": "idCard",
-  "createdAt": "2019-01-02T12:53:25.835Z"
-}');
+            "id": "1111",
+            "label": "Document\'s Label",
+            "tag": "Document\'s Tag",
+            "type": "idCard",
+            "createdAt": "2019-01-02T12:53:25.835Z"
+        }');
 
         $this->assertEquals('1111', $model->getId());
-        $this->assertEquals('2222', $model->getAccountHolderId());
         $this->assertEquals('Document\'s Label', $model->getLabel());
         $this->assertEquals('Document\'s Tag', $model->getTag());
         $this->assertEquals('idCard', $model->getType());
@@ -93,11 +89,9 @@ class DocumentTest extends TestCase
     public function testCreateEmptyModelAndSettersForPassport()
     {
         $model = DocumentPassport::create();
-        $model->setAccountHolderId('12345678');
         $model->setLabel('label');
         $model->setTag('tag');
 
-        $this->assertEquals('12345678', $model->getAccountHolderId());
         $this->assertEquals('label', $model->getLabel());
         $this->assertEquals('tag', $model->getTag());
     }
@@ -105,16 +99,14 @@ class DocumentTest extends TestCase
     public function testCreateFilledModelFromJsonPayloadForPassport()
     {
         $model = DocumentPassport::createFromPayload('{
-  "id": "1111",
-  "accountHolderId": "2222",
-  "label": "Document\'s Label",
-  "tag": "Document\'s Tag",
-  "type": "passport",
-  "createdAt": "2019-01-02T12:53:25.835Z"
-}');
+            "id": "1111",
+            "label": "Document\'s Label",
+            "tag": "Document\'s Tag",
+            "type": "passport",
+            "createdAt": "2019-01-02T12:53:25.835Z"
+        }');
 
         $this->assertEquals('1111', $model->getId());
-        $this->assertEquals('2222', $model->getAccountHolderId());
         $this->assertEquals('Document\'s Label', $model->getLabel());
         $this->assertEquals('Document\'s Tag', $model->getTag());
         $this->assertEquals('passport', $model->getType());
