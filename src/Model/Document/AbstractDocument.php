@@ -179,10 +179,9 @@ abstract class AbstractDocument implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'accountHolderId' => $this->accountHolderId,
-            'label'           => $this->label,
-            'tag'             => $this->tag,
-            'front'           => $this->front,
+            'label' => $this->label,
+            'tag'   => $this->tag,
+            'front' => $this->front,
         ];
     }
 

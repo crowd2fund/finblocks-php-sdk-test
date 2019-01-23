@@ -75,8 +75,7 @@ class DocumentTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(5, $array);
-        $this->assertArrayHasKey('accountHolderId', $array);
+        $this->assertCount(4, $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
         $this->assertArrayHasKey('front', $array);
@@ -139,8 +138,7 @@ class DocumentTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(4, $array);
-        $this->assertArrayHasKey('accountHolderId', $array);
+        $this->assertCount(3, $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
         $this->assertArrayHasKey('front', $array);
