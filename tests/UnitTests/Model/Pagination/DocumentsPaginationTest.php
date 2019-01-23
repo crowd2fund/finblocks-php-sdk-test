@@ -59,7 +59,6 @@ class DocumentsPaginationTest extends TestCase
             "items": [
                 {
                     "id": "string",
-                    "accountHolderId": "string",
                     "label": "string",
                     "tag": "string",
                     "type": "idCard",
@@ -67,7 +66,6 @@ class DocumentsPaginationTest extends TestCase
                 },
                 {
                     "id": "string",
-                    "accountHolderId": "string",
                     "label": "string",
                     "tag": "string",
                     "type": "passport",
