@@ -46,11 +46,9 @@ class DocumentsTest extends AbstractApiTests
         $this->assertEquals(DocumentIdCard::TYPE, $document->getType());
         $this->assertInstanceOf(\DateTime::class, $document->getCreatedAt());
 
-        $this->markTestIncomplete('Not yet implemented');
-
-        $reloadedDocument = $this->finBlocks->api()->accountHolders()->show($document->getId());
-
-        $this->assertEquals($document->getId(), $reloadedDocument->getId());
+        //TODO: Restore the following commented lines to enable again Unit Tests for the GET endpoints
+        //$reloadedDocument = $this->finBlocks->api()->accountHolders()->show($document->getId());
+        //$this->assertEquals($document->getId(), $reloadedDocument->getId());
     }
 
     public function testCreateDocumentPassport()
@@ -67,48 +65,18 @@ class DocumentsTest extends AbstractApiTests
         $this->assertEquals(DocumentPassport::TYPE, $document->getType());
         $this->assertInstanceOf(\DateTime::class, $document->getCreatedAt());
 
-        $this->markTestIncomplete('Not yet implemented');
-
-        $reloadedDocument = $this->finBlocks->api()->accountHolders()->show($document->getId());
-
-        $this->assertEquals($document->getId(), $reloadedDocument->getId());
+        //TODO: Restore the following commented lines to enable again Unit Tests for the GET endpoints
+        //$reloadedDocument = $this->finBlocks->api()->accountHolders()->show($document->getId());
+        //$this->assertEquals($document->getId(), $reloadedDocument->getId());
     }
 
-    public function testListAll()
-    {
-        $this->markTestIncomplete('Not yet implemented');
-
-        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
-        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
-
-        $documentIdCard = $this->traitCreateDocumentIdCardModel($this->finBlocks, $accountHolder->getId());
-        $this->finBlocks->api()->documents()->create($documentIdCard);
-
-        $documentPassport = $this->traitCreateDocumentPassportModel($this->finBlocks, $accountHolder->getId());
-        $this->finBlocks->api()->documents()->create($documentPassport);
-
-        $returnedContent = $this->finBlocks->api()->documents()->list(1, 2);
-
-        $this->assertInstanceOf(DocumentsPagination::class, $returnedContent);
-        $this->assertGreaterThanOrEqual(2, count($returnedContent->getItems()));
-
-        foreach ($returnedContent->getItems() as $document) {
-            $this->assertInstanceOf(AbstractDocument::class, $document);
-        }
-    }
-
-    public function testListAllWrongPage()
+    public function testCreateEmptyDocument()
     {
         $this->expectException(FinBlocksException::class);
 
-        $this->finBlocks->api()->documents()->list(-1);
-    }
-
-    public function testListAllWrongPerPage()
-    {
-        $this->expectException(FinBlocksException::class);
-
-        $this->finBlocks->api()->documents()->list(1, 10000);
+        $document = $this->finBlocks->factories()->documents()->createPassport();
+        $document->setAccountHolderId('invalid-account-holder-id');
+        $this->finBlocks->api()->documents()->create($document);
     }
 
     public function testListAllByAccountHolder()

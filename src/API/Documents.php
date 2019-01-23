@@ -29,36 +29,6 @@ use Webmozart\Assert\Assert;
 class Documents extends AbstractHttpApi
 {
     /**
-     * Retrieves a collection of Documents.
-     *
-     * @param int $page
-     * @param int $perPage
-     *
-     * @throws FinBlocksException
-     *
-     * @return DocumentsPagination
-     */
-    public function list(int $page = 1, int $perPage = 20): DocumentsPagination
-    {
-        try {
-            Assert::integer($page, '`page` argument must be an integer');
-            Assert::greaterThanEq($page, 1, '`page` argument must be greater than or equal to 1');
-
-            Assert::integer($perPage, '`perPage` argument must be an integer');
-            Assert::greaterThanEq($perPage, 1, '`perPage` argument must be greater than or equal to 1');
-            Assert::lessThanEq($perPage, 100, '`perPage` argument must be less than or equal to 100');
-
-            $offset = (($page - 1) * $perPage);
-
-            $httpResponse = $this->httpGet('/documents', ['offset' => $offset, 'perPage' => $perPage]);
-
-            return $this->hydrateResponse($httpResponse, DocumentsPagination::class);
-        } catch (\Throwable $throwable) {
-            throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
-        }
-    }
-
-    /**
      * Creates a Document.
      *
      * @param AbstractDocument $document
