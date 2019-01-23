@@ -75,11 +75,11 @@ class Documents extends AbstractHttpApi
             switch ($document->getType()) {
                 case DocumentIdCard::TYPE:
                     $model = DocumentIdCard::class;
-                    $endpoint = '/documents/id-card';
+                    $endpoint = sprintf('/account-holders/%s/documents/id-card', $document->getAccountHolderId());
                     break;
                 case DocumentPassport::TYPE:
                     $model = DocumentPassport::class;
-                    $endpoint = '/documents/passport';
+                    $endpoint = sprintf('/account-holders/%s/documents/passport', $document->getAccountHolderId());
                     break;
             }
 
@@ -94,18 +94,20 @@ class Documents extends AbstractHttpApi
     /**
      * Retrieves a Document.
      *
+     * @param string $accountHolderId
      * @param string $documentId
      *
      * @throws FinBlocksException
      *
      * @return AbstractDocument
      */
-    public function show(string $documentId): AbstractDocument
+    public function show(string $accountHolderId, string $documentId): AbstractDocument
     {
         try {
+            Assert::stringNotEmpty($accountHolderId, '`accountHolderId` argument must be a not empty string');
             Assert::stringNotEmpty($documentId, '`documentId` argument must be a not empty string');
 
-            $httpResponse = $this->httpGet(sprintf('/documents/%s', $documentId));
+            $httpResponse = $this->httpGet(sprintf('/account-holders/%s/documents/%s', $accountHolderId, $documentId));
 
             $arrayResponse = json_decode($httpResponse->getBody(), true);
 
