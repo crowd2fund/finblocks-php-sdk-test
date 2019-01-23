@@ -13,6 +13,8 @@ namespace FinBlocks\Tests\IntegrationTests\API;
 
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Document\AbstractDocument;
+use FinBlocks\Model\Document\DocumentIdCard;
+use FinBlocks\Model\Document\DocumentPassport;
 use FinBlocks\Model\Pagination\DocumentsPagination;
 use FinBlocks\Tests\Traits\AccountHolderTrait;
 use FinBlocks\Tests\Traits\DocumentTrait;
@@ -32,8 +34,6 @@ class DocumentsTest extends AbstractApiTests
 
     public function testCreateDocumentIdCard()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -41,11 +41,12 @@ class DocumentsTest extends AbstractApiTests
         $document = $this->finBlocks->api()->documents()->create($document);
 
         $this->assertNotEmpty($document->getId());
-        $this->assertEquals($accountHolder->getId(), $document->getAccountHolderId());
         $this->assertEquals('Label for ID Card\'s Document', $document->getLabel());
         $this->assertEquals('Tag for ID Card\'s Document', $document->gettag());
-        $this->assertEquals('idCard', $document->getType());
+        $this->assertEquals(DocumentIdCard::TYPE, $document->getType());
         $this->assertInstanceOf(\DateTime::class, $document->getCreatedAt());
+
+        $this->markTestIncomplete('Not yet implemented');
 
         $reloadedDocument = $this->finBlocks->api()->accountHolders()->show($document->getId());
 
@@ -54,8 +55,6 @@ class DocumentsTest extends AbstractApiTests
 
     public function testCreateDocumentPassport()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -63,11 +62,12 @@ class DocumentsTest extends AbstractApiTests
         $document = $this->finBlocks->api()->documents()->create($document);
 
         $this->assertNotEmpty($document->getId());
-        $this->assertEquals($accountHolder->getId(), $document->getAccountHolderId());
         $this->assertEquals('Label for ID Card\'s Document', $document->getLabel());
         $this->assertEquals('Tag for ID Card\'s Document', $document->gettag());
-        $this->assertEquals('passport', $document->getType());
+        $this->assertEquals(DocumentPassport::TYPE, $document->getType());
         $this->assertInstanceOf(\DateTime::class, $document->getCreatedAt());
+
+        $this->markTestIncomplete('Not yet implemented');
 
         $reloadedDocument = $this->finBlocks->api()->accountHolders()->show($document->getId());
 
