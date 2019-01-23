@@ -160,9 +160,11 @@ class HttpClient
                 $payload = json_encode($parameters);
                 curl_setopt($curl, CURLOPT_POST, true);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
-                curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
             }
         }
+
+        // Set the expected Content Type
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
         // SSL Certificate and Key
         //TODO: Restore the following commented lines to enable again the SSL authentication.
@@ -187,6 +189,15 @@ class HttpClient
             $lines = explode(PHP_EOL, $response);
 
             preg_match('/HTTP\/(\d+)\.(\d+)\s(\d+)/', reset($lines), $matchesForStatusCode);
+
+            // Some times, FinBlocks API Server might return the "100 Continue" status code. When this happens, we need
+            // to remove the 2 first lines of the header, so we can validate the expected status code for the request.
+            if (100 === (int) end($matchesForStatusCode)) {
+                unset($lines[0]);
+                unset($lines[1]);
+
+                preg_match('/HTTP\/(\d+)\.(\d+)\s(\d+)/', reset($lines), $matchesForStatusCode);
+            }
 
             $httpResponse = new HttpResponse(end($matchesForStatusCode), end($lines));
         }
