@@ -80,4 +80,14 @@ class ApiEndpoints extends AbstractHttpApi
     {
         return new Wallets($this->httpClient);
     }
+
+    /**
+     * API Endpoints for Withdrawals management.
+     *
+     * @return Withdrawals
+     */
+    public function withdrawals(): Withdrawals
+    {
+        return new Withdrawals($this->httpClient);
+    }
 }
