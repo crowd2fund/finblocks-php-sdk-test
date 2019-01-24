@@ -17,6 +17,9 @@
     </filter>
 
     <testsuites>
+        <testsuite name="AllTests">
+            <directory suffix="Test.php">tests</directory>
+        </testsuite>
         <testsuite name="IntegrationTests">
             <directory suffix="Test.php">tests/IntegrationTests</directory>
         </testsuite>

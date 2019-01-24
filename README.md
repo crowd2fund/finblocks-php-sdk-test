@@ -108,6 +108,17 @@ $finblocks->api()->wallets();        // Wallets
 $finblocks->api()->withdrawals();    // Withdrawals
 ```
 
+## Tests
+
+FinBlocks PHP SDK includes PHP Unit automated tests to check the expected results for each operation. The tests are
+split into 3 different suites, so we can run each one according to our needs. The CI tools are running all tests.
+
+`vendor/bin/phpunit --testsuite AllTests` or `vendor/bin/phpunit` runs all PHP Unit tests
+
+`vendor/bin/phpunit --testsuite IntegrationTests` runs the PHP Unit tests where we are interacting with the Test API server
+
+`vendor/bin/phpunit --testsuite UnitTests`  runs the PHP Unit tests where no API intaraction is needed 
+
 ## Contributing
 
 FinBlocks PHP SDK is an Open Source library, offered under the MIT license. As an Open Source project, we would love to be informed about any potential bug that you might find using it, but we would love to see you being part of the community that can maintain the SDK. 
