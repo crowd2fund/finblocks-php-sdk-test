@@ -79,6 +79,22 @@ class DocumentsTest extends AbstractApiTests
         $this->finBlocks->api()->documents()->create($document);
     }
 
+    public function testRetrieveDocumentThatBelongsToAnotherAccountHolder()
+    {
+        $accountHolder1 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder1 = $this->finBlocks->api()->accountHolders()->create($accountHolder1);
+
+        $accountHolder2 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder2 = $this->finBlocks->api()->accountHolders()->create($accountHolder2);
+
+        $document2 = $this->traitCreateDocumentPassportModel($this->finBlocks, $accountHolder2->getId());
+        $document2 = $this->finBlocks->api()->documents()->create($document2);
+
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->documents()->show($accountHolder1->getId(), $document2->getId());
+    }
+
     public function testListAllByAccountHolder()
     {
         $this->markTestIncomplete('Not yet implemented');
