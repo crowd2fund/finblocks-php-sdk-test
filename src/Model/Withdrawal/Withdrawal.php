@@ -27,6 +27,10 @@ class Withdrawal implements BaseModelInterface
 {
     const NATURE = 'withdrawal';
 
+    const STATUS_CREATED = 'created';
+    const STATUS_SUCCEEDED = 'succeeded';
+    const STATUS_FAILED = 'failed';
+
     /**
      * @var string
      */
@@ -70,7 +74,7 @@ class Withdrawal implements BaseModelInterface
     /**
      * @var Money
      */
-    private $debitedAmount;
+    private $amount;
 
     /**
      * @var Money
@@ -104,7 +108,7 @@ class Withdrawal implements BaseModelInterface
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'debitedAmount':
+                        case 'amount':
                         case 'fees':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
@@ -120,7 +124,7 @@ class Withdrawal implements BaseModelInterface
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
         } else {
-            $this->debitedAmount = Money::create();
+            $this->amount = Money::create();
             $this->fees = Money::create();
         }
     }
@@ -248,9 +252,9 @@ class Withdrawal implements BaseModelInterface
     /**
      * @return Money
      */
-    public function getDebitedAmount(): Money
+    public function getAmount(): Money
     {
-        return $this->debitedAmount;
+        return $this->amount;
     }
 
     /**
@@ -288,7 +292,7 @@ class Withdrawal implements BaseModelInterface
             'walletId'          => $this->walletId,
             'bankAccountId'     => $this->bankAccountId,
             'bankWireReference' => $this->bankWireReference,
-            'debitedAmount'      => $this->debitedAmount->httpCreate(),
+            'amount'            => $this->amount->httpCreate(),
             'fees'              => $this->fees->httpCreate(),
             'label'             => $this->label,
             'tag'               => $this->tag,
