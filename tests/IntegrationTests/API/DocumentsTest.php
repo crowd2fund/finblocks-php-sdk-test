@@ -46,9 +46,9 @@ class DocumentsTest extends AbstractApiTests
         $this->assertEquals(DocumentIdCard::TYPE, $document->getType());
         $this->assertInstanceOf(\DateTime::class, $document->getCreatedAt());
 
-        //TODO: Restore the following commented lines to enable again Unit Tests for the GET endpoints
-        //$reloadedDocument = $this->finBlocks->api()->accountHolders()->show($document->getId());
-        //$this->assertEquals($document->getId(), $reloadedDocument->getId());
+        $reloadedDocument = $this->finBlocks->api()->documents()->show($accountHolder->getId(), $document->getId());
+
+        $this->assertEquals($document->getId(), $reloadedDocument->getId());
     }
 
     public function testCreateDocumentPassport()
@@ -65,9 +65,9 @@ class DocumentsTest extends AbstractApiTests
         $this->assertEquals(DocumentPassport::TYPE, $document->getType());
         $this->assertInstanceOf(\DateTime::class, $document->getCreatedAt());
 
-        //TODO: Restore the following commented lines to enable again Unit Tests for the GET endpoints
-        //$reloadedDocument = $this->finBlocks->api()->accountHolders()->show($document->getId());
-        //$this->assertEquals($document->getId(), $reloadedDocument->getId());
+        $reloadedDocument = $this->finBlocks->api()->documents()->show($accountHolder->getId(), $document->getId());
+
+        $this->assertEquals($document->getId(), $reloadedDocument->getId());
     }
 
     public function testCreateEmptyDocument()
