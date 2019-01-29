@@ -110,7 +110,7 @@ class Card implements BaseModelInterface
                             $this->$property = !empty($content) ? new \DateTime($content) : $content;
                             break;
                         case 'endDate':
-                            $this->$property = !empty($content) ? \DateTime::createFromFormat('m/y', $content) : null;
+                            $this->$property = !empty($content) ? \DateTime::createFromFormat('my', $content) : null;
                             $this->$property->setDate($this->$property->format('Y'), $this->$property->format('m'), $this->$property->format('t'));
                             $this->$property->setTime(23, 59, 59);
                             break;
