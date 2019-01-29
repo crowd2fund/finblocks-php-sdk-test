@@ -50,15 +50,9 @@ final class DepositBankWire extends AbstractDeposit
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'billingAddress':
-                            $this->$property = Address::createFromPayload(json_encode($content));
-                            break;
-                        case 'amount':
                         case 'debitedAmount':
                         case 'creditedAmount':
                         case 'fees':
-                        case 'declaredDebitedAmount':
-                        case 'declaredFees':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
                         case 'createdAt':
@@ -90,44 +84,5 @@ final class DepositBankWire extends AbstractDeposit
     public static function createFromPayload(string $jsonData)
     {
         return new self($jsonData);
-    }
-
-    /**
-     * @var Money
-     */
-    private $declaredDebitedAmount;
-
-    /**
-     * @var Money
-     */
-    private $declaredFees;
-
-    /**
-     * @var string
-     */
-    private $wireReference;
-
-    /**
-     * @return Money
-     */
-    public function getDeclaredDebitedAmount(): Money
-    {
-        return $this->declaredDebitedAmount;
-    }
-
-    /**
-     * @return Money
-     */
-    public function getDeclaredFees(): Money
-    {
-        return $this->declaredFees;
-    }
-
-    /**
-     * @return string
-     */
-    public function getWireReference(): string
-    {
-        return $this->wireReference;
     }
 }

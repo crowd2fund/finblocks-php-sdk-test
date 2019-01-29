@@ -28,11 +28,6 @@ final class DepositDirectDebit extends AbstractDeposit
     const TYPE = 'directDebit';
 
     /**
-     * @var string
-     */
-    private $mandateId;
-
-    /**
      * DepositDirectDebit constructor.
      *
      * @param string|null $jsonData
@@ -53,9 +48,6 @@ final class DepositDirectDebit extends AbstractDeposit
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'billingAddress':
-                            $this->$property = Address::createFromPayload(json_encode($content));
-                            break;
                         case 'debitedAmount':
                         case 'creditedAmount':
                         case 'fees':
@@ -93,19 +85,13 @@ final class DepositDirectDebit extends AbstractDeposit
     }
 
     /**
-     * @param string $mandateId
+     * The Mandate ID.
+     *
+     * @param string $reference
      */
-    public function setMandateId(string $mandateId)
+    public function setReference(string $reference)
     {
-        $this->mandateId = $mandateId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMandateId(): string
-    {
-        return $this->mandateId;
+        $this->reference = $reference;
     }
 
     /**
@@ -115,7 +101,7 @@ final class DepositDirectDebit extends AbstractDeposit
     {
         return array_merge(
             parent::httpCreate(),
-            ['mandateId' => $this->mandateId]
+            ['reference' => $this->reference]
         );
     }
 }

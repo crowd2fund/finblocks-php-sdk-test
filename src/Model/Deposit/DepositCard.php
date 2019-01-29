@@ -28,11 +28,6 @@ final class DepositCard extends AbstractDeposit
     const TYPE = 'card';
 
     /**
-     * @var string
-     */
-    private $cardId;
-
-    /**
      * @var bool
      */
     private $secureMode = false;
@@ -58,10 +53,6 @@ final class DepositCard extends AbstractDeposit
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'billingAddress':
-                            $this->$property = Address::createFromPayload(json_encode($content));
-                            break;
-                        case 'amount':
                         case 'debitedAmount':
                         case 'creditedAmount':
                         case 'fees':
@@ -99,19 +90,13 @@ final class DepositCard extends AbstractDeposit
     }
 
     /**
-     * @param string $cardId
+     * The Card ID.
+     *
+     * @param string $reference
      */
-    public function setCardId(string $cardId)
+    public function setReference(string $reference)
     {
-        $this->cardId = $cardId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCardId(): string
-    {
-        return $this->cardId;
+        $this->reference = $reference;
     }
 
     /**
@@ -137,7 +122,7 @@ final class DepositCard extends AbstractDeposit
     {
         return array_merge(
             parent::httpCreate(),
-            ['cardId' => $this->cardId, 'secureMode' => $this->secureMode]
+            ['reference' => $this->reference, 'secureMode' => $this->secureMode]
         );
     }
 }

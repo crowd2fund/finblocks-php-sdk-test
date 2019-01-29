@@ -47,12 +47,12 @@ abstract class AbstractDeposit implements BaseModelInterface
     /**
      * @var string
      */
-    protected $status;
+    protected $nature = self::NATURE;
 
     /**
      * @var string
      */
-    protected $nature = self::NATURE;
+    protected $status;
 
     /**
      * @var string
@@ -60,14 +60,24 @@ abstract class AbstractDeposit implements BaseModelInterface
     private $returnUrl;
 
     /**
-     * @var Address
-     */
-    protected $billingAddress;
-
-    /**
      * @var string
      */
     protected $to;
+
+    /**
+     * @var \DateTime
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime|null
+     */
+    protected $executedAt;
+
+    /**
+     * @var \DateTime|null
+     */
+    protected $expiresAt;
 
     /**
      * @var Money
@@ -90,31 +100,20 @@ abstract class AbstractDeposit implements BaseModelInterface
     protected $fees;
 
     /**
-     * @var \DateTime
+     * @var string
      */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime|null
-     */
-    protected $executedAt;
-
-    /**
-     * @var \DateTime|null
-     */
-    protected $expiresAt;
+    protected $reference;
 
     /**
      * AbstractDeposit constructor.
      */
     protected function __construct()
     {
-        $this->billingAddress = Address::create();
+        $this->nature = self::NATURE;
         $this->amount = Money::create();
         $this->debitedAmount = Money::create();
         $this->creditedAmount = Money::create();
         $this->fees = Money::create();
-        $this->nature = self::NATURE;
     }
 
     /**
@@ -155,14 +154,6 @@ abstract class AbstractDeposit implements BaseModelInterface
     public function setReturnUrl(string $returnUrl)
     {
         $this->returnUrl = $returnUrl;
-    }
-
-    /**
-     * @return Address
-     */
-    public function getBillingAddress(): Address
-    {
-        return $this->billingAddress;
     }
 
     /**
@@ -235,6 +226,14 @@ abstract class AbstractDeposit implements BaseModelInterface
     public function getExpiresAt()
     {
         return $this->expiresAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference(): string
+    {
+        return $this->reference;
     }
 
     /**
