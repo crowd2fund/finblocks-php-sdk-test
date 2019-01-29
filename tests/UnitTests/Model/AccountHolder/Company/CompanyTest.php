@@ -45,22 +45,22 @@ class CompanyTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = Company::createFromPayload('{
-    "number": "1234567890",
-    "name": "Company Name",
-    "email": "company@test.finblocks.net",
-    "type": "business",
-    "address": {
-      "flatNumber": "3",
-      "buildingNumber": "28",
-      "buildingName": null,
-      "street": "Ely Place",
-      "subStreet": null,
-      "town": "London",
-      "state": "England",
-      "postcode": "EC1N 6TD",
-      "country": "GBR"
-    }
-  }');
+            "number": "1234567890",
+            "name": "Company Name",
+            "email": "company@test.finblocks.net",
+            "type": "business",
+            "address": {
+                "flatNumber": "3",
+                "buildingNumber": "28",
+                "buildingName": null,
+                "street": "Ely Place",
+                "subStreet": null,
+                "town": "London",
+                "state": "England",
+                "postcode": "EC1N 6TD",
+                "country": "GBR"
+            }
+        }');
 
         $this->assertEquals('1234567890', $model->getNumber());
         $this->assertEquals('Company Name', $model->getName());

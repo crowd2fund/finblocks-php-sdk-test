@@ -38,9 +38,9 @@ class MoneyTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = Money::createFromPayload('{
-  "currency": "GBP",
-  "amount": 100000
-}');
+            "currency": "GBP",
+            "amount": 100000
+        }');
 
         $this->assertEquals('GBP', $model->getCurrency());
         $this->assertEquals(100000, $model->getAmount());

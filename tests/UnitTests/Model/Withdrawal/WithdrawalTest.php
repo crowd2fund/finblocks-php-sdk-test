@@ -45,25 +45,25 @@ class WithdrawalTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = Withdrawal::createFromPayload('{
-  "id": "1111",
-  "label": "Withdrawal\'s Label",
-  "tag": "Withdrawal\'s Tag",
-  "status": "succeeded",
-  "nature": "withdrawal",
-  "walletId": "2222",
-  "bankAccountId": "3333",
-  "bankWireReference": "qwerty",
-  "amount": {
-    "currency": "GBP",
-    "amount": 100000
-  },
-  "fees": {
-    "currency": "GBP",
-    "amount": 0
-  },
-  "createdAt": "2018-12-31T11:31:34.343Z",
-  "executedAt": "2018-12-31T11:31:34.343Z"
-}');
+            "id": "1111",
+            "label": "Withdrawal\'s Label",
+            "tag": "Withdrawal\'s Tag",
+            "status": "succeeded",
+            "nature": "withdrawal",
+            "walletId": "2222",
+            "bankAccountId": "3333",
+            "bankWireReference": "qwerty",
+            "amount": {
+                "currency": "GBP",
+                "amount": 100000
+            },
+            "fees": {
+                "currency": "GBP",
+                "amount": 0
+            },
+            "createdAt": "2018-12-31T11:31:34.343Z",
+            "executedAt": "2018-12-31T11:31:34.343Z"
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('Withdrawal\'s Label', $model->getLabel());

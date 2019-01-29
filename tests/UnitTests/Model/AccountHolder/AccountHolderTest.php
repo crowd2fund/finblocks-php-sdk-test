@@ -59,31 +59,31 @@ class AccountHolderTest extends TestCase
     public function testCreateFilledModelFromJsonPayloadForIndividual()
     {
         $model = AccountHolderIndividual::createFromPayload('{
-  "id": "1111",
-  "type": "individual",
-  "email": "individual@test.finblocks.net",
-  "label": "Individual Account Holder\'s Label",
-  "tag": "Individual Account Holder\'s Tag",
-  "givenName": "John",
-  "middleName": "Q.",
-  "familyName": "Public",
-  "dateOfBirth": "1983-04-10T00:00:00.000Z",
-  "nationality": "GBR",
-  "occupation": "Unknown",
-  "incomeRange": 6,
-  "kyc": "verified",
-  "address": {
-    "flatNumber": "3",
-    "buildingNumber": "28",
-    "buildingName": null,
-    "street": "Ely Place",
-    "subStreet": null,
-    "town": "London",
-    "state": "England",
-    "postcode": "EC1N 6TD",
-    "country": "GBR"
-  }
-}');
+            "id": "1111",
+            "type": "individual",
+            "email": "individual@test.finblocks.net",
+            "label": "Individual Account Holder\'s Label",
+            "tag": "Individual Account Holder\'s Tag",
+            "givenName": "John",
+            "middleName": "Q.",
+            "familyName": "Public",
+            "dateOfBirth": "1983-04-10T00:00:00.000Z",
+            "nationality": "GBR",
+            "occupation": "Unknown",
+            "incomeRange": 6,
+            "kyc": "verified",
+            "address": {
+                "flatNumber": "3",
+                "buildingNumber": "28",
+                "buildingName": null,
+                "street": "Ely Place",
+                "subStreet": null,
+                "town": "London",
+                "state": "England",
+                "postcode": "EC1N 6TD",
+                "country": "GBR"
+            }
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('individual', $model->getType());
@@ -217,48 +217,48 @@ class AccountHolderTest extends TestCase
     public function testCreateFilledModelFromJsonPayloadForBusiness()
     {
         $model = AccountHolderBusiness::createFromPayload('{
-  "id": "1111",
-  "type": "business",
-  "email": "business@test.finblocks.net",
-  "label": "Business Account Holder\'s Label",
-  "tag": "Business Account Holder\'s Tag",
-  "givenName": "John",
-  "middleName": "Q.",
-  "familyName": "Public",
-  "dateOfBirth": "1983-04-10T00:00:00.000Z",
-  "nationality": "GBR",
-  "occupation": "Unknown",
-  "incomeRange": 6,
-  "kyc": "restricted",
-  "address": {
-    "flatNumber": "3",
-    "buildingNumber": "28",
-    "buildingName": null,
-    "street": "Ely Place",
-    "subStreet": null,
-    "town": "London",
-    "state": "England",
-    "postcode": "EC1N 6TD",
-    "country": "GBR"
-  },
-  "company": {
-    "number": "1234567890",
-    "name": "Company Name",
-    "email": "company@test.finblocks.net",
-    "type": "business",
-    "address": {
-      "flatNumber": "3",
-      "buildingNumber": "28",
-      "buildingName": null,
-      "street": "Ely Place",
-      "subStreet": null,
-      "town": "London",
-      "state": "England",
-      "postcode": "EC1N 6TD",
-      "country": "GBR"
-    }
-  }
-}');
+            "id": "1111",
+            "type": "business",
+            "email": "business@test.finblocks.net",
+            "label": "Business Account Holder\'s Label",
+            "tag": "Business Account Holder\'s Tag",
+            "givenName": "John",
+            "middleName": "Q.",
+            "familyName": "Public",
+            "dateOfBirth": "1983-04-10T00:00:00.000Z",
+            "nationality": "GBR",
+            "occupation": "Unknown",
+            "incomeRange": 6,
+            "kyc": "restricted",
+            "address": {
+                "flatNumber": "3",
+                "buildingNumber": "28",
+                "buildingName": null,
+                "street": "Ely Place",
+                "subStreet": null,
+                "town": "London",
+                "state": "England",
+                "postcode": "EC1N 6TD",
+                "country": "GBR"
+            },
+            "company": {
+                "number": "1234567890",
+                "name": "Company Name",
+                "email": "company@test.finblocks.net",
+                "type": "business",
+                "address": {
+                    "flatNumber": "3",
+                    "buildingNumber": "28",
+                    "buildingName": null,
+                    "street": "Ely Place",
+                    "subStreet": null,
+                    "town": "London",
+                    "state": "England",
+                    "postcode": "EC1N 6TD",
+                    "country": "GBR"
+                }
+            }
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('business', $model->getType());

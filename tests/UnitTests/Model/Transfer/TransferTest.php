@@ -43,28 +43,28 @@ class TransferTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = Transfer::createFromPayload('{
-  "id": "1111",
-  "status": "succeeded",
-  "nature": "transfer",
-  "label": "Transfer\'s Label",
-  "tag": "Transfer\'s Tag",
-  "from": "2222",
-  "to": "3333",
-  "debitedAmount": {
-    "currency": "GBP",
-    "amount": 11000
-  },
-  "creditedAmount": {
-    "currency": "GBP",
-    "amount": 10000
-  },
-  "fees": {
-    "currency": "GBP",
-    "amount": 1000
-  },
-  "createdAt": "2019-01-02T10:09:17.121Z",
-  "executedAt": "2019-01-02T10:09:17.121Z"
-}');
+            "id": "1111",
+            "status": "succeeded",
+            "nature": "transfer",
+            "label": "Transfer\'s Label",
+            "tag": "Transfer\'s Tag",
+            "from": "2222",
+            "to": "3333",
+            "debitedAmount": {
+                "currency": "GBP",
+                "amount": 11000
+            },
+            "creditedAmount": {
+                "currency": "GBP",
+                "amount": 10000
+            },
+            "fees": {
+                "currency": "GBP",
+                "amount": 1000
+            },
+            "createdAt": "2019-01-02T10:09:17.121Z",
+            "executedAt": "2019-01-02T10:09:17.121Z"
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('succeeded', $model->getStatus());

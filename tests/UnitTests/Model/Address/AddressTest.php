@@ -52,16 +52,16 @@ class AddressTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = Address::createFromPayload('{
-    "flatNumber": "3",
-    "buildingNumber": "28",
-    "buildingName": null,
-    "street": "Ely Place",
-    "subStreet": null,
-    "town": "London",
-    "state": "England",
-    "postcode": "EC1N 6TD",
-    "country": "GBR"
-  }');
+            "flatNumber": "3",
+            "buildingNumber": "28",
+            "buildingName": null,
+            "street": "Ely Place",
+            "subStreet": null,
+            "town": "London",
+            "state": "England",
+            "postcode": "EC1N 6TD",
+            "country": "GBR"
+        }');
 
         $this->assertEquals('3', $model->getFlatNumber());
         $this->assertEquals('28', $model->getBuildingNumber());

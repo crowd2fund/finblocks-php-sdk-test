@@ -40,15 +40,15 @@ class KnowYourCustomerTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = KnowYourCustomer::createFromPayload('{
-  "id": "1111",
-  "documentId": "2222",
-  "status": "refused",
-  "refusedReason": "Expired document",
-  "label": "Document\'s Label",
-  "tag": "Document\'s Tag",
-  "createdAt": "2019-01-02T12:40:21.919Z",
-  "processedAt": "2019-01-02T12:40:21.919Z"
-}');
+            "id": "1111",
+            "documentId": "2222",
+            "status": "refused",
+            "refusedReason": "Expired document",
+            "label": "Document\'s Label",
+            "tag": "Document\'s Tag",
+            "createdAt": "2019-01-02T12:40:21.919Z",
+            "processedAt": "2019-01-02T12:40:21.919Z"
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('2222', $model->getDocumentId());

@@ -43,28 +43,28 @@ class RefundTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = Refund::createFromPayload('{
-  "id": "1111",
-  "status": "succeeded",
-  "nature": "refund",
-  "label": "Refund\'s Label",
-  "tag": "Refund\'s Tag",
-  "from": "2222",
-  "to": "3333",
-  "debitedAmount": {
-    "currency": "GBP",
-    "amount": 10000
-  },
-  "creditedAmount": {
-    "currency": "GBP",
-    "amount": 0
-  },
-  "fees": {
-    "currency": "GBP",
-    "amount": 0
-  },
-  "createdAt": "2019-01-02T11:27:59.488Z",
-  "executedAt": "2019-01-02T11:27:59.488Z"
-}');
+            "id": "1111",
+            "status": "succeeded",
+            "nature": "refund",
+            "label": "Refund\'s Label",
+            "tag": "Refund\'s Tag",
+            "from": "2222",
+            "to": "3333",
+            "debitedAmount": {
+                "currency": "GBP",
+                "amount": 10000
+            },
+            "creditedAmount": {
+                "currency": "GBP",
+                "amount": 0
+            },
+            "fees": {
+                "currency": "GBP",
+                "amount": 0
+            },
+            "createdAt": "2019-01-02T11:27:59.488Z",
+            "executedAt": "2019-01-02T11:27:59.488Z"
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('succeeded', $model->getStatus());

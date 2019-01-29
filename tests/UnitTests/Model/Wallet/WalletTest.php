@@ -45,17 +45,17 @@ class WalletTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = Wallet::createFromPayload('{
-  "id": "1111",
-  "accountHolderId": "2222",
-  "currency": "GBP",
-  "label": "Wallet\'s Label",
-  "tag": "Wallet\'s Tag",
-  "balance": {
-    "currency": "GBP",
-    "amount": 200000
-  },
-  "createdAt": "2019-01-02T09:51:28.795Z"
-}');
+            "id": "1111",
+            "accountHolderId": "2222",
+            "currency": "GBP",
+            "label": "Wallet\'s Label",
+            "tag": "Wallet\'s Tag",
+            "balance": {
+                "currency": "GBP",
+                "amount": 200000
+            },
+            "createdAt": "2019-01-02T09:51:28.795Z"
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('Wallet\'s Label', $model->getLabel());

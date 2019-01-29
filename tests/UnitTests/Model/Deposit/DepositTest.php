@@ -49,46 +49,46 @@ class DepositTest extends TestCase
     public function testCreateFilledModelFromJsonPayloadForBankWire()
     {
         $model = DepositBankWire::createFromPayload('{
-  "id": "1111",
-  "type": "bankWire",
-  "nature": "deposit",
-  "status": "succeeded",
-  "to": "2222",
-  "createdAt": "2019-01-02T13:02:18.341Z",
-  "executedAt": "2019-01-02T13:02:18.341Z",
-  "billingAddress": {
-    "flatNumber": "3",
-    "buildingNumber": "28",
-    "buildingName": null,
-    "street": "Ely Place",
-    "subStreet": null,
-    "town": "London",
-    "state": "England",
-    "postcode": "EC1N 6TD",
-    "country": "GBR"
-  },
-  "debitedAmount": {
-    "currency": "GBP",
-    "amount": 200000
-  },
-  "creditedAmount": {
-    "currency": "GBP",
-    "amount": 200000
-  },
-  "fees": {
-    "currency": "GBP",
-    "amount": 0
-  },
-  "declaredDebitedAmount": {
-    "currency": "GBP",
-    "amount": 250000
-  },
-  "declaredFees": {
-    "currency": "GBP",
-    "amount": 0
-  },
-  "wireReference": "QWERTY"
-}');
+            "id": "1111",
+            "type": "bankWire",
+            "nature": "deposit",
+            "status": "succeeded",
+            "to": "2222",
+            "createdAt": "2019-01-02T13:02:18.341Z",
+            "executedAt": "2019-01-02T13:02:18.341Z",
+            "billingAddress": {
+                "flatNumber": "3",
+                "buildingNumber": "28",
+                "buildingName": null,
+                "street": "Ely Place",
+                "subStreet": null,
+                "town": "London",
+                "state": "England",
+                "postcode": "EC1N 6TD",
+                "country": "GBR"
+            },
+            "debitedAmount": {
+                "currency": "GBP",
+                "amount": 200000
+            },
+            "creditedAmount": {
+                "currency": "GBP",
+                "amount": 200000
+            },
+            "fees": {
+                "currency": "GBP",
+                "amount": 0
+            },
+            "declaredDebitedAmount": {
+                "currency": "GBP",
+                "amount": 250000
+            },
+            "declaredFees": {
+                "currency": "GBP",
+                "amount": 0
+            },
+            "wireReference": "QWERTY"
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('bankWire', $model->getType());
@@ -190,39 +190,39 @@ class DepositTest extends TestCase
     public function testCreateFilledModelFromJsonPayloadForCard()
     {
         $model = DepositCard::createFromPayload('{
-  "id": "1111",
-  "type": "card",
-  "nature": "deposit",
-  "status": "succeeded",
-  "to": "2222",
-  "createdAt": "2019-01-02T13:02:18.341Z",
-  "executedAt": "2019-01-02T13:02:18.341Z",
-  "billingAddress": {
-    "flatNumber": "3",
-    "buildingNumber": "28",
-    "buildingName": null,
-    "street": "Ely Place",
-    "subStreet": null,
-    "town": "London",
-    "state": "England",
-    "postcode": "EC1N 6TD",
-    "country": "GBR"
-  },
-  "debitedAmount": {
-    "currency": "GBP",
-    "amount": 200000
-  },
-  "creditedAmount": {
-    "currency": "GBP",
-    "amount": 200000
-  },
-  "fees": {
-    "currency": "GBP",
-    "amount": 0
-  },
-  "cardId": "3333",
-  "secureMode": true
-}');
+            "id": "1111",
+            "type": "card",
+            "nature": "deposit",
+            "status": "succeeded",
+            "to": "2222",
+            "createdAt": "2019-01-02T13:02:18.341Z",
+            "executedAt": "2019-01-02T13:02:18.341Z",
+            "billingAddress": {
+                "flatNumber": "3",
+                "buildingNumber": "28",
+                "buildingName": null,
+                "street": "Ely Place",
+                "subStreet": null,
+                "town": "London",
+                "state": "England",
+                "postcode": "EC1N 6TD",
+                "country": "GBR"
+            },
+            "debitedAmount": {
+                "currency": "GBP",
+                "amount": 200000
+            },
+            "creditedAmount": {
+                "currency": "GBP",
+                "amount": 200000
+            },
+            "fees": {
+                "currency": "GBP",
+                "amount": 0
+            },
+            "cardId": "3333",
+            "secureMode": true
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('card', $model->getType());
@@ -317,38 +317,38 @@ class DepositTest extends TestCase
     public function testCreateFilledModelFromJsonPayloadForDirectDebit()
     {
         $model = DepositDirectDebit::createFromPayload('{
-  "id": "1111",
-  "type": "directDebit",
-  "nature": "deposit",
-  "status": "succeeded",
-  "to": "2222",
-  "createdAt": "2019-01-02T13:02:18.341Z",
-  "executedAt": "2019-01-02T13:02:18.341Z",
-  "billingAddress": {
-    "flatNumber": "3",
-    "buildingNumber": "28",
-    "buildingName": null,
-    "street": "Ely Place",
-    "subStreet": null,
-    "town": "London",
-    "state": "England",
-    "postcode": "EC1N 6TD",
-    "country": "GBR"
-  },
-  "debitedAmount": {
-    "currency": "GBP",
-    "amount": 200000
-  },
-  "creditedAmount": {
-    "currency": "GBP",
-    "amount": 200000
-  },
-  "fees": {
-    "currency": "GBP",
-    "amount": 0
-  },
-  "mandateId": "3333"
-}');
+            "id": "1111",
+            "type": "directDebit",
+            "nature": "deposit",
+            "status": "succeeded",
+            "to": "2222",
+            "createdAt": "2019-01-02T13:02:18.341Z",
+            "executedAt": "2019-01-02T13:02:18.341Z",
+            "billingAddress": {
+                "flatNumber": "3",
+                "buildingNumber": "28",
+                "buildingName": null,
+                "street": "Ely Place",
+                "subStreet": null,
+                "town": "London",
+                "state": "England",
+                "postcode": "EC1N 6TD",
+                "country": "GBR"
+            },
+            "debitedAmount": {
+                "currency": "GBP",
+                "amount": 200000
+            },
+            "creditedAmount": {
+                "currency": "GBP",
+                "amount": 200000
+            },
+            "fees": {
+                "currency": "GBP",
+                "amount": 0
+            },
+            "mandateId": "3333"
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('directDebit', $model->getType());

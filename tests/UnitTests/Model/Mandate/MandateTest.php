@@ -43,17 +43,17 @@ class MandateTest extends TestCase
     public function testCreateFilledModelFromJsonPayload()
     {
         $model = Mandate::createFromPayload('{
-  "id": "1111",
-  "bankAccountId": "2222",
-  "accountHolderId": "3333",
-  "label": "Mandate\'s Label",
-  "tag": "Mandate\'s Tag",
-  "documentUrl": "Document\'s URL",
-  "scheme": "sepa",
-  "status": "created",
-  "bankReference": "QWERTY",
-  "createdAt": "2019-01-02T12:04:07.278Z"
-}');
+            "id": "1111",
+            "bankAccountId": "2222",
+            "accountHolderId": "3333",
+            "label": "Mandate\'s Label",
+            "tag": "Mandate\'s Tag",
+            "documentUrl": "Document\'s URL",
+            "scheme": "sepa",
+            "status": "created",
+            "bankReference": "QWERTY",
+            "createdAt": "2019-01-02T12:04:07.278Z"
+        }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('2222', $model->getBankAccountId());
