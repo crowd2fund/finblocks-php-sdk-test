@@ -41,6 +41,8 @@ final class DepositDirectDebit extends AbstractDeposit
     {
         parent::__construct();
 
+        $this->type = self::TYPE;
+
         if (!empty($jsonData)) {
             try {
                 $arrayData = json_decode($jsonData, true);
@@ -61,6 +63,7 @@ final class DepositDirectDebit extends AbstractDeposit
                             break;
                         case 'createdAt':
                         case 'executedAt':
+                        case 'expiresAt':
                             $this->$property = !empty($content) ? new \DateTime($content) : $content;
                             break;
                         default:

@@ -36,6 +36,7 @@ final class DepositBankWire extends AbstractDeposit
     {
         parent::__construct();
 
+        $this->type = self::TYPE;
         $this->declaredDebitedAmount = Money::create();
         $this->declaredFees = Money::create();
 
@@ -62,6 +63,7 @@ final class DepositBankWire extends AbstractDeposit
                             break;
                         case 'createdAt':
                         case 'executedAt':
+                        case 'expiresAt':
                             $this->$property = !empty($content) ? new \DateTime($content) : $content;
                             break;
                         default:

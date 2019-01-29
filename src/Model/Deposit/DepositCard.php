@@ -46,6 +46,8 @@ final class DepositCard extends AbstractDeposit
     {
         parent::__construct();
 
+        $this->type = self::TYPE;
+
         if (!empty($jsonData)) {
             try {
                 $arrayData = json_decode($jsonData, true);
@@ -59,6 +61,7 @@ final class DepositCard extends AbstractDeposit
                         case 'billingAddress':
                             $this->$property = Address::createFromPayload(json_encode($content));
                             break;
+                        case 'amount':
                         case 'debitedAmount':
                         case 'creditedAmount':
                         case 'fees':
@@ -66,6 +69,7 @@ final class DepositCard extends AbstractDeposit
                             break;
                         case 'createdAt':
                         case 'executedAt':
+                        case 'expiresAt':
                             $this->$property = !empty($content) ? new \DateTime($content) : $content;
                             break;
                         default:

@@ -56,6 +56,7 @@ class DepositTest extends TestCase
             "to": "2222",
             "createdAt": "2019-01-02T13:02:18.341Z",
             "executedAt": "2019-01-02T13:02:18.341Z",
+            "expiresAt": "2019-02-01T13:02:18.341Z",
             "billingAddress": {
                 "flatNumber": "3",
                 "buildingNumber": "28",
@@ -132,9 +133,11 @@ class DepositTest extends TestCase
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
         $this->assertInstanceOf(\DateTime::class, $model->getExecutedAt());
+        $this->assertInstanceOf(\DateTime::class, $model->getExpiresAt());
 
         $this->assertEquals('2019-01-02 13:02:18', $model->getCreatedAt()->format('Y-m-d H:i:s'));
         $this->assertEquals('2019-01-02 13:02:18', $model->getExecutedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2019-02-01 13:02:18', $model->getExpiresAt()->format('Y-m-d H:i:s'));
     }
 
     public function testCreateFilledModelFromWrongJsonPayloadForBankWire()
@@ -197,6 +200,7 @@ class DepositTest extends TestCase
             "to": "2222",
             "createdAt": "2019-01-02T13:02:18.341Z",
             "executedAt": "2019-01-02T13:02:18.341Z",
+            "expiresAt": "2019-02-01T13:02:18.341Z",
             "billingAddress": {
                 "flatNumber": "3",
                 "buildingNumber": "28",
@@ -259,9 +263,11 @@ class DepositTest extends TestCase
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
         $this->assertInstanceOf(\DateTime::class, $model->getExecutedAt());
+        $this->assertInstanceOf(\DateTime::class, $model->getExpiresAt());
 
         $this->assertEquals('2019-01-02 13:02:18', $model->getCreatedAt()->format('Y-m-d H:i:s'));
         $this->assertEquals('2019-01-02 13:02:18', $model->getExecutedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2019-02-01 13:02:18', $model->getExpiresAt()->format('Y-m-d H:i:s'));
     }
 
     public function testCreateFilledModelFromWrongJsonPayloadForCard()
@@ -324,6 +330,7 @@ class DepositTest extends TestCase
             "to": "2222",
             "createdAt": "2019-01-02T13:02:18.341Z",
             "executedAt": "2019-01-02T13:02:18.341Z",
+            "expiresAt": "2019-02-01T13:02:18.341Z",
             "billingAddress": {
                 "flatNumber": "3",
                 "buildingNumber": "28",
@@ -384,9 +391,11 @@ class DepositTest extends TestCase
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
         $this->assertInstanceOf(\DateTime::class, $model->getExecutedAt());
+        $this->assertInstanceOf(\DateTime::class, $model->getExpiresAt());
 
         $this->assertEquals('2019-01-02 13:02:18', $model->getCreatedAt()->format('Y-m-d H:i:s'));
         $this->assertEquals('2019-01-02 13:02:18', $model->getExecutedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2019-02-01 13:02:18', $model->getExpiresAt()->format('Y-m-d H:i:s'));
     }
 
     public function testCreateFilledModelFromWrongJsonPayloadForDirectDebit()

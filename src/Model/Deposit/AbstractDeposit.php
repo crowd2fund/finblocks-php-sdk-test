@@ -28,6 +28,12 @@ abstract class AbstractDeposit implements BaseModelInterface
 {
     const NATURE = 'deposit';
 
+    const STATUS_REQUESTED = 'requested';
+    const STATUS_DEPOSITED = 'deposited';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_EXPIRED   = 'expired';
+    const STATUS_REJECTED  = 'rejected';
+
     /**
      * @var string
      */
@@ -94,6 +100,11 @@ abstract class AbstractDeposit implements BaseModelInterface
     protected $executedAt;
 
     /**
+     * @var \DateTime|null
+     */
+    protected $expiresAt;
+
+    /**
      * AbstractDeposit constructor.
      */
     protected function __construct()
@@ -103,6 +114,7 @@ abstract class AbstractDeposit implements BaseModelInterface
         $this->debitedAmount = Money::create();
         $this->creditedAmount = Money::create();
         $this->fees = Money::create();
+        $this->nature = self::NATURE;
     }
 
     /**
@@ -215,6 +227,14 @@ abstract class AbstractDeposit implements BaseModelInterface
     public function getExecutedAt()
     {
         return $this->executedAt;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
     }
 
     /**
