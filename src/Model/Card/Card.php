@@ -40,6 +40,26 @@ class Card implements BaseModelInterface
     private $token;
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var string
+     */
+    private $lastFour;
+
+    /**
+     * @var string
+     */
+    private $funding;
+
+    /**
+     * @var \DateTime
+     */
+    private $endDate;
+
+    /**
      * @var string|null
      */
     private $label;
@@ -52,18 +72,14 @@ class Card implements BaseModelInterface
     /**
      * @var string
      */
-    private $lastFour;
+    private $country;
 
     /**
-     * TODO: Confirm if we need to keep `status` or `active`
-     *
      * @var string
      */
-    private $status;
+    private $bank;
 
     /**
-     * TODO: Confirm if we need to keep `status` or `active`
-     *
      * @var bool
      */
     private $active;
@@ -72,11 +88,6 @@ class Card implements BaseModelInterface
      * @var \DateTime
      */
     private $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    private $expiresAt;
 
     /**
      * Card constructor.
@@ -96,8 +107,12 @@ class Card implements BaseModelInterface
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
                         case 'createdAt':
-                        case 'expiresAt':
                             $this->$property = !empty($content) ? new \DateTime($content) : $content;
+                            break;
+                        case 'endDate':
+                            $this->$property = !empty($content) ? \DateTime::createFromFormat('m/y', $content) : null;
+                            $this->$property->setDate($this->$property->format('Y'), $this->$property->format('m'), $this->$property->format('t'));
+                            $this->$property->setTime(23, 59, 59);
                             break;
                         default:
                             $this->$property = $content;
@@ -158,6 +173,38 @@ class Card implements BaseModelInterface
     }
 
     /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastFour(): string
+    {
+        return $this->lastFour;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFunding(): string
+    {
+        return $this->funding;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndDate(): \DateTime
+    {
+        return $this->endDate;
+    }
+
+    /**
      * @param string|null $label
      */
     public function setLabel(string $label = null)
@@ -192,24 +239,20 @@ class Card implements BaseModelInterface
     /**
      * @return string
      */
-    public function getLastFour(): string
+    public function getCountry(): string
     {
-        return $this->lastFour;
+        return $this->country;
     }
 
     /**
-     * TODO: Confirm if we need to keep `status` or `active`
-     *
      * @return string
      */
-    public function getStatus(): string
+    public function getBank(): string
     {
-        return $this->status;
+        return $this->bank;
     }
 
     /**
-     * TODO: Confirm if we need to keep `status` or `active`
-     *
      * @return bool
      */
     public function isActive(): bool
@@ -223,14 +266,6 @@ class Card implements BaseModelInterface
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getExpiresAt(): \DateTime
-    {
-        return $this->expiresAt;
     }
 
     /**

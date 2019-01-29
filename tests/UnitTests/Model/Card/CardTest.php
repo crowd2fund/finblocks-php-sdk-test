@@ -45,28 +45,34 @@ class CardTest extends TestCase
         $model = Card::createFromPayload('{
             "id": "1111",
             "accountHolderId": "2222",
-            "label": "Card\'s Label",
-            "tag": "Card\'s Tag",
+            "type": "VISA",
             "lastFour": "7890",
-            "status": "active",
-            "createdAt": "2019-01-03T09:51:11.091Z",
-            "expiresAt": "2019-01-03T09:51:11.091Z"
+            "funding": "Debit",
+            "endDate": "1220",
+            "label":"Card\'s Label",
+            "tag":"Card\'s Tag",
+            "country": "GBR",
+            "bank": "Bank Name",
+            "active": true,
+            "createdAt": "2019-01-02T13:02:18.341Z"
         }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('2222', $model->getAccountHolderId());
+        $this->assertEquals('VISA', $model->getType());
+        $this->assertEquals('7890', $model->getLastFour());
+        $this->assertEquals('Debit', $model->getFunding());
         $this->assertEquals('Card\'s Label', $model->getLabel());
         $this->assertEquals('Card\'s Tag', $model->getTag());
-        $this->assertEquals('7890', $model->getLastFour());
-        //TODO: Review the `getStatus` and/or `isActive` methods and the API response.
-        //$this->assertEquals('active', $model->getStatus());
-        //$this->assertEquals(true, $model->isActive());
+        $this->assertEquals('GBR', $model->getCountry());
+        $this->assertEquals('Bank Name', $model->getBank());
+        $this->assertEquals(true, $model->isActive());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
-        $this->assertInstanceOf(\DateTime::class, $model->getExpiresAt());
+        $this->assertInstanceOf(\DateTime::class, $model->getEndDate());
 
-        $this->assertEquals('2019-01-03 09:51:11', $model->getCreatedAt()->format('Y-m-d H:i:s'));
-        $this->assertEquals('2019-01-03 09:51:11', $model->getExpiresAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2019-01-02 13:02:18', $model->getCreatedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2020-12-31 23:59:59', $model->getEndDate()->format('Y-m-d H:i:s'));
     }
 
     public function testCreateFilledModelFromWrongJsonPayload()
