@@ -55,9 +55,18 @@ class Card implements BaseModelInterface
     private $lastFour;
 
     /**
+     * TODO: Confirm if we need to keep `status` or `active`
+     *
      * @var string
      */
     private $status;
+
+    /**
+     * TODO: Confirm if we need to keep `status` or `active`
+     *
+     * @var bool
+     */
+    private $active;
 
     /**
      * @var \DateTime
@@ -189,11 +198,23 @@ class Card implements BaseModelInterface
     }
 
     /**
+     * TODO: Confirm if we need to keep `status` or `active`
+     *
      * @return string
      */
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    /**
+     * TODO: Confirm if we need to keep `status` or `active`
+     *
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return true === $this->active;
     }
 
     /**
