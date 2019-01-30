@@ -50,17 +50,9 @@ class TransferTest extends TestCase
             "tag": "Transfer\'s Tag",
             "from": "2222",
             "to": "3333",
-            "debitedAmount": {
-                "currency": "GBP",
-                "amount": 11000
-            },
-            "creditedAmount": {
+            "amount": {
                 "currency": "GBP",
                 "amount": 10000
-            },
-            "fees": {
-                "currency": "GBP",
-                "amount": 1000
             },
             "createdAt": "2019-01-02T10:09:17.121Z",
             "executedAt": "2019-01-02T10:09:17.121Z"
@@ -74,18 +66,10 @@ class TransferTest extends TestCase
         $this->assertEquals('2222', $model->getFrom());
         $this->assertEquals('3333', $model->getTo());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
-        $this->assertInstanceOf(Money::class, $model->getCreditedAmount());
-        $this->assertInstanceOf(Money::class, $model->getFees());
+        $this->assertInstanceOf(Money::class, $model->getAmount());
 
-        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
-        $this->assertEquals(11000, $model->getDebitedAmount()->getAmount());
-
-        $this->assertEquals('GBP', $model->getCreditedAmount()->getCurrency());
-        $this->assertEquals(10000, $model->getCreditedAmount()->getAmount());
-
-        $this->assertEquals('GBP', $model->getFees()->getCurrency());
-        $this->assertEquals(1000, $model->getFees()->getAmount());
+        $this->assertEquals('GBP', $model->getAmount()->getCurrency());
+        $this->assertEquals(10000, $model->getAmount()->getAmount());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
         $this->assertInstanceOf(\DateTime::class, $model->getExecutedAt());
@@ -107,21 +91,16 @@ class TransferTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(6, $array);
-        $this->assertArrayHasKey('from', $array);
-        $this->assertArrayHasKey('to', $array);
-        $this->assertArrayHasKey('debitedAmount', $array);
-        $this->assertArrayHasKey('fees', $array);
+        $this->assertCount(5, $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
+        $this->assertArrayHasKey('from', $array);
+        $this->assertArrayHasKey('to', $array);
+        $this->assertArrayHasKey('amount', $array);
 
-        $this->assertCount(2, $array['debitedAmount']);
-        $this->assertArrayHasKey('currency', $array['debitedAmount']);
-        $this->assertArrayHasKey('amount', $array['debitedAmount']);
-
-        $this->assertCount(2, $array['fees']);
-        $this->assertArrayHasKey('currency', $array['fees']);
-        $this->assertArrayHasKey('amount', $array['fees']);
+        $this->assertCount(2, $array['amount']);
+        $this->assertArrayHasKey('currency', $array['amount']);
+        $this->assertArrayHasKey('amount', $array['amount']);
     }
 
     public function testUpdateArray()

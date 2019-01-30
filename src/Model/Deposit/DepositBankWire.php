@@ -37,8 +37,6 @@ final class DepositBankWire extends AbstractDeposit
         parent::__construct();
 
         $this->type = self::TYPE;
-        $this->declaredDebitedAmount = Money::create();
-        $this->declaredFees = Money::create();
 
         if (!empty($jsonData)) {
             try {
@@ -50,9 +48,7 @@ final class DepositBankWire extends AbstractDeposit
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'debitedAmount':
-                        case 'creditedAmount':
-                        case 'fees':
+                        case 'amount':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
                         case 'createdAt':

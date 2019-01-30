@@ -36,14 +36,12 @@ class DepositTest extends TestCase
 
         // There's no Getter, please refer to the testCreateArrayForBankWire's method.
         $model->setReturnUrl('url');
-
-        // TODO: Add Label and Tag
-        //$model->setLabel('label');
-        //$model->setTag('tag');
+        $model->setLabel('label');
+        $model->setTag('tag');
 
         $this->assertEquals('12345678', $model->getTo());
-        //$this->assertEquals('label', $model->getLabel());
-        //$this->assertEquals('tag', $model->getTag());
+        $this->assertEquals('label', $model->getLabel());
+        $this->assertEquals('tag', $model->getTag());
     }
 
     public function testCreateFilledModelFromJsonPayloadForBankWire()
@@ -57,25 +55,9 @@ class DepositTest extends TestCase
             "createdAt": "2019-01-02T13:02:18.341Z",
             "executedAt": "2019-01-02T13:02:18.341Z",
             "expiresAt": "2019-02-01T13:02:18.341Z",
-            "debitedAmount": {
+            "amount": {
                 "currency": "GBP",
                 "amount": 200000
-            },
-            "creditedAmount": {
-                "currency": "GBP",
-                "amount": 200000
-            },
-            "fees": {
-                "currency": "GBP",
-                "amount": 0
-            },
-            "declaredDebitedAmount": {
-                "currency": "GBP",
-                "amount": 250000
-            },
-            "declaredFees": {
-                "currency": "GBP",
-                "amount": 0
             },
             "reference": "QWERTY"
         }');
@@ -87,18 +69,10 @@ class DepositTest extends TestCase
         $this->assertEquals('2222', $model->getTo());
         $this->assertEquals('QWERTY', $model->getReference());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
-        $this->assertInstanceOf(Money::class, $model->getCreditedAmount());
-        $this->assertInstanceOf(Money::class, $model->getFees());
+        $this->assertInstanceOf(Money::class, $model->getAmount());
 
-        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
-        $this->assertEquals(200000, $model->getDebitedAmount()->getAmount());
-
-        $this->assertEquals('GBP', $model->getCreditedAmount()->getCurrency());
-        $this->assertEquals(200000, $model->getCreditedAmount()->getAmount());
-
-        $this->assertEquals('GBP', $model->getFees()->getCurrency());
-        $this->assertEquals(0, $model->getFees()->getAmount());
+        $this->assertEquals('GBP', $model->getAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getAmount()->getAmount());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
         $this->assertInstanceOf(\DateTime::class, $model->getExecutedAt());
@@ -123,11 +97,12 @@ class DepositTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(4, $array);
+        $this->assertCount(5, $array);
+        $this->assertArrayHasKey('label', $array);
+        $this->assertArrayHasKey('tag', $array);
         $this->assertArrayHasKey('to', $array);
         $this->assertArrayHasKey('returnUrl', $array);
         $this->assertArrayHasKey('amount', $array);
-        $this->assertArrayHasKey('fees', $array);
     }
 
     public function testUpdateArrayForBankWire()
@@ -170,17 +145,9 @@ class DepositTest extends TestCase
             "createdAt": "2019-01-02T13:02:18.341Z",
             "executedAt": "2019-01-02T13:02:18.341Z",
             "expiresAt": "2019-02-01T13:02:18.341Z",
-            "debitedAmount": {
+            "amount": {
                 "currency": "GBP",
                 "amount": 200000
-            },
-            "creditedAmount": {
-                "currency": "GBP",
-                "amount": 200000
-            },
-            "fees": {
-                "currency": "GBP",
-                "amount": 0
             },
             "reference": "3333"
         }');
@@ -192,18 +159,10 @@ class DepositTest extends TestCase
         $this->assertEquals('2222', $model->getTo());
         $this->assertEquals('3333', $model->getReference());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
-        $this->assertInstanceOf(Money::class, $model->getCreditedAmount());
-        $this->assertInstanceOf(Money::class, $model->getFees());
+        $this->assertInstanceOf(Money::class, $model->getAmount());
 
-        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
-        $this->assertEquals(200000, $model->getDebitedAmount()->getAmount());
-
-        $this->assertEquals('GBP', $model->getCreditedAmount()->getCurrency());
-        $this->assertEquals(200000, $model->getCreditedAmount()->getAmount());
-
-        $this->assertEquals('GBP', $model->getFees()->getCurrency());
-        $this->assertEquals(0, $model->getFees()->getAmount());
+        $this->assertEquals('GBP', $model->getAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getAmount()->getAmount());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
         $this->assertInstanceOf(\DateTime::class, $model->getExecutedAt());
@@ -228,11 +187,12 @@ class DepositTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(6, $array);
+        $this->assertCount(7, $array);
+        $this->assertArrayHasKey('label', $array);
+        $this->assertArrayHasKey('tag', $array);
         $this->assertArrayHasKey('to', $array);
         $this->assertArrayHasKey('returnUrl', $array);
         $this->assertArrayHasKey('amount', $array);
-        $this->assertArrayHasKey('fees', $array);
         $this->assertArrayHasKey('reference', $array);
         $this->assertArrayHasKey('secureMode', $array);
     }
@@ -275,17 +235,9 @@ class DepositTest extends TestCase
             "createdAt": "2019-01-02T13:02:18.341Z",
             "executedAt": "2019-01-02T13:02:18.341Z",
             "expiresAt": "2019-02-01T13:02:18.341Z",
-            "debitedAmount": {
+            "amount": {
                 "currency": "GBP",
                 "amount": 200000
-            },
-            "creditedAmount": {
-                "currency": "GBP",
-                "amount": 200000
-            },
-            "fees": {
-                "currency": "GBP",
-                "amount": 0
             },
             "reference": "3333"
         }');
@@ -297,18 +249,10 @@ class DepositTest extends TestCase
         $this->assertEquals('2222', $model->getTo());
         $this->assertEquals('3333', $model->getReference());
 
-        $this->assertInstanceOf(Money::class, $model->getDebitedAmount());
-        $this->assertInstanceOf(Money::class, $model->getCreditedAmount());
-        $this->assertInstanceOf(Money::class, $model->getFees());
+        $this->assertInstanceOf(Money::class, $model->getAmount());
 
-        $this->assertEquals('GBP', $model->getDebitedAmount()->getCurrency());
-        $this->assertEquals(200000, $model->getDebitedAmount()->getAmount());
-
-        $this->assertEquals('GBP', $model->getCreditedAmount()->getCurrency());
-        $this->assertEquals(200000, $model->getCreditedAmount()->getAmount());
-
-        $this->assertEquals('GBP', $model->getFees()->getCurrency());
-        $this->assertEquals(0, $model->getFees()->getAmount());
+        $this->assertEquals('GBP', $model->getAmount()->getCurrency());
+        $this->assertEquals(200000, $model->getAmount()->getAmount());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
         $this->assertInstanceOf(\DateTime::class, $model->getExecutedAt());
@@ -334,11 +278,12 @@ class DepositTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(5, $array);
+        $this->assertCount(6, $array);
+        $this->assertArrayHasKey('label', $array);
+        $this->assertArrayHasKey('tag', $array);
         $this->assertArrayHasKey('to', $array);
         $this->assertArrayHasKey('returnUrl', $array);
         $this->assertArrayHasKey('amount', $array);
-        $this->assertArrayHasKey('fees', $array);
         $this->assertArrayHasKey('reference', $array);
     }
 

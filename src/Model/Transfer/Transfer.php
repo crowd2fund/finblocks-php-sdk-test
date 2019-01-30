@@ -65,17 +65,7 @@ class Transfer implements BaseModelInterface
     /**
      * @var Money
      */
-    private $debitedAmount;
-
-    /**
-     * @var Money
-     */
-    private $creditedAmount;
-
-    /**
-     * @var Money
-     */
-    private $fees;
+    private $amount;
 
     /**
      * @var \DateTime
@@ -94,6 +84,8 @@ class Transfer implements BaseModelInterface
      */
     private function __construct(string $jsonData = null)
     {
+        $this->amount = Money::create();
+
         if (!empty($jsonData)) {
             try {
                 $arrayData = json_decode($jsonData, true);
@@ -104,9 +96,7 @@ class Transfer implements BaseModelInterface
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'debitedAmount':
-                        case 'creditedAmount':
-                        case 'fees':
+                        case 'amount':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
                         case 'createdAt':
@@ -120,10 +110,6 @@ class Transfer implements BaseModelInterface
             } catch (\Throwable $throwable) {
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
-        } else {
-            $this->debitedAmount = Money::create();
-            $this->creditedAmount = Money::create();
-            $this->fees = Money::create();
         }
     }
 
@@ -234,25 +220,9 @@ class Transfer implements BaseModelInterface
     /**
      * @return Money
      */
-    public function getDebitedAmount(): Money
+    public function getAmount(): Money
     {
-        return $this->debitedAmount;
-    }
-
-    /**
-     * @return Money
-     */
-    public function getCreditedAmount(): Money
-    {
-        return $this->creditedAmount;
-    }
-
-    /**
-     * @return Money
-     */
-    public function getFees(): Money
-    {
-        return $this->fees;
+        return $this->amount;
     }
 
     /**
@@ -279,12 +249,11 @@ class Transfer implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'label'            => $this->label,
-            'tag'              => $this->tag,
-            'from'  => $this->from,
-            'to' => $this->to,
-            'debitedAmount'     => $this->debitedAmount->httpCreate(),
-            'fees'             => $this->fees->httpCreate(),
+            'label'  => $this->label,
+            'tag'    => $this->tag,
+            'from'   => $this->from,
+            'to'     => $this->to,
+            'amount' => $this->amount->httpCreate(),
         ];
     }
 

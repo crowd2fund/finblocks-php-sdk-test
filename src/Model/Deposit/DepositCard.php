@@ -53,9 +53,7 @@ final class DepositCard extends AbstractDeposit
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'debitedAmount':
-                        case 'creditedAmount':
-                        case 'fees':
+                        case 'amount':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
                         case 'createdAt':

@@ -55,6 +55,16 @@ abstract class AbstractDeposit implements BaseModelInterface
     protected $status;
 
     /**
+     * @var string|null
+     */
+    protected $label;
+
+    /**
+     * @var string|null
+     */
+    protected $tag;
+
+    /**
      * @var string
      */
     private $returnUrl;
@@ -85,21 +95,6 @@ abstract class AbstractDeposit implements BaseModelInterface
     protected $amount;
 
     /**
-     * @var Money
-     */
-    protected $debitedAmount;
-
-    /**
-     * @var Money
-     */
-    protected $creditedAmount;
-
-    /**
-     * @var Money
-     */
-    protected $fees;
-
-    /**
      * @var string
      */
     protected $reference;
@@ -111,9 +106,6 @@ abstract class AbstractDeposit implements BaseModelInterface
     {
         $this->nature = self::NATURE;
         $this->amount = Money::create();
-        $this->debitedAmount = Money::create();
-        $this->creditedAmount = Money::create();
-        $this->fees = Money::create();
     }
 
     /**
@@ -138,6 +130,38 @@ abstract class AbstractDeposit implements BaseModelInterface
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    /**
+     * @param string|null $label
+     */
+    public function setLabel(string $label = null)
+    {
+        $this->label = $label;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string|null $tag
+     */
+    public function setTag(string $tag = null)
+    {
+        $this->tag = $tag;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTag()
+    {
+        return $this->tag;
     }
 
     /**
@@ -181,30 +205,6 @@ abstract class AbstractDeposit implements BaseModelInterface
     }
 
     /**
-     * @return Money
-     */
-    public function getDebitedAmount(): Money
-    {
-        return $this->debitedAmount;
-    }
-
-    /**
-     * @return Money
-     */
-    public function getCreditedAmount(): Money
-    {
-        return $this->creditedAmount;
-    }
-
-    /**
-     * @return Money
-     */
-    public function getFees(): Money
-    {
-        return $this->fees;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
@@ -242,10 +242,11 @@ abstract class AbstractDeposit implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'returnUrl' => $this->returnUrl,
+            'label'     => $this->label,
+            'tag'       => $this->tag,
             'to'        => $this->to,
+            'returnUrl' => $this->returnUrl,
             'amount'    => $this->amount->httpCreate(),
-            'fees'      => $this->fees->httpCreate(),
         ];
     }
 
