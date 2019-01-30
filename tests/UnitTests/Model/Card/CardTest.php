@@ -45,7 +45,7 @@ class CardTest extends TestCase
         $model = Card::createFromPayload('{
             "id": "1111",
             "accountHolderId": "2222",
-            "type": "VISA",
+            "issuer": "Visa",
             "lastFour": "7890",
             "funding": "Debit",
             "endDate": "1220",
@@ -59,7 +59,7 @@ class CardTest extends TestCase
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('2222', $model->getAccountHolderId());
-        $this->assertEquals('VISA', $model->getType());
+        $this->assertEquals(strtoupper('VISA'), strtoupper($model->getIssuer()));
         $this->assertEquals('7890', $model->getLastFour());
         $this->assertEquals('Debit', $model->getFunding());
         $this->assertEquals('Card\'s Label', $model->getLabel());

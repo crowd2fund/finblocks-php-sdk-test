@@ -42,7 +42,7 @@ class Card implements BaseModelInterface
     /**
      * @var string
      */
-    private $type;
+    private $issuer;
 
     /**
      * @var string
@@ -175,9 +175,9 @@ class Card implements BaseModelInterface
     /**
      * @return string
      */
-    public function getType(): string
+    public function getIssuer(): string
     {
-        return $this->type;
+        return $this->issuer;
     }
 
     /**
