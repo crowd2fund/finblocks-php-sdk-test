@@ -173,7 +173,7 @@ class HttpClient
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 0);
 
         // The maximum number of seconds to allow cURL functions to execute.
-        curl_setopt($curl, CURLOPT_TIMEOUT, 5); //timeout in seconds
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30); //timeout in seconds
 
         // Handle the response
         $response = curl_exec($curl);
