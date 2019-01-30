@@ -11,6 +11,8 @@
 
 namespace FinBlocks\Client;
 
+use FinBlocks\Exception\HttpRequestException;
+
 /**
  * @author    David Garcia <me@davidgarcia.cat>
  * @copyright FinBlocks
@@ -89,7 +91,7 @@ class HttpClient
     }
 
     /**
-     * Send a POST request to the given API endpoint.
+     * Send a PUT request to the given API endpoint.
      *
      * @param string $apiEndpoint
      * @param array  $parameters
@@ -99,19 +101,6 @@ class HttpClient
     public function put(string $apiEndpoint, array $parameters = []): HttpResponse
     {
         return $this->httpRequest('PUT', $apiEndpoint, $parameters);
-    }
-
-    /**
-     * Send a POST request to the given API endpoint.
-     *
-     * @param string $apiEndpoint
-     * @param array  $parameters
-     *
-     * @return HttpResponse
-     */
-    public function patch(string $apiEndpoint, array $parameters = []): HttpResponse
-    {
-        return $this->httpRequest('PATCH', $apiEndpoint, $parameters);
     }
 
     /**
@@ -180,8 +169,18 @@ class HttpClient
         // Return the transfer as a string of the return value of curl_exec() instead of outputting it out directly
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
+        // The number of seconds to wait while trying to connect. Use 0 to wait indefinitely.
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 0);
+
+        // The maximum number of seconds to allow cURL functions to execute.
+        curl_setopt($curl, CURLOPT_TIMEOUT, 5); //timeout in seconds
+
         // Handle the response
         $response = curl_exec($curl);
+
+        if (!empty(curl_error($curl))) {
+            throw new HttpRequestException(curl_error($curl), curl_errno($curl));
+        }
 
         if (empty($response)) {
             $httpResponse = new HttpResponse(401, '');
