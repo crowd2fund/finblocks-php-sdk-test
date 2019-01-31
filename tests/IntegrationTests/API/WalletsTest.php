@@ -11,6 +11,7 @@
 
 namespace FinBlocks\Tests\IntegrationTests\API;
 
+use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Money\Money;
 use FinBlocks\Model\Pagination\WalletsPagination;
@@ -91,18 +92,20 @@ class WalletsTest extends AbstractApiTests
 
     public function testCreateAnIncompleteWallet()
     {
-        $this->expectException(FinBlocksException::class);
-
         $model = $this->finBlocks->factories()->wallets()->create();
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->wallets()->create($model);
     }
 
     public function testCreateWalletForNonExistingAccountHolder()
     {
-        $this->expectException(FinBlocksException::class);
-
         $model = $this->traitCreateWalletModel($this->finBlocks, 'accountholder-00000000-096b-4401-8df6-ec5c2cb6bb55');
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->wallets()->create($model);
     }
@@ -110,6 +113,7 @@ class WalletsTest extends AbstractApiTests
     public function testRetrieveNonExistingWallet()
     {
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
         $this->finBlocks->api()->wallets()->show('non-existing-id');
     }
@@ -132,11 +136,18 @@ class WalletsTest extends AbstractApiTests
         $this->finBlocks->api()->wallets()->list(-1);
     }
 
-    public function testGetPaginatedWalletsWithInvalidPerPage()
+    public function testGetPaginatedWalletsWithLowerPerPage()
     {
         $this->expectException(FinBlocksException::class);
 
         $this->finBlocks->api()->wallets()->list(1, -1);
+    }
+
+    public function testGetPaginatedWalletsWithGreaterPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->wallets()->list(1, 10000);
     }
 
     public function testListAllByAccountHolder()
@@ -171,7 +182,7 @@ class WalletsTest extends AbstractApiTests
         $this->finBlocks->api()->wallets()->listByAccountHolder($accountHolder->getId(), -1);
     }
 
-    public function testListAllByAccountHolderWithInvalidPerPage()
+    public function testListAllByAccountHolderWithLowerPerPage()
     {
         $this->expectException(FinBlocksException::class);
 
@@ -179,5 +190,15 @@ class WalletsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $this->finBlocks->api()->wallets()->listByAccountHolder($accountHolder->getId(), 1, -1);
+    }
+
+    public function testListAllByAccountHolderWithGreaterPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
+
+        $this->finBlocks->api()->wallets()->listByAccountHolder($accountHolder->getId(), 1, 10000);
     }
 }
