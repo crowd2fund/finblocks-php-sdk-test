@@ -11,6 +11,7 @@
 
 namespace FinBlocks\Tests\IntegrationTests\API;
 
+use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Document\AbstractDocument;
 use FinBlocks\Model\Document\DocumentIdCard;
@@ -72,10 +73,12 @@ class DocumentsTest extends AbstractApiTests
 
     public function testCreateEmptyDocument()
     {
-        $this->expectException(FinBlocksException::class);
-
         $document = $this->finBlocks->factories()->documents()->createPassport();
         $document->setAccountHolderId('invalid-account-holder-id');
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
+
         $this->finBlocks->api()->documents()->create($document);
     }
 
@@ -91,6 +94,7 @@ class DocumentsTest extends AbstractApiTests
         $document2 = $this->finBlocks->api()->documents()->create($document2);
 
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
         $this->finBlocks->api()->documents()->show($accountHolder1->getId(), $document2->getId());
     }
