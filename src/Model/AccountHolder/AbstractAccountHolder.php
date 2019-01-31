@@ -98,6 +98,7 @@ abstract class AbstractAccountHolder implements BaseModelInterface
     protected function __construct()
     {
         $this->address = Address::create();
+        $this->dateOfBirth = new \DateTime();
     }
 
     /**
