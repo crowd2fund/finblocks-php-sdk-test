@@ -60,18 +60,16 @@ abstract class AbstractHttpApi
             $this->handleErrors($httpResponse);
         }
 
-        if (HttpResponse::NO_CONTENT === $httpResponse->getStatusCode()) {
-            return null;
-        }
+        if (HttpResponse::NO_CONTENT !== $httpResponse->getStatusCode()) {
+            try {
+                Assert::stringNotEmpty($class);
+                Assert::classExists($class);
+                Assert::methodExists($class, 'createFromPayload');
 
-        try {
-            Assert::stringNotEmpty($class);
-            Assert::classExists($class);
-            Assert::methodExists($class, 'createFromPayload');
-
-            return $class::createFromPayload($httpResponse->getBody());
-        } catch (\Throwable $throwable) {
-            throw new SerializerException($throwable->getMessage(), $throwable->getCode(), $throwable);
+                return $class::createFromPayload($httpResponse->getBody());
+            } catch (\Throwable $throwable) {
+                throw new SerializerException($throwable->getMessage(), $throwable->getCode(), $throwable);
+            }
         }
     }
 
@@ -141,19 +139,6 @@ abstract class AbstractHttpApi
     protected function httpPut($path, array $parameters = [])
     {
         return $this->httpClient->put($path, $parameters);
-    }
-
-    /**
-     * Send a PUT request.
-     *
-     * @param string $path       Request path
-     * @param array  $parameters PUT parameters
-     *
-     * @return HttpResponse
-     */
-    protected function httpPatch($path, array $parameters = [])
-    {
-        return $this->httpClient->patch($path, $parameters);
     }
 
     /**
