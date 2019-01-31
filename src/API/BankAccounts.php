@@ -124,10 +124,8 @@ class BankAccounts extends AbstractHttpApi
             $httpResponse = $this->httpGet(sprintf('/bank-accounts/%s', $bankAccountId));
 
             $arrayResponse = json_decode($httpResponse->getBody(), true);
-
-            if (JSON_ERROR_NONE !== json_last_error()) {
-                throw new \RuntimeException(json_last_error_msg(), json_last_error());
-            }
+            $arrayResponse = is_array($arrayResponse) ? $arrayResponse : [];
+            $arrayResponse['type'] = $arrayResponse['type'] ?? null;
 
             $model = null;
 
