@@ -42,9 +42,9 @@ abstract class AbstractHttpException extends \RuntimeException
      * @param string       $message
      * @param HttpResponse $response
      */
-    public function __construct($message, HttpResponse $response)
+    public function __construct(HttpResponse $response, string $message = null)
     {
-        parent::__construct($message, $response->getStatusCode());
+        parent::__construct($message ?: $response->getBody(), $response->getStatusCode());
 
         $this->response = $response;
         $this->responseCode = $response->getStatusCode();

@@ -31,8 +31,8 @@ class HttpServerException extends AbstractHttpException
     public static function internalServerError(HttpResponse $response)
     {
         return new self(
-            'An unexpected internal server error occurred. Please contact FinBlocks\'s support.',
-            $response
+            $response,
+            'An unexpected internal server error occurred. Please contact FinBlocks\'s support.'
         );
     }
 
@@ -44,8 +44,8 @@ class HttpServerException extends AbstractHttpException
     public static function serviceUnavailableError(HttpResponse $response)
     {
         return new self(
-            'The server is currently unavailable (because it is overloaded or down for maintenance). Please try again shortly.',
-            $response
+            $response,
+            'The server is currently unavailable (because it is overloaded or down for maintenance). Please try again shortly.'
         );
     }
 }

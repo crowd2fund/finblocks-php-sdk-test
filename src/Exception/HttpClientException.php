@@ -30,7 +30,7 @@ class HttpClientException extends AbstractHttpException
      */
     public static function badRequest(HttpResponse $response)
     {
-        return new self('The parameters passed to the API were invalid.', $response);
+        return new self($response, 'The parameters passed to the API were invalid.');
     }
 
     /**
@@ -40,7 +40,7 @@ class HttpClientException extends AbstractHttpException
      */
     public static function unauthorized(HttpResponse $response)
     {
-        return new self('Your credentials are incorrect.', $response);
+        return new self($response, 'Your credentials are incorrect.');
     }
 
     /**
@@ -50,7 +50,7 @@ class HttpClientException extends AbstractHttpException
      */
     public static function forbidden(HttpResponse $response)
     {
-        return new self('The request was valid, but the server is refusing action.', $response);
+        return new self($response, 'The request was valid, but the server is refusing action.');
     }
 
     /**
@@ -60,7 +60,7 @@ class HttpClientException extends AbstractHttpException
      */
     public static function notFound(HttpResponse $response)
     {
-        return new self('The requested resource could not be found but may be available in the future.', $response);
+        return new self($response, 'The requested resource could not be found but may be available in the future.');
     }
 
     /**
@@ -70,7 +70,7 @@ class HttpClientException extends AbstractHttpException
      */
     public static function payloadTooLarge(HttpResponse $response)
     {
-        return new self('The request is larger than the server is willing or able to process.', $response);
+        return new self($response, 'The request is larger than the server is willing or able to process.');
     }
 
     /**
@@ -80,6 +80,6 @@ class HttpClientException extends AbstractHttpException
      */
     public static function tooManyRequests(HttpResponse $response)
     {
-        return new self('You have sent too many requests in a given amount of time.', $response);
+        return new self($response, 'You have sent too many requests in a given amount of time.');
     }
 }
