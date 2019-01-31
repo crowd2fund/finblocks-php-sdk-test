@@ -109,10 +109,8 @@ class AccountHolders extends AbstractHttpApi
             $httpResponse = $this->httpGet(sprintf('/account-holders/%s', $accountHolderId));
 
             $arrayResponse = json_decode($httpResponse->getBody(), true);
-
-            if (JSON_ERROR_NONE !== json_last_error()) {
-                throw new SerializerException(json_last_error_msg(), json_last_error());
-            }
+            $arrayResponse = is_array($arrayResponse) ? $arrayResponse : [];
+            $arrayResponse['type'] = $arrayResponse['type'] ?? null;
 
             $arrayResponse['type'] = $arrayResponse['type'] ?? null;
 
