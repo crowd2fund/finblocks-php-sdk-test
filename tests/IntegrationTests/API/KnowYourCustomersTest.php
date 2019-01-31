@@ -11,6 +11,7 @@
 
 namespace FinBlocks\Tests\IntegrationTests\API;
 
+use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\KnowYourCustomer\KnowYourCustomer;
 use FinBlocks\Model\Pagination\KnowYourCustomersPagination;
@@ -74,6 +75,7 @@ class KnowYourCustomersTest extends AbstractApiTests
         $this->markTestIncomplete('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $kyc = $this->finBlocks->factories()->kyc()->create();
 
@@ -85,6 +87,7 @@ class KnowYourCustomersTest extends AbstractApiTests
         $this->markTestIncomplete('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
         $this->finBlocks->api()->kyc()->show('non-existing-id');
     }
