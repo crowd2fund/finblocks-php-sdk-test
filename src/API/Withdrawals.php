@@ -68,12 +68,6 @@ class Withdrawals extends AbstractHttpApi
     public function create(Withdrawal $withdrawal): Withdrawal
     {
         try {
-            Assert::isInstanceOf(
-                $withdrawal,
-                Withdrawal::class,
-                sprintf('`withdrawal` argument must be an instance of `%s`', Withdrawal::class)
-            );
-
             $httpResponse = $this->httpPost('/withdrawals', $withdrawal->httpCreate());
 
             return $this->hydrateResponse($httpResponse, Withdrawal::class);
@@ -91,7 +85,7 @@ class Withdrawals extends AbstractHttpApi
      *
      * @return Withdrawals
      */
-    public function show(string $withdrawalId): Withdrawals
+    public function show(string $withdrawalId): Withdrawal
     {
         try {
             Assert::stringNotEmpty($withdrawalId, '`withdrawalId` argument must be a not empty string');
