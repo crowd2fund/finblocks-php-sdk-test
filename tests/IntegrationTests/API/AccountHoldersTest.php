@@ -11,6 +11,7 @@
 
 namespace FinBlocks\Tests\IntegrationTests\API;
 
+use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\AccountHolder\AccountHolderBusiness;
 use FinBlocks\Model\AccountHolder\AccountHolderIndividual;
@@ -18,6 +19,7 @@ use FinBlocks\Model\AccountHolder\Company\Company;
 use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\Pagination\AccountHoldersPagination;
 use FinBlocks\Tests\Traits\AccountHolderTrait;
+use Nyholm\NSA;
 
 /**
  * @author    David Garcia <me@davidgarcia.cat>
@@ -128,9 +130,10 @@ class AccountHoldersTest extends AbstractApiTests
 
     public function testCreateAnIncompleteAccountHolder()
     {
-        $this->expectException(FinBlocksException::class);
-
         $model = $this->finBlocks->factories()->accountHolders()->createBusiness();
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->accountHolders()->create($model);
     }
@@ -138,6 +141,7 @@ class AccountHoldersTest extends AbstractApiTests
     public function testRetrieveNonExistingAccountHolder()
     {
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
         $this->finBlocks->api()->accountHolders()->show('non-existing-id');
     }
@@ -154,11 +158,25 @@ class AccountHoldersTest extends AbstractApiTests
         $this->assertInstanceOf(AccountHolderBusiness::class, $returnedContent->getItems()[1]);
     }
 
-    public function testInvalidArgumentsForPaginatedAccountHolders()
+    public function testPaginatedAccountHoldersWithInvalidPage()
     {
         $this->expectException(FinBlocksException::class);
 
         $this->finBlocks->api()->accountHolders()->list(-1);
+    }
+
+    public function testPaginatedAccountHoldersWithLowerPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->accountHolders()->list(1, -1);
+    }
+
+    public function testPaginatedAccountHoldersWithGreaterPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->accountHolders()->list(1, 10000);
     }
 
     public function testUpdateAccountHolderIndividual()
@@ -195,5 +213,17 @@ class AccountHoldersTest extends AbstractApiTests
 
         $this->assertInstanceOf(AccountHolderBusiness::class, $updatedModel);
         $this->assertEquals($newLabel, $updatedModel->getLabel());
+    }
+
+    public function testUpdateNonExistingAccountHolder()
+    {
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+
+        NSA::setProperty($accountHolder, 'id', 'invalid-account-holder');
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::NOT_FOUND);
+
+        $this->finBlocks->api()->accountHolders()->update($accountHolder);
     }
 }
