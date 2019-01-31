@@ -11,6 +11,7 @@
 
 namespace FinBlocks\Tests\IntegrationTests\API;
 
+use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\Mandate\Mandate;
 use FinBlocks\Model\Pagination\MandatesPagination;
@@ -114,8 +115,6 @@ class MandatesTest extends AbstractApiTests
     {
         $this->markTestIncomplete('Not yet implemented');
 
-        $this->expectException(FinBlocksException::class);
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -126,14 +125,15 @@ class MandatesTest extends AbstractApiTests
         $mandate->setBankAccountId($bankAccount->getId());
         $mandate->setReturnUrl('https://domain.com/return/mandate');
 
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
+
         $this->finBlocks->api()->mandates()->create($mandate);
     }
 
     public function testCreateMandateForUsBankAccount()
     {
         $this->markTestIncomplete('Not yet implemented');
-
-        $this->expectException(FinBlocksException::class);
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -145,14 +145,15 @@ class MandatesTest extends AbstractApiTests
         $mandate->setBankAccountId($bankAccount->getId());
         $mandate->setReturnUrl('https://domain.com/return/mandate');
 
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
+
         $this->finBlocks->api()->mandates()->create($mandate);
     }
 
     public function testCreateMandateForOtherBankAccount()
     {
         $this->markTestIncomplete('Not yet implemented');
-
-        $this->expectException(FinBlocksException::class);
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -163,6 +164,9 @@ class MandatesTest extends AbstractApiTests
         $mandate = $this->finBlocks->factories()->mandates()->create();
         $mandate->setBankAccountId($bankAccount->getId());
         $mandate->setReturnUrl('https://domain.com/return/mandate');
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->mandates()->create($mandate);
     }
@@ -200,11 +204,18 @@ class MandatesTest extends AbstractApiTests
         $this->finBlocks->api()->mandates()->list(-1);
     }
 
-    public function testGetPaginatedMandatesWithInvalidPerPage()
+    public function testGetPaginatedMandatesWithLowerPerPage()
     {
         $this->expectException(FinBlocksException::class);
 
         $this->finBlocks->api()->mandates()->list(1, -1);
+    }
+
+    public function testGetPaginatedMandatesWithGreaterPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->mandates()->list(1, 10000);
     }
 
     public function testDeactivateMandate()
@@ -228,6 +239,8 @@ class MandatesTest extends AbstractApiTests
         $this->assertNotEmpty($deactivatedMandate->getId());
 
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
+
         $this->finBlocks->api()->mandates()->show($mandate->getId());
     }
 
@@ -236,6 +249,7 @@ class MandatesTest extends AbstractApiTests
         $this->markTestIncomplete('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
         $this->finBlocks->api()->mandates()->show('mandate-id');
     }
@@ -290,7 +304,14 @@ class MandatesTest extends AbstractApiTests
         $this->finBlocks->api()->mandates()->listByAccountHolder('account-holder-id', -1);
     }
 
-    public function testGetPaginatedMandatesByAccountHolderWithInvalidPerPage()
+    public function testGetPaginatedMandatesByAccountHolderWithLowerPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->mandates()->listByAccountHolder('account-holder-id', 1, -1);
+    }
+
+    public function testGetPaginatedMandatesByAccountHolderWithGreaterPerPage()
     {
         $this->expectException(FinBlocksException::class);
 
