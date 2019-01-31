@@ -11,6 +11,7 @@
 
 namespace FinBlocks\Tests\IntegrationTests\API;
 
+use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\BankAccount\AbstractBankAccount;
 use FinBlocks\Model\BankAccount\BankAccountCa;
@@ -86,9 +87,10 @@ class BankAccountsTest extends AbstractApiTests
     {
         $this->markTestIncomplete('Not yet implemented');
 
-        $this->expectException(FinBlocksException::class);
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createGb();
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->bankAccounts()->create($bankAccount);
     }
@@ -144,9 +146,10 @@ class BankAccountsTest extends AbstractApiTests
     {
         $this->markTestIncomplete('Not yet implemented');
 
-        $this->expectException(FinBlocksException::class);
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createIban();
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->bankAccounts()->create($bankAccount);
     }
@@ -206,9 +209,10 @@ class BankAccountsTest extends AbstractApiTests
     {
         $this->markTestIncomplete('Not yet implemented');
 
-        $this->expectException(FinBlocksException::class);
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createCa();
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->bankAccounts()->create($bankAccount);
     }
@@ -264,9 +268,10 @@ class BankAccountsTest extends AbstractApiTests
     {
         $this->markTestIncomplete('Not yet implemented');
 
-        $this->expectException(FinBlocksException::class);
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createUs();
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->bankAccounts()->create($bankAccount);
     }
@@ -324,9 +329,10 @@ class BankAccountsTest extends AbstractApiTests
     {
         $this->markTestIncomplete('Not yet implemented');
 
-        $this->expectException(FinBlocksException::class);
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createOther();
+
+        $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->bankAccounts()->create($bankAccount);
     }
@@ -334,6 +340,8 @@ class BankAccountsTest extends AbstractApiTests
     public function testRetrieveNonExistingBankAccount()
     {
         $this->expectException(FinBlocksException::class);
+        //TODO: Re-enable the following line to validate the expected HTTP Status Code
+        // $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
         $this->finBlocks->api()->bankAccounts()->show('bank-account-id');
     }
@@ -393,6 +401,7 @@ class BankAccountsTest extends AbstractApiTests
         $this->assertEquals(false, $reloadedBankAccount->isActive());
 
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $this->finBlocks->api()->bankAccounts()->show($bankAccount->getId());
     }
@@ -400,6 +409,7 @@ class BankAccountsTest extends AbstractApiTests
     public function testDeactivateNonExistingBankAccount()
     {
         $this->expectException(FinBlocksException::class);
+        $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
         $this->finBlocks->api()->bankAccounts()->deactivate('bank-account-id');
     }
