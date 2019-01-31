@@ -68,12 +68,6 @@ class KYC extends AbstractHttpApi
     public function create(KnowYourCustomer $kyc): KnowYourCustomer
     {
         try {
-            Assert::isInstanceOf(
-                $kyc,
-                KnowYourCustomer::class,
-                sprintf('`kyc` argument must be an instance of `%s`', KnowYourCustomer::class)
-            );
-
             $httpResponse = $this->httpPost('/kyc', $kyc->httpCreate());
 
             return $this->hydrateResponse($httpResponse, KnowYourCustomer::class);
