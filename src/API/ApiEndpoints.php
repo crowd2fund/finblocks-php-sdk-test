@@ -42,6 +42,26 @@ class ApiEndpoints extends AbstractHttpApi
     }
 
     /**
+     * API Endpoints for Cards management.
+     *
+     * @return Cards
+     */
+    public function cards(): Cards
+    {
+        return new Cards($this->httpClient);
+    }
+
+    /**
+     * API Endpoints for Deposits management.
+     *
+     * @return Deposits
+     */
+    public function deposits(): Deposits
+    {
+        return new Deposits($this->httpClient);
+    }
+
+    /**
      * API Endpoints for Documents management.
      *
      * @return Documents
