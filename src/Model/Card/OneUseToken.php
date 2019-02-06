@@ -52,7 +52,7 @@ class OneUseToken implements BaseModelInterface
     /**
      * Card constructor.
      *
-     * @param string|null $jsonData
+     * @param string $jsonData
      */
     private function __construct(string $jsonData)
     {
