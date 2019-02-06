@@ -59,7 +59,7 @@ class BankAccountsPaginationTest extends TestCase
             "items": [
                 {
                     "id": "string",
-                    "type": "GB",
+                    "type": "gb",
                     "accountHolderId": "string",
                     "label": "string",
                     "tag": "string",
@@ -72,7 +72,7 @@ class BankAccountsPaginationTest extends TestCase
                 },
                 {
                     "id": "string",
-                    "type": "IBAN",
+                    "type": "iban",
                     "accountHolderId": "string",
                     "label": "string",
                     "tag": "string",
@@ -85,7 +85,7 @@ class BankAccountsPaginationTest extends TestCase
                 },
                 {
                     "id": "string",
-                    "type": "CA",
+                    "type": "ca",
                     "accountHolderId": "string",
                     "label": "string",
                     "tag": "string",
@@ -100,7 +100,7 @@ class BankAccountsPaginationTest extends TestCase
                 },
                 {
                     "id": "string",
-                    "type": "US",
+                    "type": "us",
                     "accountHolderId": "string",
                     "label": "string",
                     "tag": "string",
@@ -113,7 +113,7 @@ class BankAccountsPaginationTest extends TestCase
                 },
                 {
                     "id": "string",
-                    "type": "OTHER",
+                    "type": "other",
                     "accountHolderId": "string",
                     "label": "string",
                     "tag": "string",
