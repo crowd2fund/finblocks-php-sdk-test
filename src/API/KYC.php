@@ -27,48 +27,21 @@ use Webmozart\Assert\Assert;
 class KYC extends AbstractHttpApi
 {
     /**
-     * Retrieves a collection of Deposits.
-     *
-     * @param int $page
-     * @param int $perPage
-     *
-     * @throws FinBlocksException
-     *
-     * @return KnowYourCustomersPagination
-     */
-    public function list(int $page = 1, int $perPage = 20): KnowYourCustomersPagination
-    {
-        try {
-            Assert::integer($page, '`page` argument must be an integer');
-            Assert::greaterThanEq($page, 1, '`page` argument must be greater than or equal to 1');
-
-            Assert::integer($perPage, '`perPage` argument must be an integer');
-            Assert::greaterThanEq($perPage, 1, '`perPage` argument must be greater than or equal to 1');
-            Assert::lessThanEq($perPage, 100, '`perPage` argument must be less than or equal to 100');
-
-            $offset = (($page - 1) * $perPage);
-
-            $httpResponse = $this->httpGet('/kyc', ['offset' => $offset, 'perPage' => $perPage]);
-
-            return $this->hydrateResponse($httpResponse, KnowYourCustomersPagination::class);
-        } catch (\Throwable $throwable) {
-            throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
-        }
-    }
-
-    /**
      * Creates a Deposit.
      *
+     * @param string           $accountHolderId
      * @param KnowYourCustomer $kyc
      *
      * @throws FinBlocksException
      *
      * @return KnowYourCustomer
      */
-    public function create(KnowYourCustomer $kyc): KnowYourCustomer
+    public function create(string $accountHolderId, KnowYourCustomer $kyc): KnowYourCustomer
     {
         try {
-            $httpResponse = $this->httpPost('/kyc', $kyc->httpCreate());
+            Assert::stringNotEmpty($accountHolderId);
+
+            $httpResponse = $this->httpPost(sprintf('/account-holders/%s/kyc', $accountHolderId), $kyc->httpCreate());
 
             return $this->hydrateResponse($httpResponse, KnowYourCustomer::class);
         } catch (\Throwable $throwable) {
@@ -79,18 +52,20 @@ class KYC extends AbstractHttpApi
     /**
      * Retrieves a KYC.
      *
+     * @param string $accountHolderId
      * @param string $kycId
      *
      * @throws FinBlocksException
      *
      * @return KnowYourCustomer
      */
-    public function show(string $kycId): KnowYourCustomer
+    public function show(string $accountHolderId, string $kycId): KnowYourCustomer
     {
         try {
+            Assert::stringNotEmpty($accountHolderId);
             Assert::stringNotEmpty($kycId, '`kycId` argument must be a not empty string');
 
-            $httpResponse = $this->httpGet(sprintf('/kyc/%s', $kycId));
+            $httpResponse = $this->httpGet(sprintf('/account-holders/%s/kyc/%s', $accountHolderId, $kycId));
 
             return $this->hydrateResponse($httpResponse, KnowYourCustomer::class);
         } catch (\Throwable $throwable) {

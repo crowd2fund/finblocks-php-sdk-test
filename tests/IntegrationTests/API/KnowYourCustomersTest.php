@@ -33,8 +33,6 @@ class KnowYourCustomersTest extends AbstractApiTests
 
     public function testSendDocumentForAdvancedKycCheck()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -46,7 +44,7 @@ class KnowYourCustomersTest extends AbstractApiTests
         $kyc->setLabel('KYC Label');
         $kyc->setTag('KYC Tag');
 
-        $returnedKyc = $this->finBlocks->api()->kyc()->create($kyc);
+        $returnedKyc = $this->finBlocks->api()->kyc()->create($accountHolder->getId(), $kyc);
 
         $this->assertInstanceOf(KnowYourCustomer::class, $returnedKyc);
         $this->assertInstanceOf(\DateTime::class, $returnedKyc->getCreatedAt());
@@ -61,7 +59,7 @@ class KnowYourCustomersTest extends AbstractApiTests
         $this->assertEquals('KYC Tag', $returnedKyc->getTag());
         $this->assertEquals('aaaa', $returnedKyc->getStatus());
 
-        $reloadedKyc = $this->finBlocks->api()->kyc()->show($returnedKyc->getId());
+        $reloadedKyc = $this->finBlocks->api()->kyc()->show($accountHolder->getId(), $returnedKyc->getId());
 
         $this->assertEquals($returnedKyc->getId(), $reloadedKyc->getId());
         $this->assertEquals($returnedKyc->getDocumentId(), $reloadedKyc->getDocumentId());
@@ -72,65 +70,33 @@ class KnowYourCustomersTest extends AbstractApiTests
 
     public function testIncompleteKycRequest()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
         $kyc = $this->finBlocks->factories()->kyc()->create();
 
-        $this->finBlocks->api()->kyc()->create($kyc);
+        $this->finBlocks->api()->kyc()->create($accountHolder->getId(), $kyc);
     }
 
     public function testRetrieveNonExistingKyc()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
+
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
-        $this->finBlocks->api()->kyc()->show('non-existing-id');
-    }
-
-    public function testGetPaginatedKycChecks()
-    {
-        $this->markTestIncomplete('Not yet implemented');
-
-        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
-        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
-
-        $document = $this->traitCreateDocumentIdCardModel($this->finBlocks, $accountHolder->getId());
-        $document = $this->finBlocks->api()->documents()->create($document);
-
-        $kyc = $this->finBlocks->factories()->kyc()->create();
-        $kyc->setDocumentId($document->getId());
-        $this->finBlocks->api()->kyc()->create($kyc);
-
-        $returnedContent = $this->finBlocks->api()->kyc()->list(1, 1);
-
-        $this->assertInstanceOf(KnowYourCustomersPagination::class, $returnedContent);
-        $this->assertGreaterThanOrEqual(1, $returnedContent->getTotal());
-        $this->assertInternalType('array', $returnedContent->getItems());
-        $this->assertInstanceOf(KnowYourCustomer::class, $returnedContent->getItems()[0]);
-    }
-
-    public function testErrorWhenGettingPaginatedResultsWithInvalidPage()
-    {
-        $this->expectException(FinBlocksException::class);
-
-        $this->finBlocks->api()->kyc()->list(-1);
-    }
-
-    public function testErrorWhenGettingPaginatedResultsWithInvalidPerPage()
-    {
-        $this->expectException(FinBlocksException::class);
-
-        $this->finBlocks->api()->kyc()->list(1, 10000);
+        $this->finBlocks->api()->kyc()->show($accountHolder->getId(), 'non-existing-id');
     }
 
     public function testGetPaginatedKycChecksForGivenAccountHolder()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -140,7 +106,7 @@ class KnowYourCustomersTest extends AbstractApiTests
 
         $kyc = $this->finBlocks->factories()->kyc()->create();
         $kyc->setDocumentId($document->getId());
-        $kyc = $this->finBlocks->api()->kyc()->create($kyc);
+        $kyc = $this->finBlocks->api()->kyc()->create($accountHolder->getId(), $kyc);
 
         $returnedContent = $this->finBlocks->api()->kyc()->listByAccountHolder($accountHolder->getId());
 
@@ -158,7 +124,14 @@ class KnowYourCustomersTest extends AbstractApiTests
         $this->finBlocks->api()->kyc()->listByAccountHolder('account-holder-id', -1);
     }
 
-    public function testGetPaginatedKycChecksForGivenAccountHolderWithInvalidPerPage()
+    public function testGetPaginatedKycChecksForGivenAccountHolderWithLowerPerPage()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $this->finBlocks->api()->kyc()->listByAccountHolder('account-holder-id', 1, -1);
+    }
+
+    public function testGetPaginatedKycChecksForGivenAccountHolderWithGreaterPerPage()
     {
         $this->expectException(FinBlocksException::class);
 
