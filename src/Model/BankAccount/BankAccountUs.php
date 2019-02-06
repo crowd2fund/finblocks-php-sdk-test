@@ -24,7 +24,7 @@ use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountUsDetails;
  */
 final class BankAccountUs extends AbstractBankAccount
 {
-    const TYPE = 'US';
+    const TYPE = 'us';
 
     /**
      * BankAccountUs constructor.
@@ -33,6 +33,9 @@ final class BankAccountUs extends AbstractBankAccount
      */
     private function __construct(string $jsonData = null)
     {
+        $this->setType(self::TYPE);
+        $this->setDetails(BankAccountUsDetails::create());
+
         if (!empty($jsonData)) {
             try {
                 $arrayData = json_decode($jsonData, true);
@@ -56,9 +59,6 @@ final class BankAccountUs extends AbstractBankAccount
             } catch (\Throwable $throwable) {
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
-        } else {
-            $this->setType(self::TYPE);
-            $this->setDetails(BankAccountUsDetails::create());
         }
     }
 

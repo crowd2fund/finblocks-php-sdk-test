@@ -24,7 +24,7 @@ use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountIbanDetails;
  */
 final class BankAccountIban extends AbstractBankAccount
 {
-    const TYPE = 'IBAN';
+    const TYPE = 'iban';
 
     /**
      * BankAccountIban constructor.
@@ -33,6 +33,9 @@ final class BankAccountIban extends AbstractBankAccount
      */
     private function __construct(string $jsonData = null)
     {
+        $this->setType(self::TYPE);
+        $this->setDetails(BankAccountIbanDetails::create());
+
         if (!empty($jsonData)) {
             try {
                 $arrayData = json_decode($jsonData, true);
@@ -56,9 +59,6 @@ final class BankAccountIban extends AbstractBankAccount
             } catch (\Throwable $throwable) {
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
-        } else {
-            $this->setType(self::TYPE);
-            $this->setDetails(BankAccountIbanDetails::create());
         }
     }
 

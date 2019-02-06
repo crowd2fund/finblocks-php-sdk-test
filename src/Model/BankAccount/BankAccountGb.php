@@ -24,7 +24,7 @@ use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountGbDetails;
  */
 final class BankAccountGb extends AbstractBankAccount
 {
-    const TYPE = 'GB';
+    const TYPE = 'gb';
 
     /**
      * BankAccountGb constructor.
@@ -33,6 +33,9 @@ final class BankAccountGb extends AbstractBankAccount
      */
     private function __construct(string $jsonData = null)
     {
+        $this->setType(self::TYPE);
+        $this->setDetails(BankAccountGbDetails::create());
+
         if (!empty($jsonData)) {
             try {
                 $arrayData = json_decode($jsonData, true);
@@ -56,9 +59,6 @@ final class BankAccountGb extends AbstractBankAccount
             } catch (\Throwable $throwable) {
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
-        } else {
-            $this->setType(self::TYPE);
-            $this->setDetails(BankAccountGbDetails::create());
         }
     }
 
