@@ -83,7 +83,7 @@ class Withdrawals extends AbstractHttpApi
      *
      * @throws FinBlocksException
      *
-     * @return Withdrawals
+     * @return Withdrawal
      */
     public function show(string $withdrawalId): Withdrawal
     {
