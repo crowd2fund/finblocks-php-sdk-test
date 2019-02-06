@@ -122,7 +122,7 @@ final class BankAccountOtherDetails implements BaseModelInterface
     public function setAccountNumber(string $accountNumber)
     {
         Assert::stringNotEmpty($accountNumber);
-        Assert::length($accountNumber, 20);
+        Assert::maxLength($accountNumber, 20);
 
         $this->accountNumber = $accountNumber;
     }
