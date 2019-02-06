@@ -65,12 +65,7 @@ class Refund implements BaseModelInterface
     /**
      * @var Money
      */
-    private $debitedAmount;
-
-    /**
-     * @var Money
-     */
-    private $creditedAmount;
+    private $amount;
 
     /**
      * @var Money
@@ -94,6 +89,9 @@ class Refund implements BaseModelInterface
      */
     private function __construct(string $jsonData = null)
     {
+        $this->amount = Money::create();
+        $this->fees = Money::create();
+
         if (!empty($jsonData)) {
             try {
                 $arrayData = json_decode($jsonData, true);
@@ -104,8 +102,7 @@ class Refund implements BaseModelInterface
 
                 foreach ($arrayData as $property => $content) {
                     switch ($property) {
-                        case 'debitedAmount':
-                        case 'creditedAmount':
+                        case 'amount':
                         case 'fees':
                             $this->$property = Money::createFromPayload(json_encode($content));
                             break;
@@ -120,10 +117,6 @@ class Refund implements BaseModelInterface
             } catch (\Throwable $throwable) {
                 throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
             }
-        } else {
-            $this->debitedAmount = Money::create();
-            $this->creditedAmount = Money::create();
-            $this->fees = Money::create();
         }
     }
 
@@ -234,17 +227,9 @@ class Refund implements BaseModelInterface
     /**
      * @return Money
      */
-    public function getDebitedAmount(): Money
+    public function getAmount(): Money
     {
-        return $this->debitedAmount;
-    }
-
-    /**
-     * @return Money
-     */
-    public function getCreditedAmount(): Money
-    {
-        return $this->creditedAmount;
+        return $this->amount;
     }
 
     /**
@@ -279,12 +264,12 @@ class Refund implements BaseModelInterface
     public function httpCreate(): array
     {
         return [
-            'from'  => $this->from,
-            'to' => $this->to,
-            'debitedAmount'     => $this->debitedAmount->httpCreate(),
-            'fees'             => $this->fees->httpCreate(),
-            'label'            => $this->label,
-            'tag'              => $this->tag,
+            'from'   => $this->from,
+            'to'     => $this->to,
+            'amount' => $this->amount->httpCreate(),
+            'fees'   => $this->fees->httpCreate(),
+            'label'  => $this->label,
+            'tag'    => $this->tag,
         ];
     }
 
