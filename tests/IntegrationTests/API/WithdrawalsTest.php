@@ -39,7 +39,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawal()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -78,7 +78,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithNonExistingWalletId()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
@@ -95,7 +95,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithNonExistingBankAccountId()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
@@ -112,7 +112,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithInvalidWalletIdAndBankAccountId()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
@@ -142,7 +142,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithInvalidAmount()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
@@ -163,7 +163,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testRetrieveNonExistingWithdrawal()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::NOT_FOUND);
@@ -173,7 +173,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testListPaginatedWithdrawals()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         // Account Holder + Wallet + Bank Account + Withdrawal for the first Account Holder
 
@@ -238,7 +238,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testListPaginatedWithdrawalsByWallet()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         // Account Holder + Wallet + Bank Account + Withdrawal for the first Account Holder
 
@@ -283,7 +283,7 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testListPaginatedWithdrawalsByWalletWithInvalidWalletId()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
 

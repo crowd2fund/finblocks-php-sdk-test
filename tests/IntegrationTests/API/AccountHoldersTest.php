@@ -148,7 +148,7 @@ class AccountHoldersTest extends AbstractApiTests
 
     public function testGetPaginatedAccountHolders()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $returnedContent = $this->finBlocks->api()->accountHolders()->list(1, 2);
 

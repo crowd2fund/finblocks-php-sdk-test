@@ -33,7 +33,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testCreateMandateForGbBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -73,7 +73,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testCreateMandateForIbanBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -113,7 +113,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testCreateMandateForCaBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -133,7 +133,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testCreateMandateForUsBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -153,7 +153,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testCreateMandateForOtherBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -173,7 +173,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testGetPaginatedMandates()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -220,7 +220,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testDeactivateMandate()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -246,7 +246,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testDeactivateNonExistingMandate()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::NOT_FOUND);
@@ -256,7 +256,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testGetPaginatedMandatesByAccountHolder()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder1 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder1 = $this->finBlocks->api()->accountHolders()->create($accountHolder1);

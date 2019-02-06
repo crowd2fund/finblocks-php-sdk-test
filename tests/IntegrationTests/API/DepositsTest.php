@@ -208,7 +208,7 @@ class DepositsTest extends AbstractApiTests
 
     public function testDirectDebitDeposit()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->finBlocks->api()->accountHolders()->create(
             $this->traitCreateAccountHolderIndividualModel($this->finBlocks)
@@ -255,7 +255,7 @@ class DepositsTest extends AbstractApiTests
 
     public function testDirectDebitDepositForInvalidAmount()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->finBlocks->api()->accountHolders()->create(
             $this->traitCreateAccountHolderIndividualModel($this->finBlocks)
@@ -284,7 +284,7 @@ class DepositsTest extends AbstractApiTests
 
     public function testDirectDebitDepositForInvalidCurrency()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->finBlocks->api()->accountHolders()->create(
             $this->traitCreateAccountHolderIndividualModel($this->finBlocks)
@@ -323,7 +323,7 @@ class DepositsTest extends AbstractApiTests
 
     public function testPaginatedCards()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder1 = $this->finBlocks->api()->accountHolders()->create($this->traitCreateAccountHolderIndividualModel($this->finBlocks));
         $accountHolder2 = $this->finBlocks->api()->accountHolders()->create($this->traitCreateAccountHolderIndividualModel($this->finBlocks));
@@ -366,7 +366,7 @@ class DepositsTest extends AbstractApiTests
 
     public function testPaginatedCardsByAccountHolder()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder1 = $this->finBlocks->api()->accountHolders()->create($this->traitCreateAccountHolderIndividualModel($this->finBlocks));
         $accountHolder2 = $this->finBlocks->api()->accountHolders()->create($this->traitCreateAccountHolderIndividualModel($this->finBlocks));

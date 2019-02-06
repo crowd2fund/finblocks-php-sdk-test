@@ -90,7 +90,7 @@ class CardsTest extends AbstractApiTests
 
     public function testDeactivateCard()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -128,7 +128,7 @@ class CardsTest extends AbstractApiTests
         $this->finBlocks->api()->cards()->create($this->traitCreateCardModel($this->finBlocks, $accountHolder1->getId()));
         $this->finBlocks->api()->cards()->create($this->traitCreateCardModel($this->finBlocks, $accountHolder2->getId()));
 
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $cards = $this->finBlocks->api()->cards()->list(1, 2);
 
@@ -168,7 +168,7 @@ class CardsTest extends AbstractApiTests
         $this->finBlocks->api()->cards()->create($this->traitCreateCardModel($this->finBlocks, $accountHolder1->getId()));
         $this->finBlocks->api()->cards()->create($this->traitCreateCardModel($this->finBlocks, $accountHolder2->getId()));
 
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $cards1 = $this->finBlocks->api()->cards()->listByAccountHolder($accountHolder1->getId());
         $cards2 = $this->finBlocks->api()->cards()->listByAccountHolder($accountHolder2->getId());

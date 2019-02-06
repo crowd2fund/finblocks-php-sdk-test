@@ -101,7 +101,7 @@ class DocumentsTest extends AbstractApiTests
 
     public function testListAllByAccountHolder()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder1 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder1 = $this->finBlocks->api()->accountHolders()->create($accountHolder1);
