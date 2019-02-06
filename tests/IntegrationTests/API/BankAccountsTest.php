@@ -38,8 +38,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateGbBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -61,12 +59,10 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateGbBankAccountWithJustTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
-        $bankAccount = $this->traitCreateBankAccountGbModel($this->finBlocks, $accountHolder->getId());
+        $bankAccount = $this->traitCreateBankAccountGbModel($this->finBlocks, $accountHolder->getId(), true);
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountGb::class, $bankAccount);
@@ -85,8 +81,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateGbBankAccountWithoutTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createGb();
 
         $this->expectException(FinBlocksException::class);
@@ -97,8 +91,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateIbanBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -115,17 +107,15 @@ class BankAccountsTest extends AbstractApiTests
         $this->assertEquals('IBAN Bank Account Label', $bankAccount->getLabel());
         $this->assertEquals('IBAN Bank Account Tag', $bankAccount->getTag());
         $this->assertEquals('00000000', $bankAccount->getDetails()->getBic());
-        $this->assertEquals('00000000000000000000', $bankAccount->getDetails()->getAccountNumber());
+        $this->assertEquals('00000000000000000000', $bankAccount->getDetails()->getIban());
     }
 
     public function testCreateIbanBankAccountWithJustTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
-        $bankAccount = $this->traitCreateBankAccountIbanModel($this->finBlocks, $accountHolder->getId());
+        $bankAccount = $this->traitCreateBankAccountIbanModel($this->finBlocks, $accountHolder->getId(), true);
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountIban::class, $bankAccount);
@@ -144,8 +134,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateIbanBankAccountWithoutTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createIban();
 
         $this->expectException(FinBlocksException::class);
@@ -156,8 +144,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateCaBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -181,12 +167,10 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateCaBankAccountWithJustTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
-        $bankAccount = $this->traitCreateBankAccountCaModel($this->finBlocks, $accountHolder->getId());
+        $bankAccount = $this->traitCreateBankAccountCaModel($this->finBlocks, $accountHolder->getId(), true);
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountCa::class, $bankAccount);
@@ -207,8 +191,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateCaBankAccountWithoutTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createCa();
 
         $this->expectException(FinBlocksException::class);
@@ -219,8 +201,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateUsBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -242,12 +222,10 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateUsBankAccountWithJustTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
-        $bankAccount = $this->traitCreateBankAccountUsModel($this->finBlocks, $accountHolder->getId());
+        $bankAccount = $this->traitCreateBankAccountUsModel($this->finBlocks, $accountHolder->getId(), true);
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountUs::class, $bankAccount);
@@ -266,8 +244,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateUsBankAccountWithoutTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createUs();
 
         $this->expectException(FinBlocksException::class);
@@ -278,8 +254,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateOtherBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -302,12 +276,10 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateOtherBankAccountWithJustTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
-        $bankAccount = $this->traitCreateBankAccountOtherModel($this->finBlocks, $accountHolder->getId());
+        $bankAccount = $this->traitCreateBankAccountOtherModel($this->finBlocks, $accountHolder->getId(), true);
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountOther::class, $bankAccount);
@@ -327,8 +299,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testCreateOtherBankAccountWithoutTheRequiredFields()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $bankAccount = $this->finBlocks->factories()->bankAccounts()->createOther();
 
         $this->expectException(FinBlocksException::class);
@@ -340,15 +310,14 @@ class BankAccountsTest extends AbstractApiTests
     public function testRetrieveNonExistingBankAccount()
     {
         $this->expectException(FinBlocksException::class);
-        //TODO: Re-enable the following line to validate the expected HTTP Status Code
-        // $this->expectExceptionCode(HttpResponse::NOT_FOUND);
+        $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
-        $this->finBlocks->api()->bankAccounts()->show('bank-account-id');
+        $this->finBlocks->api()->bankAccounts()->show('bankaccount-00000000-0000-4000-8000-000000000000');
     }
 
     public function testRetrievePaginatedBankAccounts()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -381,8 +350,6 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testDeactivateBankAccount()
     {
-        $this->markTestIncomplete('Not yet implemented');
-
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
@@ -411,12 +378,12 @@ class BankAccountsTest extends AbstractApiTests
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
-        $this->finBlocks->api()->bankAccounts()->deactivate('bank-account-id');
+        $this->finBlocks->api()->bankAccounts()->deactivate('bankaccount-00000000-0000-4000-8000-000000000000');
     }
 
     public function testRetrievePaginatedBankAccountsForTheGivenAccountHolder()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->markTestSkipped('Not yet implemented');
 
         $accountHolder1 = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder1 = $this->finBlocks->api()->accountHolders()->create($accountHolder1);
