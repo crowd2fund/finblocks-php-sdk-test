@@ -96,7 +96,7 @@ class HttpResponseExceptionTest extends TestCase
     {
         $httpException = HttpServerException::internalServerError(new HttpResponse(HttpResponse::INTERNAL_SERVER_ERROR, '{}'));
 
-        $this->assertInstanceOf(HttpClientException::class, $httpException);
+        $this->assertInstanceOf(HttpServerException::class, $httpException);
         $this->assertInstanceOf(HttpResponse::class, $httpException->getResponse());
         $this->assertEquals(HttpResponse::INTERNAL_SERVER_ERROR, $httpException->getCode());
         $this->assertEquals(HttpResponse::INTERNAL_SERVER_ERROR, $httpException->getResponseCode());
@@ -107,7 +107,7 @@ class HttpResponseExceptionTest extends TestCase
     {
         $httpException = HttpServerException::serviceUnavailableError(new HttpResponse(HttpResponse::SERVICE_UNAVAILABLE, '{}'));
 
-        $this->assertInstanceOf(HttpClientException::class, $httpException);
+        $this->assertInstanceOf(HttpServerException::class, $httpException);
         $this->assertInstanceOf(HttpResponse::class, $httpException->getResponse());
         $this->assertEquals(HttpResponse::SERVICE_UNAVAILABLE, $httpException->getCode());
         $this->assertEquals(HttpResponse::SERVICE_UNAVAILABLE, $httpException->getResponseCode());
