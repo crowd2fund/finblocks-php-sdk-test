@@ -92,6 +92,16 @@ class ApiEndpoints extends AbstractHttpApi
     }
 
     /**
+     * API Endpoints for Transfers management.
+     *
+     * @return Transfers
+     */
+    public function transfers(): Transfers
+    {
+        return new Transfers($this->httpClient);
+    }
+
+    /**
      * API Endpoints for Wallets management.
      *
      * @return Wallets
