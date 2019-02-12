@@ -1,12 +1,17 @@
 {
-    "name": "finblocks/finblocks-php-sdk",
-    "description": "This is the official FinBlocks PHP SDK",
+    "name": "crowd2fund/finblocks-php-sdk",
+    "description": "This is the Crowd2Fund's PHP SDK for FinBlocks",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "David Garcia",
             "email": "me@davidgarcia.cat",
+            "role": "Developer"
+        },
+        {
+            "name": "David Garcia",
+            "email": "david.garcia@crowd2fund.com",
             "role": "Developer"
         }
     ],
