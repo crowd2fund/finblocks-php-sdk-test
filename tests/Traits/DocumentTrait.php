@@ -27,7 +27,7 @@ trait DocumentTrait
 {
     public function traitCreateDocumentIdCardModel(FinBlocks $finBlocks, string $accountHolderId): DocumentIdCard
     {
-        $file = base64_encode(file_get_contents(sprintf('%s/Resources/finblocks-logo-small.png', __DIR__)));
+        $file = base64_encode(file_get_contents(sprintf('%s/../Resources/finblocks-logo-small.png', __DIR__)));
 
         $model = $finBlocks->factories()->documents()->createIdCard();
 
@@ -42,7 +42,7 @@ trait DocumentTrait
 
     public function traitCreateDocumentPassportModel(FinBlocks $finBlocks, string $accountHolderId): DocumentPassport
     {
-        $file = base64_encode(file_get_contents(sprintf('%s/Resources/finblocks-logo-small.png', __DIR__)));
+        $file = base64_encode(file_get_contents(sprintf('%s/../Resources/finblocks-logo-small.png', __DIR__)));
 
         $model = $finBlocks->factories()->documents()->createPassport();
 
