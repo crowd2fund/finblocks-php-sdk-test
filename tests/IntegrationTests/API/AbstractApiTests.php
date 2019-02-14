@@ -34,6 +34,10 @@ abstract class AbstractApiTests extends TestCase
      */
     protected function setUp()
     {
-        $this->finBlocks = new FinBlocks('', '', '', true);
+        $key = sprintf('%s/../../Resources/certs/key.pem', __DIR__);
+        $cert = sprintf('%s/../../Resources/certs/cert.pem', __DIR__);
+        $ca = sprintf('%s/../../Resources/certs/ca-crt.pem', __DIR__);
+
+        $this->finBlocks = new FinBlocks($key, $cert, $ca, true);
     }
 }
