@@ -9,3 +9,9 @@ vendor
 
 composer.lock
 phpunit.xml
+
+# Resources
+# ~~~~~~~~~
+
+tests/Resources/certs/*
+!tests/Resources/certs/.gitignore

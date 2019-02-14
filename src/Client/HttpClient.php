@@ -61,7 +61,8 @@ class HttpClient
 
         //TODO: Remove this Server IP and keep just the previous call.
         // This is in use just for an earlier testing stage, and needs to be removed.
-        $this->server = 'http://35.177.183.140';
+        // $this->server = 'https://35.177.183.140';
+        $this->server = 'https://api.test.fb.mph.im';
     }
 
     /**
@@ -156,12 +157,16 @@ class HttpClient
         curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
         // SSL Certificate and Key
-        //TODO: Restore the following commented lines to enable again the SSL authentication.
-        //curl_setopt($curl, CURLOPT_CAINFO, $this->pathToInfo);
-        //curl_setopt($curl, CURLOPT_SSLKEY, $this->pathToKey);
-        //curl_setopt($curl, CURLOPT_SSLCERT, $this->pathToCert);
-        //curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
-        //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
+        curl_setopt($curl, CURLOPT_CAINFO, $this->pathToInfo);
+        curl_setopt($curl, CURLOPT_SSLKEY, $this->pathToKey);
+        curl_setopt($curl, CURLOPT_SSLCERT, $this->pathToCert);
+        // 1 to check the existence of a common name in the SSL peer certificate.
+        // 2 to check the existence of a common name and also verify that it matches the hostname provided.
+        // 0 to not check the names. In production environments the value of this option should be kept at 2 (default value).
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+        // FALSE to stop cURL from verifying the peer's certificate.
+        // TRUE by default as of cURL 7.10. Default bundle installed as of cURL 7.10.
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 
         // Get HttpResponse Headers
         curl_setopt($curl, CURLOPT_HEADER, true);
