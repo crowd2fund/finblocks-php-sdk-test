@@ -29,7 +29,7 @@ class FinBlocksTest extends TestCase
     /**
      * @var FinBlocks
      */
-    private $finblocks;
+    private $finBlocks;
 
     /**
      * {@inheritdoc}
