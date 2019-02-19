@@ -347,6 +347,7 @@ abstract class AbstractAccountHolder implements BaseModelInterface
             'occupation'  => $this->occupation,
             'incomeRange' => $this->incomeRange,
             'address'     => $this->address->httpCreate(),
+            'kyc'         => true,
         ];
     }
 
