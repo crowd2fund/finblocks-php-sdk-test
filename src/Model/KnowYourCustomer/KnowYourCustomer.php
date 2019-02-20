@@ -40,7 +40,7 @@ class KnowYourCustomer implements BaseModelInterface
     private $status;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $refusedReason;
 
@@ -144,9 +144,9 @@ class KnowYourCustomer implements BaseModelInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRefusedReason(): string
+    public function getRefusedReason()
     {
         return $this->refusedReason;
     }
