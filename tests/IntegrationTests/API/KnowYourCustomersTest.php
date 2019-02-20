@@ -57,7 +57,7 @@ class KnowYourCustomersTest extends AbstractApiTests
         $this->assertEquals($document->getId(), $returnedKyc->getDocumentId());
         $this->assertEquals('KYC Label', $returnedKyc->getLabel());
         $this->assertEquals('KYC Tag', $returnedKyc->getTag());
-        //$this->assertEquals('aaaa', $returnedKyc->getStatus());
+        $this->assertEquals(KnowYourCustomer::STATUS_SUCCEEDED, $returnedKyc->getStatus());
 
         $reloadedKyc = $this->finBlocks->api()->kyc()->show($accountHolder->getId(), $returnedKyc->getId());
 

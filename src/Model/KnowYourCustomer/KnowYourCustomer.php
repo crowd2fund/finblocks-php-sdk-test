@@ -24,6 +24,12 @@ use FinBlocks\Model\BaseModelInterface;
  */
 class KnowYourCustomer implements BaseModelInterface
 {
+    const STATUS_CREATED = 'created';
+    const STATUS_UPDATED = 'updated';
+    const STATUS_SUCCEEDED = 'succeeded';
+    const STATUS_REFERRED = 'referred';
+    const STATUS_FAILED = 'failed';
+
     /**
      * @var string
      */
