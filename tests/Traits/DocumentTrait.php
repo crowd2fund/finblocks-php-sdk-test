@@ -25,6 +25,21 @@ use FinBlocks\Model\Document\DocumentPassport;
  */
 trait DocumentTrait
 {
+    public function traitCreateDocumentDrivingLicenseModel(FinBlocks $finBlocks, string $accountHolderId): DocumentIdCard
+    {
+        $file = base64_encode(file_get_contents(sprintf('%s/../Resources/finblocks-logo-small.png', __DIR__)));
+
+        $model = $finBlocks->factories()->documents()->createIdCard();
+
+        $model->setAccountHolderId($accountHolderId);
+        $model->setLabel('Label for Driving License\'s Document');
+        $model->setTag('Tag for Driving License\'s Document');
+        $model->setFront($file);
+        $model->setBack($file);
+
+        return $model;
+    }
+
     public function traitCreateDocumentIdCardModel(FinBlocks $finBlocks, string $accountHolderId): DocumentIdCard
     {
         $file = base64_encode(file_get_contents(sprintf('%s/../Resources/finblocks-logo-small.png', __DIR__)));
@@ -47,8 +62,8 @@ trait DocumentTrait
         $model = $finBlocks->factories()->documents()->createPassport();
 
         $model->setAccountHolderId($accountHolderId);
-        $model->setLabel('Label for ID Card\'s Document');
-        $model->setTag('Tag for ID Card\'s Document');
+        $model->setLabel('Label for Passport\'s Document');
+        $model->setTag('Tag for Passport\'s Document');
         $model->setFront($file);
 
         return $model;

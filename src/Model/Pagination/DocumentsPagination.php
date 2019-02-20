@@ -12,7 +12,8 @@
 namespace FinBlocks\Model\Pagination;
 
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Model\Document\AbstractDocument;
+use FinBlocks\Model\Document\AbstractFrontDocument;
+use FinBlocks\Model\Document\DocumentDrivingLicense;
 use FinBlocks\Model\Document\DocumentIdCard;
 use FinBlocks\Model\Document\DocumentPassport;
 
@@ -58,6 +59,9 @@ final class DocumentsPagination extends AbstractPagination
                 }
 
                 switch ($arrayModel['type']) {
+                    case DocumentDrivingLicense::TYPE:
+                        $itemModel = DocumentDrivingLicense::createFromPayload(json_encode($arrayModel));
+                        break;
                     case DocumentIdCard::TYPE:
                         $itemModel = DocumentIdCard::createFromPayload(json_encode($arrayModel));
                         break;
@@ -78,7 +82,7 @@ final class DocumentsPagination extends AbstractPagination
     }
 
     /**
-     * @return AbstractDocument[]
+     * @return AbstractFrontDocument[]
      */
     public function getItems(): array
     {

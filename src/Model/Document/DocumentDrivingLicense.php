@@ -19,21 +19,21 @@ namespace FinBlocks\Model\Document;
  *
  * @since   1.0.0
  */
-final class DocumentPassport extends AbstractFrontDocument
+final class DocumentDrivingLicense extends AbstractFrontBackDocument
 {
-    const TYPE = 'passport';
+    const TYPE = 'driving_licence';
 
     /**
-     * DocumentPassport constructor.
+     * DocumentIdCard constructor.
      *
      * @param string|null $jsonData
      */
     protected function __construct(string $jsonData = null)
     {
+        $this->setType(self::TYPE);
+
         if (!empty($jsonData)) {
             parent::__construct($jsonData);
-        } else {
-            $this->setType(self::TYPE);
         }
     }
 

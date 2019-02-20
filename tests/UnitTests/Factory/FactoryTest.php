@@ -29,7 +29,7 @@ class FactoryTest extends TestCase
     /**
      * @var FinBlocks
      */
-    private $finblocks;
+    private $finBlocks;
 
     /**
      * {@inheritdoc}
@@ -84,6 +84,8 @@ class FactoryTest extends TestCase
     public function testDocumentsFactory()
     {
         $this->assertInstanceOf(Factory\DocumentsFactory::class, $this->finBlocks->factories()->documents());
+        $this->assertInstanceOf(Model\Document\DocumentDrivingLicense::class, $this->finBlocks->factories()->documents()->createDrivingLicense());
+        $this->assertInstanceOf(Model\Document\DocumentDrivingLicense::class, $this->finBlocks->factories()->documents()->createDrivingLicenseFromPayload(''));
         $this->assertInstanceOf(Model\Document\DocumentIdCard::class, $this->finBlocks->factories()->documents()->createIdCard());
         $this->assertInstanceOf(Model\Document\DocumentIdCard::class, $this->finBlocks->factories()->documents()->createIdCardFromPayload(''));
         $this->assertInstanceOf(Model\Document\DocumentPassport::class, $this->finBlocks->factories()->documents()->createPassportFromPayload(''));

@@ -12,7 +12,8 @@
 namespace FinBlocks\API;
 
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Model\Document\AbstractDocument;
+use FinBlocks\Model\Document\AbstractFrontDocument;
+use FinBlocks\Model\Document\DocumentDrivingLicense;
 use FinBlocks\Model\Document\DocumentIdCard;
 use FinBlocks\Model\Document\DocumentPassport;
 use FinBlocks\Model\Pagination\DocumentsPagination;
@@ -31,21 +32,25 @@ class Documents extends AbstractHttpApi
     /**
      * Creates a Document.
      *
-     * @param AbstractDocument $document
+     * @param AbstractFrontDocument $document
      *
      * @throws FinBlocksException
      *
-     * @return AbstractDocument
+     * @return AbstractFrontDocument
      */
-    public function create(AbstractDocument $document): AbstractDocument
+    public function create(AbstractFrontDocument $document): AbstractFrontDocument
     {
         try {
             $model = $endpoint = null;
 
             switch ($document->getType()) {
+                case DocumentDrivingLicense::TYPE:
+                    $model = DocumentDrivingLicense::class;
+                    $endpoint = sprintf('/account-holders/%s/documents/driving-licence', $document->getAccountHolderId());
+                    break;
                 case DocumentIdCard::TYPE:
                     $model = DocumentIdCard::class;
-                    $endpoint = sprintf('/account-holders/%s/documents/id-card', $document->getAccountHolderId());
+                    $endpoint = sprintf('/account-holders/%s/documents/national-identity-card', $document->getAccountHolderId());
                     break;
                 case DocumentPassport::TYPE:
                     $model = DocumentPassport::class;
@@ -69,9 +74,9 @@ class Documents extends AbstractHttpApi
      *
      * @throws FinBlocksException
      *
-     * @return AbstractDocument
+     * @return AbstractFrontDocument
      */
-    public function show(string $accountHolderId, string $documentId): AbstractDocument
+    public function show(string $accountHolderId, string $documentId): AbstractFrontDocument
     {
         try {
             Assert::stringNotEmpty($accountHolderId, '`accountHolderId` argument must be a not empty string');
@@ -86,6 +91,9 @@ class Documents extends AbstractHttpApi
             $model = null;
 
             switch ($arrayResponse['type']) {
+                case DocumentDrivingLicense::TYPE:
+                    $model = DocumentDrivingLicense::class;
+                    break;
                 case DocumentIdCard::TYPE:
                     $model = DocumentIdCard::class;
                     break;

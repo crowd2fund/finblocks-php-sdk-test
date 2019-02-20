@@ -19,14 +19,9 @@ namespace FinBlocks\Model\Document;
  *
  * @since   1.0.0
  */
-final class DocumentIdCard extends AbstractDocument
+final class DocumentIdCard extends AbstractFrontBackDocument
 {
-    const TYPE = 'idCard';
-
-    /**
-     * @var string
-     */
-    private $back;
+    const TYPE = 'national_identity_card';
 
     /**
      * DocumentIdCard constructor.
@@ -56,21 +51,5 @@ final class DocumentIdCard extends AbstractDocument
     public static function createFromPayload(string $jsonData)
     {
         return new self($jsonData);
-    }
-
-    /**
-     * @param string $back
-     */
-    public function setBack(string $back)
-    {
-        $this->back = $back;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function httpCreate(): array
-    {
-        return array_merge(parent::httpCreate(), ['back' => $this->back]);
     }
 }

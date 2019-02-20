@@ -22,7 +22,7 @@ use FinBlocks\Model\BaseModelInterface;
  *
  * @since   1.0.0
  */
-abstract class AbstractDocument implements BaseModelInterface
+abstract class AbstractFrontDocument implements BaseModelInterface
 {
     /**
      * @var string

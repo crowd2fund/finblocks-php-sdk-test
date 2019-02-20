@@ -13,7 +13,7 @@ namespace FinBlocks\Tests\IntegrationTests\API;
 
 use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Model\Document\AbstractDocument;
+use FinBlocks\Model\Document\DocumentDrivingLicense;
 use FinBlocks\Model\Document\DocumentIdCard;
 use FinBlocks\Model\Document\DocumentPassport;
 use FinBlocks\Model\Pagination\DocumentsPagination;
@@ -32,6 +32,25 @@ class DocumentsTest extends AbstractApiTests
 {
     use AccountHolderTrait;
     use DocumentTrait;
+
+    public function testCreateDocumentDrivingLicense()
+    {
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
+
+        $document = $this->traitCreateDocumentDrivingLicenseModel($this->finBlocks, $accountHolder->getId());
+        $document = $this->finBlocks->api()->documents()->create($document);
+
+        $this->assertNotEmpty($document->getId());
+        $this->assertEquals('Label for Driving License\'s Document', $document->getLabel());
+        $this->assertEquals('Tag for Driving License\'s Document', $document->gettag());
+        $this->assertEquals(DocumentDrivingLicense::TYPE, $document->getType());
+        $this->assertInstanceOf(\DateTime::class, $document->getCreatedAt());
+
+        $reloadedDocument = $this->finBlocks->api()->documents()->show($accountHolder->getId(), $document->getId());
+
+        $this->assertEquals($document->getId(), $reloadedDocument->getId());
+    }
 
     public function testCreateDocumentIdCard()
     {
@@ -61,8 +80,8 @@ class DocumentsTest extends AbstractApiTests
         $document = $this->finBlocks->api()->documents()->create($document);
 
         $this->assertNotEmpty($document->getId());
-        $this->assertEquals('Label for ID Card\'s Document', $document->getLabel());
-        $this->assertEquals('Tag for ID Card\'s Document', $document->gettag());
+        $this->assertEquals('Label for Passport\'s Document', $document->getLabel());
+        $this->assertEquals('Tag for Passport\'s Document', $document->gettag());
         $this->assertEquals(DocumentPassport::TYPE, $document->getType());
         $this->assertInstanceOf(\DateTime::class, $document->getCreatedAt());
 

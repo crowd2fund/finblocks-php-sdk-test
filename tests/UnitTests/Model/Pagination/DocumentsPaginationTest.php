@@ -61,7 +61,14 @@ class DocumentsPaginationTest extends TestCase
                     "id": "string",
                     "label": "string",
                     "tag": "string",
-                    "type": "idCard",
+                    "type": "driving_licence",
+                    "createdAt": "2019-01-04T10:03:31.635Z"
+                },
+                {
+                    "id": "string",
+                    "label": "string",
+                    "tag": "string",
+                    "type": "national_identity_card",
                     "createdAt": "2019-01-04T10:03:31.635Z"
                 },
                 {
@@ -76,10 +83,11 @@ class DocumentsPaginationTest extends TestCase
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
-        $this->assertCount(2, $model->getItems());
+        $this->assertCount(3, $model->getItems());
 
-        $this->assertInstanceOf(Model\Document\DocumentIdCard::class, $model->getItems()[0]);
-        $this->assertInstanceOf(Model\Document\DocumentPassport::class, $model->getItems()[1]);
+        $this->assertInstanceOf(Model\Document\DocumentDrivingLicense::class, $model->getItems()[0]);
+        $this->assertInstanceOf(Model\Document\DocumentIdCard::class, $model->getItems()[1]);
+        $this->assertInstanceOf(Model\Document\DocumentPassport::class, $model->getItems()[2]);
     }
 
     public function testCreateModelDocumentsPaginationForUnknownTypeFromPayload()

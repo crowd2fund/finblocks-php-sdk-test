@@ -12,6 +12,7 @@
 namespace Finblocks\Tests\UnitTests\Model\Document;
 
 use FinBlocks\Exception\FinBlocksException;
+use FinBlocks\Model\Document\DocumentDrivingLicense;
 use FinBlocks\Model\Document\DocumentIdCard;
 use FinBlocks\Model\Document\DocumentPassport;
 use PHPUnit\Framework\TestCase;
@@ -38,18 +39,18 @@ class DocumentTest extends TestCase
 
     public function testCreateFilledModelFromJsonPayloadForIdCard()
     {
-        $model = DocumentPassport::createFromPayload('{
+        $model = DocumentIdCard::createFromPayload('{
             "id": "1111",
             "label": "Document\'s Label",
             "tag": "Document\'s Tag",
-            "type": "idCard",
+            "type": "national_identity_card",
             "createdAt": "2019-01-02T12:53:25.835Z"
         }');
 
         $this->assertEquals('1111', $model->getId());
         $this->assertEquals('Document\'s Label', $model->getLabel());
         $this->assertEquals('Document\'s Tag', $model->getTag());
-        $this->assertEquals('idCard', $model->getType());
+        $this->assertEquals(DocumentIdCard::TYPE, $model->getType());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
 
@@ -83,6 +84,66 @@ class DocumentTest extends TestCase
         $this->expectException(FinBlocksException::class);
 
         $model = DocumentIdCard::create();
+        $model->httpUpdate();
+    }
+
+    public function testCreateEmptyModelAndSettersForDrivingLicense()
+    {
+        $model = DocumentDrivingLicense::create();
+        $model->setLabel('label');
+        $model->setTag('tag');
+
+        $this->assertEquals('label', $model->getLabel());
+        $this->assertEquals('tag', $model->getTag());
+    }
+
+    public function testCreateFilledModelFromJsonPayloadForDrivingLicense()
+    {
+        $model = DocumentDrivingLicense::createFromPayload('{
+            "id": "1111",
+            "label": "Document\'s Label",
+            "tag": "Document\'s Tag",
+            "type": "driving_licence",
+            "createdAt": "2019-01-02T12:53:25.835Z"
+        }');
+
+        $this->assertEquals('1111', $model->getId());
+        $this->assertEquals('Document\'s Label', $model->getLabel());
+        $this->assertEquals('Document\'s Tag', $model->getTag());
+        $this->assertEquals(DocumentDrivingLicense::TYPE, $model->getType());
+
+        $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
+
+        $this->assertEquals('2019-01-02 12:53:25', $model->getCreatedAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function testCreateFilledModelFromWrongJsonPayloadForDrivingLicense()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        DocumentDrivingLicense::createFromPayload('This is not a JSON payload');
+    }
+
+    public function testCreateArrayForDrivingLicense()
+    {
+        $model = DocumentDrivingLicense::create();
+        $model->setFront('front');
+        $model->setBack('back');
+
+        $array = $model->httpCreate();
+
+        $this->assertCount(4, $array);
+        $this->assertArrayHasKey('label', $array);
+        $this->assertArrayHasKey('tag', $array);
+        $this->assertArrayHasKey('front', $array);
+        $this->assertArrayHasKey('back', $array);
+    }
+
+    public function testUpdateArrayForDrivingLicense()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        $model = DocumentDrivingLicense::create();
         $model->httpUpdate();
     }
 
