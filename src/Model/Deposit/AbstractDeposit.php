@@ -28,6 +28,7 @@ abstract class AbstractDeposit implements BaseModelInterface
 {
     const NATURE = 'deposit';
 
+    const STATUS_PENDING   = 'pending';
     const STATUS_REQUESTED = 'requested';
     const STATUS_DEPOSITED = 'deposited';
     const STATUS_COMPLETED = 'completed';
