@@ -58,7 +58,7 @@ abstract class AbstractBankAccount implements BaseModelInterface
     /**
      * @var bool
      */
-    protected $active;
+    protected $enabled;
 
     /**
      * @var BankAccountCaDetails|BankAccountGbDetails|BankAccountIbanDetails|BankAccountOtherDetails|BankAccountUsDetails
@@ -163,9 +163,9 @@ abstract class AbstractBankAccount implements BaseModelInterface
     /**
      * @return bool
      */
-    public function isActive(): bool
+    public function isEnabled(): bool
     {
-        return true === $this->active;
+        return true === $this->enabled;
     }
 
     /**

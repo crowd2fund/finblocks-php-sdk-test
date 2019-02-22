@@ -62,7 +62,7 @@ class BankAccountTest extends TestCase
             "accountHolderId": "2222",
             "label": "CA Bank Account\'s Label",
             "tag": "CA Bank Account\'s Tag",
-            "active": true,
+            "enabled": true,
             "createdAt": "2019-01-03T13:25:50.757Z",
             "details": {
                 "branchCode": "code",
@@ -77,7 +77,7 @@ class BankAccountTest extends TestCase
         $this->assertEquals('CA', $model->getType());
         $this->assertEquals('CA Bank Account\'s Label', $model->getLabel());
         $this->assertEquals('CA Bank Account\'s Tag', $model->getTag());
-        $this->assertEquals(true, $model->isActive());
+        $this->assertEquals(true, $model->isEnabled());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
 
@@ -149,7 +149,7 @@ class BankAccountTest extends TestCase
             "accountHolderId": "2222",
             "label": "GB Bank Account\'s Label",
             "tag": "GB Bank Account\'s Tag",
-            "active": true,
+            "enabled": true,
             "createdAt": "2019-01-03T13:25:50.757Z",
             "details": {
                 "sortCode": "123456",
@@ -162,7 +162,7 @@ class BankAccountTest extends TestCase
         $this->assertEquals('GB', $model->getType());
         $this->assertEquals('GB Bank Account\'s Label', $model->getLabel());
         $this->assertEquals('GB Bank Account\'s Tag', $model->getTag());
-        $this->assertEquals(true, $model->isActive());
+        $this->assertEquals(true, $model->isEnabled());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
 
@@ -230,7 +230,7 @@ class BankAccountTest extends TestCase
             "accountHolderId": "2222",
             "label": "IBAN Bank Account\'s Label",
             "tag": "IBAN Bank Account\'s Tag",
-            "active": true,
+            "enabled": true,
             "createdAt": "2019-01-03T13:25:50.757Z",
             "details": {
                 "bic": "12345678",
@@ -243,7 +243,7 @@ class BankAccountTest extends TestCase
         $this->assertEquals('IBAN', $model->getType());
         $this->assertEquals('IBAN Bank Account\'s Label', $model->getLabel());
         $this->assertEquals('IBAN Bank Account\'s Tag', $model->getTag());
-        $this->assertEquals(true, $model->isActive());
+        $this->assertEquals(true, $model->isEnabled());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
 
@@ -313,7 +313,7 @@ class BankAccountTest extends TestCase
             "accountHolderId": "2222",
             "label": "OTHER Bank Account\'s Label",
             "tag": "OTHER Bank Account\'s Tag",
-            "active": true,
+            "enabled": true,
             "createdAt": "2019-01-03T13:25:50.757Z",
             "details": {
                 "country": "GBR",
@@ -327,7 +327,7 @@ class BankAccountTest extends TestCase
         $this->assertEquals('OTHER', $model->getType());
         $this->assertEquals('OTHER Bank Account\'s Label', $model->getLabel());
         $this->assertEquals('OTHER Bank Account\'s Tag', $model->getTag());
-        $this->assertEquals(true, $model->isActive());
+        $this->assertEquals(true, $model->isEnabled());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
 
@@ -397,7 +397,7 @@ class BankAccountTest extends TestCase
             "accountHolderId": "2222",
             "label": "US Bank Account\'s Label",
             "tag": "US Bank Account\'s Tag",
-            "active": true,
+            "enabled": true,
             "createdAt": "2019-01-03T13:25:50.757Z",
             "details": {
                 "aba": "12345678",
@@ -410,7 +410,7 @@ class BankAccountTest extends TestCase
         $this->assertEquals('US', $model->getType());
         $this->assertEquals('US Bank Account\'s Label', $model->getLabel());
         $this->assertEquals('US Bank Account\'s Tag', $model->getTag());
-        $this->assertEquals(true, $model->isActive());
+        $this->assertEquals(true, $model->isEnabled());
 
         $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
 

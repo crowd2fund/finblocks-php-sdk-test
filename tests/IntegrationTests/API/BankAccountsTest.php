@@ -357,7 +357,7 @@ class BankAccountsTest extends AbstractApiTests
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountGb::class, $bankAccount);
-        $this->assertEquals(true, $bankAccount->isActive());
+        $this->assertTrue($bankAccount->isEnabled());
 
         $this->finBlocks->api()->bankAccounts()->deactivate($bankAccount->getId());
 
@@ -365,7 +365,7 @@ class BankAccountsTest extends AbstractApiTests
 
         $this->assertInstanceOf(BankAccountGb::class, $reloadedBankAccount);
         $this->assertEquals($bankAccount->getId(), $reloadedBankAccount->getId());
-        $this->assertEquals(false, $reloadedBankAccount->isActive());
+        $this->assertFalse($reloadedBankAccount->isEnabled());
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
