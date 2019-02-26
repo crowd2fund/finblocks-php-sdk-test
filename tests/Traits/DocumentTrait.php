@@ -12,6 +12,7 @@
 namespace FinBlocks\Tests\Traits;
 
 use FinBlocks\FinBlocks;
+use FinBlocks\Model\Document\DocumentDrivingLicense;
 use FinBlocks\Model\Document\DocumentIdCard;
 use FinBlocks\Model\Document\DocumentPassport;
 
@@ -25,11 +26,11 @@ use FinBlocks\Model\Document\DocumentPassport;
  */
 trait DocumentTrait
 {
-    public function traitCreateDocumentDrivingLicenseModel(FinBlocks $finBlocks, string $accountHolderId): DocumentIdCard
+    public function traitCreateDocumentDrivingLicenseModel(FinBlocks $finBlocks, string $accountHolderId): DocumentDrivingLicense
     {
         $file = base64_encode(file_get_contents(sprintf('%s/../Resources/finblocks-logo-small.png', __DIR__)));
 
-        $model = $finBlocks->factories()->documents()->createIdCard();
+        $model = $finBlocks->factories()->documents()->createDrivingLicense();
 
         $model->setAccountHolderId($accountHolderId);
         $model->setLabel('Label for Driving License\'s Document');
