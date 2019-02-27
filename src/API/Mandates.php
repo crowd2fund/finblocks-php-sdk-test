@@ -154,4 +154,14 @@ class Mandates extends AbstractHttpApi
             throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
         }
     }
+
+    /**
+     * Gives access to the Flows, required to create Mandates.
+     *
+     * @return Flows
+     */
+    public function flows(): Flows
+    {
+        return new Flows($this->httpClient);
+    }
 }

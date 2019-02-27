@@ -72,6 +72,16 @@ class ModelsFactories
     }
 
     /**
+     * Flow's Factory.
+     *
+     * @return FlowsFactory
+     */
+    public function flows(): FlowsFactory
+    {
+        return new FlowsFactory();
+    }
+
+    /**
      * Hook's Factory.
      *
      * @return HooksFactory

@@ -114,6 +114,13 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(Model\Mandate\Mandate::class, $this->finBlocks->factories()->mandates()->createFromPayload(''));
     }
 
+    public function testMandateFlowsFactory()
+    {
+        $this->assertInstanceOf(Factory\FlowsFactory::class, $this->finBlocks->factories()->flows());
+        $this->assertInstanceOf(Model\Mandate\Flow::class, $this->finBlocks->factories()->flows()->create());
+        $this->assertInstanceOf(Model\Mandate\Flow::class, $this->finBlocks->factories()->flows()->createFromPayload(''));
+    }
+
     public function testRefundsFactory()
     {
         $this->assertInstanceOf(Factory\RefundsFactory::class, $this->finBlocks->factories()->refunds());
