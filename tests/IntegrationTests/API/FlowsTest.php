@@ -48,7 +48,7 @@ class FlowsTest extends AbstractApiTests
         $this->assertNull($returnedFlow->getLabel());
         $this->assertNull($returnedFlow->getTag());
 
-        $this->assertEquals(Flow::STATUS_FLOW_CREATED, $returnedFlow->getStatus());
+        $this->assertEquals(Flow::STATUS_FLOW_PENDING, $returnedFlow->getStatus());
 
         $reloadedFlow = $this->finBlocks->api()->mandates()->flows()->show($returnedFlow->getId());
 
