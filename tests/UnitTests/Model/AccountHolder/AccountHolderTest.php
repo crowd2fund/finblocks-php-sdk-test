@@ -12,6 +12,7 @@
 namespace Finblocks\Tests\UnitTests\Model\AccountHolder;
 
 use FinBlocks\Exception\FinBlocksException;
+use FinBlocks\Model\AccountHolder\AbstractAccountHolder;
 use FinBlocks\Model\AccountHolder\AccountHolderBusiness;
 use FinBlocks\Model\AccountHolder\AccountHolderIndividual;
 use FinBlocks\Model\AccountHolder\Company\Company;
@@ -71,7 +72,7 @@ class AccountHolderTest extends TestCase
             "nationality": "GBR",
             "occupation": "Unknown",
             "incomeRange": 6,
-            "kyc": "verified",
+            "kyc": "advanced",
             "address": {
                 "flatNumber": "3",
                 "buildingNumber": "28",
@@ -96,7 +97,7 @@ class AccountHolderTest extends TestCase
         $this->assertEquals('GBR', $model->getNationality());
         $this->assertEquals('Unknown', $model->getOccupation());
         $this->assertEquals(6, $model->getIncomeRange());
-        $this->assertEquals('verified', $model->getKyc());
+        $this->assertEquals(AbstractAccountHolder::KYC_STATUS_ADVANCED, $model->getKyc());
 
         $this->assertInstanceOf(\DateTime::class, $model->getDateOfBirth());
 
@@ -231,7 +232,7 @@ class AccountHolderTest extends TestCase
             "nationality": "GBR",
             "occupation": "Unknown",
             "incomeRange": 6,
-            "kyc": "restricted",
+            "kyc": "advanced",
             "address": {
                 "flatNumber": "3",
                 "buildingNumber": "28",
@@ -273,7 +274,7 @@ class AccountHolderTest extends TestCase
         $this->assertEquals('GBR', $model->getNationality());
         $this->assertEquals('Unknown', $model->getOccupation());
         $this->assertEquals(6, $model->getIncomeRange());
-        $this->assertEquals('restricted', $model->getKyc());
+        $this->assertEquals(AbstractAccountHolder::KYC_STATUS_ADVANCED, $model->getKyc());
 
         $this->assertInstanceOf(\DateTime::class, $model->getDateOfBirth());
 

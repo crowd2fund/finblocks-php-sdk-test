@@ -25,6 +25,11 @@ use Webmozart\Assert\Assert;
  */
 abstract class AbstractAccountHolder implements BaseModelInterface
 {
+    const KYC_STATUS_NONE = 'none';
+    const KYC_STATUS_PENDING = 'pending';
+    const KYC_STATUS_BASIC = 'basic';
+    const KYC_STATUS_ADVANCED = 'advanced';
+
     /**
      * @var string
      */
