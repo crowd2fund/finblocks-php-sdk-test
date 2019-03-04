@@ -100,8 +100,8 @@ final class AccountHolderBusiness extends AbstractAccountHolder
     /**
      * {@inheritdoc}
      */
-    public function httpCreate(): array
+    public function httpUpdate(): array
     {
-        return array_merge(parent::httpCreate(), ['company' => $this->company->httpCreate()]);
+        return array_merge(parent::httpUpdate(), ['company' => $this->company->httpCreate()]);
     }
 }

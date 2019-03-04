@@ -96,6 +96,11 @@ abstract class AbstractAccountHolder implements BaseModelInterface
     protected $kyc;
 
     /**
+     * @var string|null
+     */
+    protected $importedKycStatus;
+
+    /**
      * @var Address
      */
     protected $address;
@@ -328,6 +333,22 @@ abstract class AbstractAccountHolder implements BaseModelInterface
     }
 
     /**
+     * @param string|null $importedKycStatus
+     */
+    public function setImportedKycStatus(string $importedKycStatus = null)
+    {
+        $this->importedKycStatus = $importedKycStatus;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImportedKycStatus()
+    {
+        return $this->importedKycStatus;
+    }
+
+    /**
      * @return Address
      */
     public function getAddress(): Address
@@ -339,6 +360,17 @@ abstract class AbstractAccountHolder implements BaseModelInterface
      * {@inheritdoc}
      */
     public function httpCreate(): array
+    {
+        return array_merge(
+            $this->httpUpdate(),
+            ['importedKycStatus' => $this->importedKycStatus]
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function httpUpdate(): array
     {
         return [
             'email'       => $this->email,
@@ -354,13 +386,5 @@ abstract class AbstractAccountHolder implements BaseModelInterface
             'address'     => $this->address->httpCreate(),
             'kyc'         => true,
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function httpUpdate(): array
-    {
-        return $this->httpCreate();
     }
 }

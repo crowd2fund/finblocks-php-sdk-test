@@ -56,7 +56,8 @@ class AccountHoldersTest extends AbstractApiTests
         $this->assertEquals('GBR', $returnedContent->getNationality());
         $this->assertEquals('Unknown', $returnedContent->getOccupation());
         $this->assertEquals(6, $returnedContent->getIncomeRange());
-        $this->assertEquals(AbstractAccountHolder::KYC_STATUS_PENDING, $returnedContent->getKyc());
+        $this->assertTrue(in_array($returnedContent->getKyc(), [AbstractAccountHolder::KYC_STATUS_NONE, AbstractAccountHolder::KYC_STATUS_PENDING]));
+        $this->assertNull($returnedContent->getImportedKycStatus());
 
         $this->assertEquals('3', $returnedContent->getAddress()->getFlatNumber());
         $this->assertEquals('28', $returnedContent->getAddress()->getBuildingNumber());
@@ -70,12 +71,13 @@ class AccountHoldersTest extends AbstractApiTests
 
         $reloadedContent = $this->finBlocks->api()->accountHolders()->show($returnedContent->getId());
 
-        $this->assertEquals(true, in_array($reloadedContent->getKyc(), [AbstractAccountHolder::KYC_STATUS_PENDING, AbstractAccountHolder::KYC_STATUS_BASIC]));
+        $this->assertTrue(in_array($reloadedContent->getKyc(), [AbstractAccountHolder::KYC_STATUS_NONE, AbstractAccountHolder::KYC_STATUS_PENDING, AbstractAccountHolder::KYC_STATUS_BASIC]));
     }
 
     public function testCreateAccountHolderBusiness()
     {
         $model = $this->traitCreateAccountHolderBusinessModel($this->finBlocks);
+        $model->setImportedKycStatus(AbstractAccountHolder::KYC_STATUS_ADVANCED);
 
         $returnedContent = $this->finBlocks->api()->accountHolders()->create($model);
 
@@ -97,7 +99,8 @@ class AccountHoldersTest extends AbstractApiTests
         $this->assertEquals('GBR', $returnedContent->getNationality());
         $this->assertEquals('CEO', $returnedContent->getOccupation());
         $this->assertEquals(6, $returnedContent->getIncomeRange());
-        $this->assertEquals(AbstractAccountHolder::KYC_STATUS_PENDING, $returnedContent->getKyc());
+        $this->assertEquals(AbstractAccountHolder::KYC_STATUS_ADVANCED, $returnedContent->getKyc());
+        $this->assertEquals(AbstractAccountHolder::KYC_STATUS_ADVANCED, $returnedContent->getImportedKycStatus());
 
         $this->assertEquals('3', $returnedContent->getAddress()->getFlatNumber());
         $this->assertEquals('28', $returnedContent->getAddress()->getBuildingNumber());
@@ -126,7 +129,7 @@ class AccountHoldersTest extends AbstractApiTests
 
         $reloadedContent = $this->finBlocks->api()->accountHolders()->show($returnedContent->getId());
 
-        $this->assertEquals(true, in_array($reloadedContent->getKyc(), [AbstractAccountHolder::KYC_STATUS_PENDING, AbstractAccountHolder::KYC_STATUS_BASIC]));
+        $this->assertEquals(AbstractAccountHolder::KYC_STATUS_ADVANCED, $reloadedContent->getKyc());
     }
 
     public function testCreateAnIncompleteAccountHolder()

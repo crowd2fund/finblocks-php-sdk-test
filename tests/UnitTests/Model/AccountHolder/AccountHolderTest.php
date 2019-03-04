@@ -130,7 +130,7 @@ class AccountHolderTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(12, $array);
+        $this->assertCount(13, $array);
         $this->assertArrayHasKey('email', $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
@@ -143,6 +143,7 @@ class AccountHolderTest extends TestCase
         $this->assertArrayHasKey('incomeRange', $array);
         $this->assertArrayHasKey('address', $array);
         $this->assertArrayHasKey('kyc', $array);
+        $this->assertArrayHasKey('importedKycStatus', $array);
 
         $this->assertCount(9, $array['address']);
         $this->assertArrayHasKey('flatNumber', $array['address']);
@@ -326,7 +327,7 @@ class AccountHolderTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(13, $array);
+        $this->assertCount(14, $array);
         $this->assertArrayHasKey('email', $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
@@ -340,6 +341,7 @@ class AccountHolderTest extends TestCase
         $this->assertArrayHasKey('address', $array);
         $this->assertArrayHasKey('company', $array);
         $this->assertArrayHasKey('kyc', $array);
+        $this->assertArrayHasKey('importedKycStatus', $array);
 
         $this->assertCount(9, $array['address']);
         $this->assertArrayHasKey('flatNumber', $array['address']);
