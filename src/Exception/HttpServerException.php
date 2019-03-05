@@ -32,7 +32,7 @@ class HttpServerException extends AbstractHttpException
     {
         return new self(
             $response,
-            'An unexpected internal server error occurred. Please contact FinBlocks\'s support.'
+            AbstractHttpException::getErrorMessage($response, 'An unexpected internal server error occurred. Please contact FinBlocks\'s support.')
         );
     }
 
@@ -45,7 +45,7 @@ class HttpServerException extends AbstractHttpException
     {
         return new self(
             $response,
-            'The server is currently unavailable (because it is overloaded or down for maintenance). Please try again shortly.'
+            AbstractHttpException::getErrorMessage($response, 'The server is currently unavailable (because it is overloaded or down for maintenance). Please try again shortly.')
         );
     }
 }

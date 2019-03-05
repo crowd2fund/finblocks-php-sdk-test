@@ -74,4 +74,21 @@ abstract class AbstractHttpException extends \RuntimeException
     {
         return $this->responseCode;
     }
+
+    /**
+     * @param HttpResponse $httpResponse
+     * @param string       $defaultMessage
+     *
+     * @return string
+     */
+    public static function getErrorMessage(HttpResponse $httpResponse, string $defaultMessage): string
+    {
+        $assocResponse = json_decode($httpResponse->getBody(), true);
+
+        $exceptionMessage = (isset($assocResponse['error']) && !empty($assocResponse['error']))
+            ? $assocResponse['error']
+            : $defaultMessage;
+
+        return sprintf('%s', $exceptionMessage);
+    }
 }
