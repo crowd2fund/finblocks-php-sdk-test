@@ -207,6 +207,21 @@ class HttpClient
             $httpResponse = new HttpResponse(end($matchesForStatusCode), end($lines));
         }
 
+        if (HttpResponse::ACCEPTED === $httpResponse->getStatusCode()) {
+            do {
+                // Sleep for 1 second, giving some time to the API
+                sleep(1);
+                // Get the URL that we need from the 202 Response
+                $assoc = json_decode($httpResponse->getBody(), true);
+                $url = $assoc['url'];
+                // Get the expected response re-sending the API request
+                var_dump(sprintf('%s %s', $method, $apiResource));
+                var_dump(clone $httpResponse);
+                $httpResponse = $this->get($url);
+                var_dump(clone $httpResponse);
+            } while (HttpResponse::ACCEPTED === $httpResponse->getStatusCode());
+        }
+
         return $httpResponse;
     }
 }
