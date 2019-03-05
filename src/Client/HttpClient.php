@@ -62,7 +62,8 @@ class HttpClient
         //TODO: Remove this Server IP and keep just the previous call.
         // This is in use just for an earlier testing stage, and needs to be removed.
         // $this->server = 'https://35.177.183.140';
-        $this->server = 'https://api.test.fb.mph.im';
+        //$this->server = 'https://api.test.fb.mph.im';
+        $this->server = 'https://api.staging.finblocks.net';
     }
 
     /**
