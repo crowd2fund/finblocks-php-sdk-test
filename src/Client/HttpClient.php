@@ -46,12 +46,13 @@ class HttpClient
     /**
      * HttpClient constructor.
      *
-     * @param string $key     Path to the SSL Certificate Key file
-     * @param string $cert    Path to the SSL Certificate file
-     * @param string $info    Path to the CA Certificate file
-     * @param bool   $sandbox Use SANDBOX environment
+     * @param string      $key     Path to the SSL Certificate Key file
+     * @param string      $cert    Path to the SSL Certificate file
+     * @param string      $info    Path to the CA Certificate file
+     * @param bool        $sandbox Use SANDBOX environment
+     * @param string|null $server  Use this parameter to override the FinBlocks Server that the SDK will target
      */
-    public function __construct(string $key, string $cert, string $info, bool $sandbox = false)
+    public function __construct(string $key, string $cert, string $info, bool $sandbox = false, string $server = null)
     {
         $this->pathToKey = $key;
         $this->pathToCert = $cert;
@@ -59,11 +60,11 @@ class HttpClient
 
         $this->server = sprintf('https://api.%sfinblocks.net/v1', ($sandbox ? 'sandbox.' : ''));
 
-        //TODO: Remove this Server IP and keep just the previous call.
-        // This is in use just for an earlier testing stage, and needs to be removed.
-        // $this->server = 'https://35.177.183.140';
-        //$this->server = 'https://api.test.fb.mph.im';
-        $this->server = 'https://api.staging.finblocks.net';
+        if (!empty($server)) {
+            //$this->server = 'https://api.test.fb.mph.im';
+            //$this->server = 'https://api.staging.finblocks.net';
+            $this->server = $server;
+        }
     }
 
     /**
@@ -215,10 +216,7 @@ class HttpClient
                 $assoc = json_decode($httpResponse->getBody(), true);
                 $url = $assoc['url'];
                 // Get the expected response re-sending the API request
-                var_dump(sprintf('%s %s', $method, $apiResource));
-                var_dump(clone $httpResponse);
                 $httpResponse = $this->get($url);
-                var_dump(clone $httpResponse);
             } while (HttpResponse::ACCEPTED === $httpResponse->getStatusCode());
         }
 

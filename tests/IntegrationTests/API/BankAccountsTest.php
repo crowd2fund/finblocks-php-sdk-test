@@ -42,6 +42,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountGbModel($this->finBlocks, $accountHolder->getId());
+        /** @var BankAccountGb $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountGb::class, $bankAccount);
@@ -63,6 +64,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountGbModel($this->finBlocks, $accountHolder->getId(), true);
+        /** @var BankAccountGb $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountGb::class, $bankAccount);
@@ -95,6 +97,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountIbanModel($this->finBlocks, $accountHolder->getId());
+        /** @var BankAccountIban $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountIban::class, $bankAccount);
@@ -116,6 +119,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountIbanModel($this->finBlocks, $accountHolder->getId(), true);
+        /** @var BankAccountIban $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountIban::class, $bankAccount);
@@ -129,7 +133,7 @@ class BankAccountsTest extends AbstractApiTests
 
         $this->assertEquals(BankAccountIban::TYPE, $bankAccount->getType());
         $this->assertEquals($accountHolder->getId(), $bankAccount->getAccountHolderId());
-        $this->assertEquals('00000000000000000000', $bankAccount->getDetails()->getAccountNumber());
+        $this->assertEquals('00000000000000000000', $bankAccount->getDetails()->getIban());
     }
 
     public function testCreateIbanBankAccountWithoutTheRequiredFields()
@@ -148,6 +152,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountCaModel($this->finBlocks, $accountHolder->getId());
+        /** @var BankAccountCa $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountCa::class, $bankAccount);
@@ -171,6 +176,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountCaModel($this->finBlocks, $accountHolder->getId(), true);
+        /** @var BankAccountCa $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountCa::class, $bankAccount);
@@ -205,6 +211,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountUsModel($this->finBlocks, $accountHolder->getId());
+        /** @var BankAccountUs $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountUs::class, $bankAccount);
@@ -226,6 +233,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountUsModel($this->finBlocks, $accountHolder->getId(), true);
+        /** @var BankAccountUs $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountUs::class, $bankAccount);
@@ -258,6 +266,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountOtherModel($this->finBlocks, $accountHolder->getId());
+        /** @var BankAccountOther $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountOther::class, $bankAccount);
@@ -280,6 +289,7 @@ class BankAccountsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $bankAccount = $this->traitCreateBankAccountOtherModel($this->finBlocks, $accountHolder->getId(), true);
+        /** @var BankAccountOther $bankAccount */
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
 
         $this->assertInstanceOf(BankAccountOther::class, $bankAccount);

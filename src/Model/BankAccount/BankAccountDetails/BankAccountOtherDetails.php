@@ -100,10 +100,7 @@ final class BankAccountOtherDetails implements BaseModelInterface
     public function setBic(string $bic)
     {
         Assert::stringNotEmpty($bic);
-
-        if (!empty($bic)) {
-            Assert::lengthBetween($bic, 8, 11);
-        }
+        Assert::true(in_array(strlen($bic), [8, 11]));
 
         $this->bic = $bic;
     }

@@ -26,7 +26,7 @@ use Webmozart\Assert\Assert;
 final class BankAccountIbanDetails implements BaseModelInterface
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $bic;
 
@@ -71,14 +71,14 @@ final class BankAccountIbanDetails implements BaseModelInterface
     }
 
     /**
-     * @param string $bic
+     * @param string|null $bic
      */
-    public function setBic(string $bic)
+    public function setBic(string $bic = null)
     {
-        Assert::stringNotEmpty($bic);
+        Assert::nullOrStringNotEmpty($bic);
 
         if (!empty($bic)) {
-            Assert::lengthBetween($bic, 8, 11);
+            Assert::true(in_array(strlen($bic), [8, 11]));
         }
 
         $this->bic = $bic;
@@ -87,7 +87,7 @@ final class BankAccountIbanDetails implements BaseModelInterface
     /**
      * @return string
      */
-    public function getBic(): string
+    public function getBic()
     {
         return $this->bic;
     }

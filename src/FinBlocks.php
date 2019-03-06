@@ -33,14 +33,15 @@ class FinBlocks
     /**
      * FinBlocks constructor.
      *
-     * @param string $key     Path to the SSL Certificate Key file
-     * @param string $cert    Path to the SSL Certificate file
-     * @param string $info    Path to the CA Certificate file
-     * @param bool   $sandbox Use SANDBOX environment
+     * @param string      $key     Path to the SSL Certificate Key file
+     * @param string      $cert    Path to the SSL Certificate file
+     * @param string      $info    Path to the CA Certificate file
+     * @param bool        $sandbox Use SANDBOX environment
+     * @param string|null $server  Use this parameter to override the FinBlocks Server that the SDK will target
      */
-    public function __construct(string $key, string $cert, string $info, bool $sandbox = false)
+    public function __construct(string $key, string $cert, string $info, bool $sandbox = false, string $server = null)
     {
-        $this->httpClient = new HttpClient($key, $cert, $info, $sandbox);
+        $this->httpClient = new HttpClient($key, $cert, $info, $sandbox, $server);
     }
 
     /**
