@@ -13,12 +13,16 @@ namespace FinBlocks\Tests\IntegrationTests\API;
 
 use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
+use FinBlocks\Model\AccountHolder\AbstractAccountHolder;
 use FinBlocks\Model\Money\Money;
 use FinBlocks\Model\Pagination\Links;
 use FinBlocks\Model\Pagination\WithdrawalsPagination;
 use FinBlocks\Model\Withdrawal\Withdrawal;
 use FinBlocks\Tests\Traits\AccountHolderTrait;
 use FinBlocks\Tests\Traits\BankAccountTrait;
+use FinBlocks\Tests\Traits\CardTrait;
+use FinBlocks\Tests\Traits\DepositTrait;
+use FinBlocks\Tests\Traits\DocumentTrait;
 use FinBlocks\Tests\Traits\WalletTrait;
 use FinBlocks\Tests\Traits\WithdrawalTrait;
 
@@ -34,21 +38,40 @@ class WithdrawalsTest extends AbstractApiTests
 {
     use AccountHolderTrait;
     use BankAccountTrait;
+    use CardTrait;
+    use DepositTrait;
     use WalletTrait;
     use WithdrawalTrait;
 
     public function testCreateWithdrawal()
     {
-        $this->markTestSkipped('Not yet implemented');
+        // Account Holder
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder->setImportedKycStatus(AbstractAccountHolder::KYC_STATUS_ADVANCED);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
+
+        // Wallet
 
         $wallet = $this->traitCreateWalletModel($this->finBlocks, $accountHolder->getId());
         $wallet = $this->finBlocks->api()->wallets()->create($wallet);
 
+        // Bank Account
+
         $bankAccount = $this->traitCreateBankAccountGbModel($this->finBlocks, $accountHolder->getId());
         $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
+
+        // Card Deposit
+
+        $card = $this->traitCreateCardModel($this->finBlocks, $accountHolder->getId());
+        $card = $this->finBlocks->api()->cards()->create($card);
+
+        $deposit = $this->traitCreateCardDepositModel($this->finBlocks, $card->getId(), $wallet->getId(), $wallet->getCurrency());
+        $deposit = $this->finBlocks->api()->deposits()->create($deposit);
+
+        sleep(2);
+
+        // Withdrawal
 
         $withdrawal = $this->traitCreateWithdrawalModel($this->finBlocks, $bankAccount->getId(), $wallet->getId(), $wallet->getCurrency());
         $withdrawal = $this->finBlocks->api()->withdrawals()->create($withdrawal);
@@ -65,7 +88,7 @@ class WithdrawalsTest extends AbstractApiTests
         $this->assertEquals('reference', $withdrawal->getBankWireReference());
         $this->assertEquals('Withdrawal Label', $withdrawal->getLabel());
         $this->assertEquals('Withdrawal Tag', $withdrawal->getTag());
-        $this->assertEquals(Withdrawal::STATUS_CREATED, $withdrawal->getStatus());
+        $this->assertEquals(Withdrawal::STATUS_PENDING, $withdrawal->getStatus());
         $this->assertEquals(Withdrawal::NATURE, $withdrawal->getNature());
         $this->assertEquals(null, $withdrawal->getExecutedAt());
 
@@ -78,8 +101,6 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithNonExistingWalletId()
     {
-        $this->markTestSkipped('Not yet implemented');
-
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
@@ -95,8 +116,6 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithNonExistingBankAccountId()
     {
-        $this->markTestSkipped('Not yet implemented');
-
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
@@ -112,8 +131,6 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithInvalidWalletIdAndBankAccountId()
     {
-        $this->markTestSkipped('Not yet implemented');
-
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
@@ -142,8 +159,6 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithInvalidAmount()
     {
-        $this->markTestSkipped('Not yet implemented');
-
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
@@ -163,8 +178,6 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testRetrieveNonExistingWithdrawal()
     {
-        $this->markTestSkipped('Not yet implemented');
-
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 

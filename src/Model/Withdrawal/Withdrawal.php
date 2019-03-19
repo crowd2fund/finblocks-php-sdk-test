@@ -27,9 +27,16 @@ class Withdrawal implements BaseModelInterface
 {
     const NATURE = 'withdrawal';
 
+    // withdrawal status
+    const STATUS_UNINITIALISED = 'uninitialised';
     const STATUS_CREATED = 'created';
-    const STATUS_SUCCEEDED = 'succeeded';
     const STATUS_FAILED = 'failed';
+    const STATUS_PENDING = 'pending';
+    const STATUS_SUCCEEDED = 'succeeded';
+
+    // compliance status
+    const COMPLIANCE_PASSED = 'passed';
+    const COMPLIANCE_FAILED = 'failed';
 
     /**
      * @var string
@@ -65,6 +72,16 @@ class Withdrawal implements BaseModelInterface
      * @var string
      */
     private $status;
+
+    /**
+     * @var string
+     */
+    private $complianceStatus;
+
+    /**
+     * @var string|null
+     */
+    private $reason;
 
     /**
      * @var string
@@ -239,6 +256,22 @@ class Withdrawal implements BaseModelInterface
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComplianceStatus(): string
+    {
+        return $this->complianceStatus;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getReason()
+    {
+        return $this->reason;
     }
 
     /**
