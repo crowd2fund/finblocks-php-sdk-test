@@ -24,6 +24,8 @@ use FinBlocks\Model\BaseModelInterface;
  */
 class Mandate implements BaseModelInterface
 {
+    const STATUS_MANDATE_CREATED = 'created';
+
     /**
      * @var string
      */
