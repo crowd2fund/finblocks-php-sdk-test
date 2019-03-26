@@ -68,7 +68,8 @@ class Deposits extends AbstractHttpApi
      *
      * @return AbstractDeposit
      */
-    public function create(AbstractDeposit $deposit): AbstractDeposit {
+    public function create(AbstractDeposit $deposit): AbstractDeposit
+    {
         try {
             $apiEndpoint = $model = null;
 

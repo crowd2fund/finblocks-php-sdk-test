@@ -12,7 +12,6 @@
 namespace FinBlocks\API;
 
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Exception\SerializerException;
 use FinBlocks\Model\BankAccount\AbstractBankAccount;
 use FinBlocks\Model\BankAccount\BankAccountCa;
 use FinBlocks\Model\BankAccount\BankAccountGb;

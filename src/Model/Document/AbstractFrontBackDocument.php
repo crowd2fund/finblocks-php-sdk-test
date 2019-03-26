@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of FinBlocks PHP SDK.
+ *
+ * Copyright (C) 2018 FinBlocks Ltd.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FinBlocks\Model\Document;
 
 abstract class AbstractFrontBackDocument extends AbstractFrontDocument

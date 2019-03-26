@@ -12,7 +12,6 @@
 namespace FinBlocks\Model\Deposit;
 
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\BaseModelInterface;
 use FinBlocks\Model\Money\Money;
 
@@ -28,12 +27,12 @@ abstract class AbstractDeposit implements BaseModelInterface
 {
     const NATURE = 'deposit';
 
-    const STATUS_PENDING   = 'pending';
+    const STATUS_PENDING = 'pending';
     const STATUS_REQUESTED = 'requested';
     const STATUS_DEPOSITED = 'deposited';
     const STATUS_COMPLETED = 'completed';
-    const STATUS_EXPIRED   = 'expired';
-    const STATUS_REJECTED  = 'rejected';
+    const STATUS_EXPIRED = 'expired';
+    const STATUS_REJECTED = 'rejected';
 
     /**
      * @var string
