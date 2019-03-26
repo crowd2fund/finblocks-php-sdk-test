@@ -58,7 +58,7 @@ class HttpClient
         $this->pathToCert = $cert;
         $this->pathToInfo = $info;
 
-        $this->server = sprintf('https://api.%sfinblocks.net/v1', ($sandbox ? 'sandbox.' : ''));
+        $this->server = sprintf('https://api.%sfinblocks.net', ($sandbox ? 'sandbox.' : ''));
 
         if (!empty($server)) {
             //$this->server = 'https://api.test.fb.mph.im';
