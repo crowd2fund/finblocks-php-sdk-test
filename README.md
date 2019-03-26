@@ -83,7 +83,6 @@ $finblocks->factories()->deposits();       // Deposits
 $finblocks->factories()->documents();      // Documents
 $finblocks->factories()->kyc();            // KYC
 $finblocks->factories()->mandates();       // Mandates
-$finblocks->factories()->refunds();        // Refunds
 $finblocks->factories()->transfers();      // Transfers
 $finblocks->factories()->wallets();        // Wallets
 $finblocks->factories()->withdrawals();    // Withdrawals
@@ -97,11 +96,9 @@ $finblocks->api()->bankAccounts();   // Bank Accounts
 $finblocks->api()->cards();          // Cards
 $finblocks->api()->deposits();       // Deposits
 $finblocks->api()->documents();      // Documents
-$finblocks->api()->hooks();          // Hooks
 $finblocks->api()->kyc();            // KYC
 $finblocks->api()->mandates();       // Mandates
 $finblocks->api()->network();        // Network
-$finblocks->api()->refunds();        // Refunds
 $finblocks->api()->statements();     // Statements
 $finblocks->api()->transfers();      // Transfers
 $finblocks->api()->wallets();        // Wallets
