@@ -22,7 +22,6 @@ use FinBlocks\Tests\Traits\AccountHolderTrait;
 use FinBlocks\Tests\Traits\BankAccountTrait;
 use FinBlocks\Tests\Traits\CardTrait;
 use FinBlocks\Tests\Traits\DepositTrait;
-use FinBlocks\Tests\Traits\DocumentTrait;
 use FinBlocks\Tests\Traits\WalletTrait;
 use FinBlocks\Tests\Traits\WithdrawalTrait;
 

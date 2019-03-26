@@ -12,7 +12,6 @@
 namespace FinBlocks\Model\Deposit;
 
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\Money\Money;
 
 /**

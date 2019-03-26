@@ -223,9 +223,9 @@ class Flow implements BaseModelInterface
     {
         return [
             'accountHolderId' => $this->accountHolderId,
-            'label' => $this->label,
-            'tag' => $this->tag,
-            'returnUrl' => $this->returnUrl,
+            'label'           => $this->label,
+            'tag'             => $this->tag,
+            'returnUrl'       => $this->returnUrl,
         ];
     }
 

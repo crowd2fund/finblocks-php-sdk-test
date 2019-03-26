@@ -12,7 +12,6 @@
 namespace Finblocks\Tests\UnitTests\Model\Deposit;
 
 use FinBlocks\Exception\FinBlocksException;
-use FinBlocks\Model\Address\Address;
 use FinBlocks\Model\Deposit\DepositBankWire;
 use FinBlocks\Model\Deposit\DepositCard;
 use FinBlocks\Model\Deposit\DepositDirectDebit;
