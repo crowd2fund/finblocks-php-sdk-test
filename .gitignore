@@ -9,6 +9,7 @@ vendor
 
 composer.lock
 phpunit.xml
+var/log/*.log
 
 # Resources
 # ~~~~~~~~~
