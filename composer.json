@@ -29,6 +29,7 @@
         "php": "^7.0",
         "ext-curl": "*",
         "ext-json": "*",
+        "monolog/monolog": "^1.0",
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
