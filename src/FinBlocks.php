@@ -38,10 +38,11 @@ class FinBlocks
      * @param string      $info    Path to the CA Certificate file
      * @param bool        $sandbox Use SANDBOX environment
      * @param string|null $server  Use this parameter to override the FinBlocks Server that the SDK will target
+     * @param string|null $logFile Path to the log file where FinBlocks PHP SDK needs to write their logs
      */
-    public function __construct(string $key, string $cert, string $info, bool $sandbox = false, string $server = null)
+    public function __construct(string $key, string $cert, string $info, bool $sandbox = false, string $server = null, string $logFile = null)
     {
-        $this->httpClient = new HttpClient($key, $cert, $info, $sandbox, $server);
+        $this->httpClient = new HttpClient($key, $cert, $info, $sandbox, $server, $logFile);
     }
 
     /**

@@ -12,6 +12,8 @@
 namespace FinBlocks\Client;
 
 use FinBlocks\Exception\HttpRequestException;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 /**
  * @author    David Garcia <me@davidgarcia.cat>
@@ -23,6 +25,11 @@ use FinBlocks\Exception\HttpRequestException;
  */
 class HttpClient
 {
+    /**
+     * @var string|null
+     */
+    private $logFile;
+
     /**
      * @var string
      */
@@ -51,9 +58,11 @@ class HttpClient
      * @param string      $info    Path to the CA Certificate file
      * @param bool        $sandbox Use SANDBOX environment
      * @param string|null $server  Use this parameter to override the FinBlocks Server that the SDK will target
+     * @param string|null $logFile Path to the log file where FinBlocks PHP SDK needs to write their logs
      */
-    public function __construct(string $key, string $cert, string $info, bool $sandbox = false, string $server = null)
+    public function __construct(string $key, string $cert, string $info, bool $sandbox = false, string $server = null, string $logFile = null)
     {
+        $this->logFile = $logFile;
         $this->pathToKey = $key;
         $this->pathToCert = $cert;
         $this->pathToInfo = $info;
@@ -130,6 +139,10 @@ class HttpClient
      */
     private function httpRequest(string $method, string $apiEndpoint, array $parameters = [])
     {
+        $microTime = microtime(true);
+        $logLineRequest = sprintf('[%s] REQUEST:', $microTime);
+        $logLineResponse = sprintf('[%s] RESPONSE:', $microTime);
+
         $curl = curl_init();
 
         // Verbose output
@@ -137,21 +150,25 @@ class HttpClient
 
         // HTTP Method
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        $logLineRequest = sprintf('%s %s',  $logLineRequest, strtoupper($method));
 
         if ('GET' === $method) {
             // API Endpoint
             $apiResource = sprintf('%s%s%s', $this->server, $apiEndpoint, (!empty($parameters) ? sprintf('?%s', http_build_query($parameters)) : ''));
             curl_setopt($curl, CURLOPT_URL, $apiResource);
+            $logLineRequest = sprintf('%s %s',  $logLineRequest, $apiResource);
         } else {
             // API Endpoint
             $apiResource = sprintf('%s%s', $this->server, $apiEndpoint);
             curl_setopt($curl, CURLOPT_URL, $apiResource);
+            $logLineRequest = sprintf('%s %s',  $logLineRequest, $apiResource);
 
             // HTTP Body
             if (!empty($parameters)) {
                 $payload = json_encode($parameters);
                 curl_setopt($curl, CURLOPT_POST, true);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+                $logLineRequest = sprintf('%s \'%s\'',  $logLineRequest, $payload);
             }
         }
 
@@ -184,7 +201,17 @@ class HttpClient
 
         // Handle the response
         $response = curl_exec($curl);
+        $logLineResponse = sprintf('%s %s', $logLineResponse, str_replace('/\n/g', '    ', $response));
 
+        // Logger
+        if (!empty($this->logFile)) {
+            $logger = new Logger('finblocks');
+            $logger->pushHandler(new StreamHandler($this->logFile, Logger::INFO));
+            $logger->addInfo($logLineRequest);
+            $logger->addInfo($logLineResponse);
+        }
+
+        // Response
         if (!empty(curl_error($curl))) {
             throw new HttpRequestException(curl_error($curl), curl_errno($curl));
         }
