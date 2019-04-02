@@ -140,113 +140,129 @@ class HttpClient
     private function httpRequest(string $method, string $apiEndpoint, array $parameters = [])
     {
         $microTime = microtime(true);
+
         $logLineRequest = sprintf('[%s] REQUEST:', $microTime);
         $logLineResponse = sprintf('[%s] RESPONSE:', $microTime);
+        $lofLineException = sprintf('[%s] EXCEPTION:', $microTime);
 
-        $curl = curl_init();
+        $infoLogger = new Logger('finblocks');
+        $infoLogger->pushHandler(new StreamHandler($this->logFile, Logger::INFO));
 
-        // Verbose output
-        //curl_setopt($curl, CURLOPT_VERBOSE, 1);
+        $errorLogger = new Logger('finblocks');
+        $errorLogger->pushHandler(new StreamHandler($this->logFile, Logger::ERROR));
 
-        // HTTP Method
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-        $logLineRequest = sprintf('%s %s',  $logLineRequest, strtoupper($method));
+        try {
+            $curl = curl_init();
 
-        if ('GET' === $method) {
-            // API Endpoint
-            $apiResource = sprintf('%s%s%s', $this->server, $apiEndpoint, (!empty($parameters) ? sprintf('?%s', http_build_query($parameters)) : ''));
-            curl_setopt($curl, CURLOPT_URL, $apiResource);
-            $logLineRequest = sprintf('%s %s',  $logLineRequest, $apiResource);
-        } else {
-            // API Endpoint
-            $apiResource = sprintf('%s%s', $this->server, $apiEndpoint);
-            curl_setopt($curl, CURLOPT_URL, $apiResource);
-            $logLineRequest = sprintf('%s %s',  $logLineRequest, $apiResource);
+            // Verbose output
+            //curl_setopt($curl, CURLOPT_VERBOSE, 1);
 
-            // HTTP Body
-            if (!empty($parameters)) {
-                $payload = json_encode($parameters);
-                curl_setopt($curl, CURLOPT_POST, true);
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
-                $logLineRequest = sprintf('%s \'%s\'',  $logLineRequest, $payload);
+            // HTTP Method
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+            $logLineRequest = sprintf('%s %s',  $logLineRequest, strtoupper($method));
+
+            if ('GET' === $method) {
+                // API Endpoint
+                $apiResource = sprintf('%s%s%s', $this->server, $apiEndpoint, (!empty($parameters) ? sprintf('?%s', http_build_query($parameters)) : ''));
+                curl_setopt($curl, CURLOPT_URL, $apiResource);
+                $logLineRequest = sprintf('%s %s',  $logLineRequest, $apiResource);
+            } else {
+                // API Endpoint
+                $apiResource = sprintf('%s%s', $this->server, $apiEndpoint);
+                curl_setopt($curl, CURLOPT_URL, $apiResource);
+                $logLineRequest = sprintf('%s %s',  $logLineRequest, $apiResource);
+
+                // HTTP Body
+                if (!empty($parameters)) {
+                    $payload = json_encode($parameters);
+                    curl_setopt($curl, CURLOPT_POST, true);
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+                    $logLineRequest = sprintf('%s \'%s\'',  $logLineRequest, $payload);
+                }
             }
-        }
 
-        // Set the expected Content Type
-        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            // Set the expected Content Type
+            curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
-        // SSL Certificate and Key
-        curl_setopt($curl, CURLOPT_CAINFO, $this->pathToInfo);
-        curl_setopt($curl, CURLOPT_SSLKEY, $this->pathToKey);
-        curl_setopt($curl, CURLOPT_SSLCERT, $this->pathToCert);
-        // 1 to check the existence of a common name in the SSL peer certificate.
-        // 2 to check the existence of a common name and also verify that it matches the hostname provided.
-        // 0 to not check the names. In production environments the value of this option should be kept at 2 (default value).
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
-        // FALSE to stop cURL from verifying the peer's certificate.
-        // TRUE by default as of cURL 7.10. Default bundle installed as of cURL 7.10.
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+            // SSL Certificate and Key
+            curl_setopt($curl, CURLOPT_CAINFO, $this->pathToInfo);
+            curl_setopt($curl, CURLOPT_SSLKEY, $this->pathToKey);
+            curl_setopt($curl, CURLOPT_SSLCERT, $this->pathToCert);
+            // 1 to check the existence of a common name in the SSL peer certificate.
+            // 2 to check the existence of a common name and also verify that it matches the hostname provided.
+            // 0 to not check the names. In production environments the value of this option should be kept at 2 (default value).
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+            // FALSE to stop cURL from verifying the peer's certificate.
+            // TRUE by default as of cURL 7.10. Default bundle installed as of cURL 7.10.
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 
-        // Get HttpResponse Headers
-        curl_setopt($curl, CURLOPT_HEADER, true);
+            // Get HttpResponse Headers
+            curl_setopt($curl, CURLOPT_HEADER, true);
 
-        // Return the transfer as a string of the return value of curl_exec() instead of outputting it out directly
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            // Return the transfer as a string of the return value of curl_exec() instead of outputting it out directly
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-        // The number of seconds to wait while trying to connect. Use 0 to wait indefinitely.
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 0);
+            // The number of seconds to wait while trying to connect. Use 0 to wait indefinitely.
+            curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 0);
 
-        // The maximum number of seconds to allow cURL functions to execute.
-        curl_setopt($curl, CURLOPT_TIMEOUT, 30); //timeout in seconds
+            // The maximum number of seconds to allow cURL functions to execute.
+            curl_setopt($curl, CURLOPT_TIMEOUT, 30); //timeout in seconds
 
-        // Handle the response
-        $response = curl_exec($curl);
-        $logLineResponse = sprintf('%s %s', $logLineResponse, str_replace('/\n/g', '    ', $response));
+            // Handle the response
+            $response = curl_exec($curl);
+            $logLineResponse = sprintf('%s %s', $logLineResponse, str_replace('/\n/g', '    ', $response));
 
-        // Logger
-        if (!empty($this->logFile)) {
-            $logger = new Logger('finblocks');
-            $logger->pushHandler(new StreamHandler($this->logFile, Logger::INFO));
-            $logger->addInfo($logLineRequest);
-            $logger->addInfo($logLineResponse);
-        }
+            // Logger
+            if (!empty($this->logFile)) {
+                $infoLogger->addInfo($logLineRequest);
+                $infoLogger->addInfo($logLineResponse);
+            }
 
-        // Response
-        if (!empty(curl_error($curl))) {
-            throw new HttpRequestException(curl_error($curl), curl_errno($curl));
-        }
+            // Response
+            if (!empty(curl_error($curl))) {
+                throw new HttpRequestException(curl_error($curl), curl_errno($curl));
+            }
 
-        if (empty($response)) {
-            $httpResponse = new HttpResponse(401, '');
-        } else {
-            $lines = explode(PHP_EOL, $response);
-
-            preg_match('/HTTP\/(\d+)\.(\d+)\s(\d+)/', reset($lines), $matchesForStatusCode);
-
-            // Some times, FinBlocks API Server might return the "100 Continue" status code. When this happens, we need
-            // to remove the 2 first lines of the header, so we can validate the expected status code for the request.
-            if (100 === (int) end($matchesForStatusCode)) {
-                unset($lines[0]);
-                unset($lines[1]);
+            if (empty($response)) {
+                $httpResponse = new HttpResponse(401, '');
+            } else {
+                $lines = explode(PHP_EOL, $response);
 
                 preg_match('/HTTP\/(\d+)\.(\d+)\s(\d+)/', reset($lines), $matchesForStatusCode);
+
+                // Some times, FinBlocks API Server might return the "100 Continue" status code. When this happens, we need
+                // to remove the 2 first lines of the header, so we can validate the expected status code for the request.
+                if (100 === (int) end($matchesForStatusCode)) {
+                    unset($lines[0]);
+                    unset($lines[1]);
+
+                    preg_match('/HTTP\/(\d+)\.(\d+)\s(\d+)/', reset($lines), $matchesForStatusCode);
+                }
+
+                $httpResponse = new HttpResponse(end($matchesForStatusCode), end($lines));
             }
 
-            $httpResponse = new HttpResponse(end($matchesForStatusCode), end($lines));
-        }
+            if (HttpResponse::ACCEPTED === $httpResponse->getStatusCode()) {
+                do {
+                    // Sleep for 1 second, giving some time to the API
+                    sleep(1);
+                    // Get the URL that we need from the 202 Response
+                    $assoc = json_decode($httpResponse->getBody(), true);
+                    $url = $assoc['url'];
+                    // Get the expected response re-sending the API request
+                    $httpResponse = $this->get($url);
+                } while (HttpResponse::ACCEPTED === $httpResponse->getStatusCode());
+            }
 
-        if (HttpResponse::ACCEPTED === $httpResponse->getStatusCode()) {
-            do {
-                // Sleep for 1 second, giving some time to the API
-                sleep(1);
-                // Get the URL that we need from the 202 Response
-                $assoc = json_decode($httpResponse->getBody(), true);
-                $url = $assoc['url'];
-                // Get the expected response re-sending the API request
-                $httpResponse = $this->get($url);
-            } while (HttpResponse::ACCEPTED === $httpResponse->getStatusCode());
-        }
+            return $httpResponse;
+        } catch (\Throwable $throwable) {
+            $lofLineException = sprintf('%s %s',  $lofLineException, json_encode($throwable));
 
-        return $httpResponse;
+            $errorLogger->addInfo($lofLineException);
+
+            $httpResponse = new HttpResponse(HttpResponse::INTERNAL_SERVER_ERROR, json_encode($throwable));
+
+            return $httpResponse;
+        }
     }
 }
