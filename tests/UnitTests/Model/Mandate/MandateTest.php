@@ -25,80 +25,63 @@ use PHPUnit\Framework\TestCase;
  */
 class MandateTest extends TestCase
 {
-    public function testCreateEmptyModelAndSetters()
-    {
-        $model = Mandate::create();
-        $model->setBankAccountId('12345678');
-        $model->setLabel('label');
-        $model->setTag('tag');
-
-        // There's no getter for the return URL, please run testCreateArray() test for token checks
-        $model->setReturnUrl('https://www.domain.com/return-url');
-
-        $this->assertEquals('12345678', $model->getBankAccountId());
-        $this->assertEquals('label', $model->getLabel());
-        $this->assertEquals('tag', $model->getTag());
-    }
-
-    public function testCreateFilledModelFromJsonPayload()
-    {
-        $model = Mandate::createFromPayload('{
-            "id": "1111",
-            "bankAccountId": "2222",
-            "accountHolderId": "3333",
-            "label": "Mandate\'s Label",
-            "tag": "Mandate\'s Tag",
-            "documentUrl": "Document\'s URL",
-            "scheme": "sepa",
-            "status": "created",
-            "bankReference": "QWERTY",
-            "createdAt": "2019-01-02T12:04:07.278Z"
-        }');
-
-        $this->assertEquals('1111', $model->getId());
-        $this->assertEquals('2222', $model->getBankAccountId());
-        $this->assertEquals('3333', $model->getAccountHolderId());
-        $this->assertEquals('Mandate\'s Label', $model->getLabel());
-        $this->assertEquals('Mandate\'s Tag', $model->getTag());
-        $this->assertEquals('Document\'s URL', $model->getDocumentUrl());
-        $this->assertEquals('sepa', $model->getScheme());
-        $this->assertEquals('created', $model->getStatus());
-        $this->assertEquals('QWERTY', $model->getBankReference());
-
-        $this->assertInstanceOf(\DateTime::class, $model->getCreatedAt());
-
-        $this->assertEquals('2019-01-02 12:04:07', $model->getCreatedAt()->format('Y-m-d H:i:s'));
-    }
-
-    public function testCreateFilledModelFromWrongJsonPayload()
+    public function testInstantiateEmptyMandate()
     {
         $this->expectException(FinBlocksException::class);
 
-        Mandate::createFromPayload('This is not a JSON payload');
+        Mandate::create();
+    }
+
+    public function testInstantiateEmptyJson()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Mandate::createFromPayload('');
+    }
+
+    public function testInstantiateInvalidJson()
+    {
+        $this->expectException(FinBlocksException::class);
+
+        Mandate::createFromPayload('This is not a valid JSON');
+    }
+
+    public function testInstantiateMandate()
+    {
+        $mandate = Mandate::createFromPayload('{
+            "id":"mandate-00000000-0000-4000-0000-000000000000",
+            "status":"created",
+            "active":false,
+            "provider":"provider",
+            "flowId":"flow-00000000-0000-4000-0000-000000000000",
+            "accountHolderId":"accountholder-00000000-0000-4000-0000-000000000000",
+            "providerId":"PROVIDER-ID",
+            "createdAt":"2019-04-25T14:45:19.788Z"
+        }');
+
+        $this->assertEquals('mandate-00000000-0000-4000-0000-000000000000', $mandate->getId());
+        $this->assertEquals('flow-00000000-0000-4000-0000-000000000000', $mandate->getFlowId());
+        $this->assertEquals('accountholder-00000000-0000-4000-0000-000000000000', $mandate->getAccountHolderId());
+        $this->assertEquals('created', $mandate->getStatus());
+        $this->assertEquals(false, $mandate->isActive());
+        $this->assertEquals('provider', $mandate->getProvider());
+        $this->assertEquals('PROVIDER-ID', $mandate->getProviderId());
+        $this->assertEquals('2019-04-25 14:45:19', $mandate->getCreatedAt()->format('Y-m-d H:i:s'));
     }
 
     public function testCreateArray()
     {
-        $model = Mandate::create();
-        $model->setReturnUrl('https://www.domain.com/return-url');
+        $this->expectException(FinBlocksException::class);
 
-        $array = $model->httpCreate();
-
-        $this->assertCount(4, $array);
-
-        $this->assertArrayHasKey('bankAccountId', $array);
-        $this->assertArrayHasKey('returnUrl', $array);
-        $this->assertArrayHasKey('label', $array);
-        $this->assertArrayHasKey('tag', $array);
-
-        $this->assertEquals('https://www.domain.com/return-url', $array['returnUrl']);
+        $model = Mandate::createFromPayload('{}');
+        $model->httpCreate();
     }
 
     public function testUpdateArray()
     {
         $this->expectException(FinBlocksException::class);
 
-        $model = Mandate::create();
+        $model = Mandate::createFromPayload('{}');
         $model->httpUpdate();
     }
 }

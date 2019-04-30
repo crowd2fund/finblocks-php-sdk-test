@@ -58,26 +58,6 @@ class Mandates extends AbstractHttpApi
     }
 
     /**
-     * Creates a Mandate.
-     *
-     * @param Mandate $mandate
-     *
-     * @throws FinBlocksException
-     *
-     * @return Mandate
-     */
-    public function create(Mandate $mandate): Mandate
-    {
-        try {
-            $httpResponse = $this->httpPost('/mandates', $mandate->httpCreate());
-
-            return $this->hydrateResponse($httpResponse, Mandate::class);
-        } catch (\Throwable $throwable) {
-            throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
-        }
-    }
-
-    /**
      * Retrieves an Mandate.
      *
      * @param string $mandateId

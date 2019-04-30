@@ -34,7 +34,7 @@ class Mandate implements BaseModelInterface
     /**
      * @var string
      */
-    private $bankAccountId;
+    private $flowId;
 
     /**
      * @var string
@@ -42,39 +42,24 @@ class Mandate implements BaseModelInterface
     private $accountHolderId;
 
     /**
-     * @var string|null
-     */
-    private $label;
-
-    /**
-     * @var string|null
-     */
-    private $tag;
-
-    /**
-     * @var string
-     */
-    private $returnUrl;
-
-    /**
-     * @var string
-     */
-    private $documentUrl;
-
-    /**
-     * @var string
-     */
-    private $scheme;
-
-    /**
      * @var string
      */
     private $status;
 
     /**
+     * @var bool
+     */
+    private $active;
+
+    /**
      * @var string
      */
-    private $bankReference;
+    private $provider;
+
+    /**
+     * @var string
+     */
+    private $providerId;
 
     /**
      * @var \DateTime
@@ -88,39 +73,37 @@ class Mandate implements BaseModelInterface
      */
     private function __construct(string $jsonData = null)
     {
-        if (!empty($jsonData)) {
-            try {
-                $arrayData = json_decode($jsonData, true);
+        try {
+            $arrayData = json_decode($jsonData, true);
 
-                if (JSON_ERROR_NONE !== json_last_error()) {
-                    throw new \InvalidArgumentException(json_last_error_msg(), json_last_error());
-                }
-
-                foreach ($arrayData as $property => $content) {
-                    switch ($property) {
-                        case 'createdAt':
-                            $this->$property = !empty($content) ? new \DateTime($content) : $content;
-                            break;
-                        default:
-                            $this->$property = $content;
-                    }
-                }
-            } catch (\Throwable $throwable) {
-                throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
+            if (JSON_ERROR_NONE !== json_last_error()) {
+                throw new \InvalidArgumentException(json_last_error_msg(), json_last_error());
             }
+
+            foreach ($arrayData as $property => $content) {
+                switch ($property) {
+                    case 'createdAt':
+                        $this->$property = !empty($content) ? new \DateTime($content) : $content;
+                        break;
+                    default:
+                        $this->$property = $content;
+                }
+            }
+        } catch (\Throwable $throwable) {
+            throw new FinBlocksException($throwable->getMessage(), $throwable->getCode(), $throwable);
         }
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public static function create()
     {
-        return new self();
+        throw new FinBlocksException('Impossible to instantiate an empty Mandate');
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public static function createFromPayload(string $jsonData)
     {
@@ -136,19 +119,11 @@ class Mandate implements BaseModelInterface
     }
 
     /**
-     * @param string $bankAccountId
-     */
-    public function setBankAccountId(string $bankAccountId)
-    {
-        $this->bankAccountId = $bankAccountId;
-    }
-
-    /**
      * @return string
      */
-    public function getBankAccountId(): string
+    public function getFlowId(): string
     {
-        return $this->bankAccountId;
+        return $this->flowId;
     }
 
     /**
@@ -160,62 +135,6 @@ class Mandate implements BaseModelInterface
     }
 
     /**
-     * @param string $returnUrl
-     */
-    public function setReturnUrl(string $returnUrl)
-    {
-        $this->returnUrl = $returnUrl;
-    }
-
-    /**
-     * @param string|null $label
-     */
-    public function setLabel(string $label = null)
-    {
-        $this->label = $label;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * @param string|null $tag
-     */
-    public function setTag(string $tag = null)
-    {
-        $this->tag = $tag;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getTag()
-    {
-        return $this->tag;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDocumentUrl(): string
-    {
-        return $this->documentUrl;
-    }
-
-    /**
-     * @return string
-     */
-    public function getScheme(): string
-    {
-        return $this->scheme;
-    }
-
-    /**
      * @return string
      */
     public function getStatus(): string
@@ -224,11 +143,27 @@ class Mandate implements BaseModelInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return true === $this->active;
+    }
+
+    /**
      * @return string
      */
-    public function getBankReference(): string
+    public function getProvider(): string
     {
-        return $this->bankReference;
+        return $this->provider;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProviderId(): string
+    {
+        return $this->providerId;
     }
 
     /**
@@ -244,12 +179,7 @@ class Mandate implements BaseModelInterface
      */
     public function httpCreate(): array
     {
-        return [
-            'bankAccountId'  => $this->bankAccountId,
-            'returnUrl'      => $this->returnUrl,
-            'label'          => $this->label,
-            'tag'            => $this->tag,
-        ];
+        throw new FinBlocksException('Impossible to create the Mandate');
     }
 
     /**
