@@ -31,146 +31,6 @@ class MandatesTest extends AbstractApiTests
     use AccountHolderTrait;
     use BankAccountTrait;
 
-    public function testCreateMandateForGbBankAccount()
-    {
-        $this->markTestSkipped('Not yet implemented');
-
-        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
-        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
-
-        $bankAccount = $this->traitCreateBankAccountGbModel($this->finBlocks, $accountHolder->getId());
-        $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
-
-        $mandate = $this->finBlocks->factories()->mandates()->create();
-        $mandate->setBankAccountId($bankAccount->getId());
-        $mandate->setReturnUrl('https://domain.com/return/mandate');
-        $mandate->setLabel('Mandate Label');
-        $mandate->setTag('Mandate Tag');
-
-        $returnedMandate = $this->finBlocks->api()->mandates()->create($mandate);
-
-        $this->assertInstanceOf(Mandate::class, $returnedMandate);
-        $this->assertInstanceOf(\DateTime::class, $returnedMandate->getCreatedAt());
-
-        $this->assertNotEmpty($returnedMandate->getId());
-        $this->assertNotEmpty($returnedMandate->getDocumentUrl());
-        $this->assertNotEmpty($returnedMandate->getScheme());
-        $this->assertNotEmpty($returnedMandate->getBankReference());
-
-        $this->assertEquals($bankAccount->getId(), $returnedMandate->getBankAccountId());
-        $this->assertEquals($accountHolder->getId(), $returnedMandate->getAccountHolderId());
-
-        $this->assertEquals('Mandate Label', $returnedMandate->getLabel());
-        $this->assertEquals('Mandate Tag', $returnedMandate->getTag());
-        $this->assertEquals('created', $returnedMandate->getStatus());
-
-        $this->assertTrue(in_array(strtoupper($returnedMandate->getScheme()), ['SEPA', 'BACS']));
-
-        $reloadedMandate = $this->finBlocks->api()->mandates()->show($returnedMandate->getId());
-
-        $this->assertEquals($returnedMandate->getId(), $reloadedMandate->getId());
-    }
-
-    public function testCreateMandateForIbanBankAccount()
-    {
-        $this->markTestSkipped('Not yet implemented');
-
-        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
-        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
-
-        $bankAccount = $this->traitCreateBankAccountIbanModel($this->finBlocks, $accountHolder->getId());
-        $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
-
-        $mandate = $this->finBlocks->factories()->mandates()->create();
-        $mandate->setBankAccountId($bankAccount->getId());
-        $mandate->setReturnUrl('https://domain.com/return/mandate');
-        $mandate->setLabel('Mandate Label');
-        $mandate->setTag('Mandate Tag');
-
-        $returnedMandate = $this->finBlocks->api()->mandates()->create($mandate);
-
-        $this->assertInstanceOf(Mandate::class, $returnedMandate);
-        $this->assertInstanceOf(\DateTime::class, $returnedMandate->getCreatedAt());
-
-        $this->assertNotEmpty($returnedMandate->getId());
-        $this->assertNotEmpty($returnedMandate->getDocumentUrl());
-        $this->assertNotEmpty($returnedMandate->getScheme());
-        $this->assertNotEmpty($returnedMandate->getBankReference());
-
-        $this->assertEquals($bankAccount->getId(), $returnedMandate->getBankAccountId());
-        $this->assertEquals($accountHolder->getId(), $returnedMandate->getAccountHolderId());
-
-        $this->assertEquals('Mandate Label', $returnedMandate->getLabel());
-        $this->assertEquals('Mandate Tag', $returnedMandate->getTag());
-        $this->assertEquals('created', $returnedMandate->getStatus());
-
-        $this->assertTrue(in_array(strtoupper($returnedMandate->getScheme()), ['SEPA', 'BACS']));
-
-        $reloadedMandate = $this->finBlocks->api()->mandates()->show($returnedMandate->getId());
-
-        $this->assertEquals($returnedMandate->getId(), $reloadedMandate->getId());
-    }
-
-    public function testCreateMandateForCaBankAccount()
-    {
-        $this->markTestSkipped('Not yet implemented');
-
-        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
-        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
-
-        $bankAccount = $this->traitCreateBankAccountCaModel($this->finBlocks, $accountHolder->getId());
-        $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
-
-        $mandate = $this->finBlocks->factories()->mandates()->create();
-        $mandate->setBankAccountId($bankAccount->getId());
-        $mandate->setReturnUrl('https://domain.com/return/mandate');
-
-        $this->expectException(FinBlocksException::class);
-        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
-
-        $this->finBlocks->api()->mandates()->create($mandate);
-    }
-
-    public function testCreateMandateForUsBankAccount()
-    {
-        $this->markTestSkipped('Not yet implemented');
-
-        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
-        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
-
-        $bankAccount = $this->traitCreateBankAccountUsModel($this->finBlocks, $accountHolder->getId());
-        $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
-
-        $mandate = $this->finBlocks->factories()->mandates()->create();
-        $mandate->setBankAccountId($bankAccount->getId());
-        $mandate->setReturnUrl('https://domain.com/return/mandate');
-
-        $this->expectException(FinBlocksException::class);
-        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
-
-        $this->finBlocks->api()->mandates()->create($mandate);
-    }
-
-    public function testCreateMandateForOtherBankAccount()
-    {
-        $this->markTestSkipped('Not yet implemented');
-
-        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
-        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
-
-        $bankAccount = $this->traitCreateBankAccountOtherModel($this->finBlocks, $accountHolder->getId());
-        $bankAccount = $this->finBlocks->api()->bankAccounts()->create($bankAccount);
-
-        $mandate = $this->finBlocks->factories()->mandates()->create();
-        $mandate->setBankAccountId($bankAccount->getId());
-        $mandate->setReturnUrl('https://domain.com/return/mandate');
-
-        $this->expectException(FinBlocksException::class);
-        $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
-
-        $this->finBlocks->api()->mandates()->create($mandate);
-    }
-
     public function testGetPaginatedMandates()
     {
         $this->markTestSkipped('Not yet implemented');
@@ -220,7 +80,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testDeactivateMandate()
     {
-        $this->markTestSkipped('Not yet implemented');
+        $this->markTestIncomplete('Unable to test this method: the user must follow the Flow to set-up the mandate');
 
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -246,7 +106,7 @@ class MandatesTest extends AbstractApiTests
 
     public function testDeactivateNonExistingMandate()
     {
-        $this->markTestSkipped('Not yet implemented');
+        $this->markTestIncomplete('Unable to test this method: the user must follow the Flow to set-up the mandate');
 
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::NOT_FOUND);
