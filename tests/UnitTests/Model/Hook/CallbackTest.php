@@ -27,14 +27,16 @@ class CallbackTest extends TestCase
 {
     public function testCreateFilledModelFromJsonPayload()
     {
-        $model = Callback::createFromPayload('{
-            "eventId": "12345",
-            "eventName": "depositSucceeded",
-            "resourceId": "67890",
-            "data": {
-                "property": "content"
-            }
-        }');
+        $model = Callback::createFromPayload(
+            json_encode([
+                'eventId' => '12345',
+                'eventName' => 'depositSucceeded',
+                'resourceId' => '67890',
+                'data' => ['property' => 'content'],
+            ]),
+            'ThisIsMySecret',
+            '314c5b28ca0b246ce9bbf4dd02aa6d9eba5bde72fa2f0a53027d397a9de254e8'
+        );
 
         $this->assertEquals('12345', $model->getEventId());
         $this->assertEquals('depositSucceeded', $model->getEventName());
@@ -43,6 +45,32 @@ class CallbackTest extends TestCase
         $this->assertInternalType('array', $model->getData());
         $this->assertArrayHasKey('property', $model->getData());
         $this->assertEquals('content', $model->getData()['property']);
+
+        $this->assertTrue($model->isTrusted());
+    }
+
+    public function testCreateFilledUntrustedModelFromJsonPayload()
+    {
+        $model = Callback::createFromPayload(
+            json_encode([
+                'eventId' => '12345',
+                'eventName' => 'depositSucceeded',
+                'resourceId' => '67890',
+                'data' => ['property' => 'content'],
+            ]),
+            'ThisIsMySecret',
+            'ThisSignatureDoesNotMatch'
+        );
+
+        $this->assertEquals('12345', $model->getEventId());
+        $this->assertEquals('depositSucceeded', $model->getEventName());
+        $this->assertEquals('67890', $model->getResourceId());
+
+        $this->assertInternalType('array', $model->getData());
+        $this->assertArrayHasKey('property', $model->getData());
+        $this->assertEquals('content', $model->getData()['property']);
+
+        $this->assertFalse($model->isTrusted());
     }
 
     public function testCreateFilledModelWithInvalidProperties()
@@ -51,20 +79,20 @@ class CallbackTest extends TestCase
 
         Callback::createFromPayload('{
             "invalidProperty": "invalidContent"
-        }');
+        }', '', '');
     }
 
     public function testCreateFilledModelFromEmptyJsonPayload()
     {
         $this->expectException(FinBlocksException::class);
 
-        Callback::createFromPayload('');
+        Callback::createFromPayload('', '', '');
     }
 
     public function testCreateFilledModelFromWrongJsonPayload()
     {
         $this->expectException(FinBlocksException::class);
 
-        Callback::createFromPayload('This is not a JSON payload');
+        Callback::createFromPayload('This is not a JSON payload', '', '');
     }
 }

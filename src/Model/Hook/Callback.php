@@ -44,16 +44,49 @@ class Callback
     private $data;
 
     /**
+     * @var string
+     */
+    private $payload;
+
+    /**
+     * @var string
+     */
+    private $secret;
+
+    /**
+     * @var string
+     */
+    private $sha256HmacHash;
+
+    /**
+     * @var string
+     */
+    private $signature;
+
+    /**
+     * @var bool
+     */
+    private $trusted;
+
+    /**
      * Callback constructor.
      *
-     * @param string|null $jsonData
+     * @param string $jsonData
+     * @param string $secret
+     * @param string $signature
      */
-    private function __construct(string $jsonData = null)
+    private function __construct(string $jsonData, string $secret, string $signature)
     {
         try {
             if (empty($jsonData)) {
                 throw new \InvalidArgumentException('JSON payload expected');
             }
+
+            $this->payload = $jsonData;
+            $this->secret = $secret;
+            $this->sha256HmacHash = hash_hmac('sha256', $this->payload, $this->secret);
+            $this->signature = $signature;
+            $this->trusted = ($this->sha256HmacHash === $this->signature);
 
             $arrayData = json_decode($jsonData, true);
 
@@ -73,9 +106,9 @@ class Callback
         }
     }
 
-    public static function createFromPayload(string $jsonData)
+    public static function createFromPayload(string $jsonData, string $secret, string $signature)
     {
-        return new self($jsonData);
+        return new self($jsonData, $secret, $signature);
     }
 
     /**
@@ -108,5 +141,13 @@ class Callback
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTrusted(): bool
+    {
+        return true === $this->trusted;
     }
 }
