@@ -49,6 +49,25 @@ class CallbackTest extends TestCase
         $this->assertTrue($model->isTrusted());
     }
 
+    public function testCreateFilledModelFromRealSampleJsonPayload()
+    {
+        $model = Callback::createFromPayload(
+            json_encode([
+                'eventId' => 'b149d482-cbde-4d37-a24e-40a7cc5764fd',
+                'resourceId' => 'mandate-f676750a-c52c-49ad-820d-21ec990a6846',
+                'eventName' => 'mandateCreated',
+            ]),
+            'fishgom00',
+            '025fc18c06746a8b8768e6aa4343bc576833d8536185b1148f95f82d2c81c3af'
+        );
+
+        $this->assertEquals('b149d482-cbde-4d37-a24e-40a7cc5764fd', $model->getEventId());
+        $this->assertEquals('mandateCreated', $model->getEventName());
+        $this->assertEquals('mandate-f676750a-c52c-49ad-820d-21ec990a6846', $model->getResourceId());
+
+        $this->assertTrue($model->isTrusted());
+    }
+
     public function testCreateFilledUntrustedModelFromJsonPayload()
     {
         $model = Callback::createFromPayload(
