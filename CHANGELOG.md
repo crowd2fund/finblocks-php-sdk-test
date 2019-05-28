@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 28th May 2019
+
+### Added
+
+- Add `soft` flag for KYC, set to `false` by default
+
+### Fixed
+
+- Provide required `Hook Factory` arguments to create a `Callback` model from a JSON payload
+
+### Changed
+
+- Skip PHP Unit Tests for features that FinBlocks has reported as not yet implemented for the Crowd2Fund project; they are not a blocker at all, they just return the unexpected HTTP Status Code and JSON payload based on Crowd2Fund's requirements
+
+
 ## [1.0.0] - 22nd May 2019
 
 ### Added
