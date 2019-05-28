@@ -61,6 +61,11 @@ class KnowYourCustomer implements BaseModelInterface
     private $tag;
 
     /**
+     * @var bool
+     */
+    private $soft = false;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -190,6 +195,22 @@ class KnowYourCustomer implements BaseModelInterface
     }
 
     /**
+     * @param bool $soft
+     */
+    public function setSoft(bool $soft)
+    {
+        $this->soft = $soft;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSoft(): bool
+    {
+        return true === $this->soft;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
@@ -216,6 +237,7 @@ class KnowYourCustomer implements BaseModelInterface
             'documentId' => $this->documentId,
             'label'      => $this->label,
             'tag'        => $this->tag,
+            'soft'       => $this->soft,
         ];
     }
 

@@ -31,7 +31,7 @@ class KnowYourCustomersTest extends AbstractApiTests
     use AccountHolderTrait;
     use DocumentTrait;
 
-    public function testSendDocumentForAdvancedKycCheck()
+    public function testSendDocumentForNonSoftAdvancedKycCheck()
     {
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
@@ -67,6 +67,49 @@ class KnowYourCustomersTest extends AbstractApiTests
         $this->assertEquals($returnedKyc->getLabel(), $reloadedKyc->getLabel());
         $this->assertEquals($returnedKyc->getTag(), $reloadedKyc->getTag());
         $this->assertEquals($returnedKyc->getCreatedAt()->format('YmdHis'), $reloadedKyc->getCreatedAt()->format('YmdHis'));
+
+        $this->assertFalse($reloadedKyc->isSoft());
+    }
+
+    public function testSendDocumentForSoftAdvancedKycCheck()
+    {
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
+
+        $document = $this->traitCreateDocumentPassportModel($this->finBlocks, $accountHolder->getId());
+        $document = $this->finBlocks->api()->documents()->create($document);
+
+        $kyc = $this->finBlocks->factories()->kyc()->create();
+        $kyc->setDocumentId($document->getId());
+        $kyc->setLabel('KYC Label');
+        $kyc->setTag('KYC Tag');
+        $kyc->setSoft(true);
+
+        $returnedKyc = $this->finBlocks->api()->kyc()->createSoft($accountHolder->getId(), $kyc);
+
+        $this->assertInstanceOf(KnowYourCustomer::class, $returnedKyc);
+        $this->assertInstanceOf(\DateTime::class, $returnedKyc->getCreatedAt());
+
+        $this->assertNotEmpty('string', $returnedKyc->getId());
+
+        $this->assertEquals(null, $returnedKyc->getRefusedReason());
+        $this->assertEquals(null, $returnedKyc->getProcessedAt());
+
+        $this->assertEquals($document->getId(), $returnedKyc->getDocumentId());
+        $this->assertEquals('KYC Label', $returnedKyc->getLabel());
+        $this->assertEquals('KYC Tag', $returnedKyc->getTag());
+
+        $this->assertTrue(in_array($returnedKyc->getStatus(), [KnowYourCustomer::STATUS_CREATED, KnowYourCustomer::STATUS_SUCCEEDED]));
+
+        $reloadedKyc = $this->finBlocks->api()->kyc()->show($accountHolder->getId(), $returnedKyc->getId());
+
+        $this->assertEquals($returnedKyc->getId(), $reloadedKyc->getId());
+        $this->assertEquals($returnedKyc->getDocumentId(), $reloadedKyc->getDocumentId());
+        $this->assertEquals($returnedKyc->getLabel(), $reloadedKyc->getLabel());
+        $this->assertEquals($returnedKyc->getTag(), $reloadedKyc->getTag());
+        $this->assertEquals($returnedKyc->getCreatedAt()->format('YmdHis'), $reloadedKyc->getCreatedAt()->format('YmdHis'));
+
+        $this->assertTrue($reloadedKyc->isSoft());
     }
 
     public function testIncompleteKycRequest()

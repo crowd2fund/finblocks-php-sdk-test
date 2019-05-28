@@ -77,11 +77,12 @@ class KnowYourCustomerTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(3, $array);
+        $this->assertCount(4, $array);
 
         $this->assertArrayHasKey('documentId', $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
+        $this->assertArrayHasKey('soft', $array);
     }
 
     public function testUpdateArray()

@@ -38,6 +38,40 @@ class KYC extends AbstractHttpApi
      */
     public function create(string $accountHolderId, KnowYourCustomer $kyc): KnowYourCustomer
     {
+        $kyc->setSoft(false);
+
+        return $this->createReusable($accountHolderId, $kyc);
+    }
+
+    /**
+     * Creates a Deposit.
+     *
+     * @param string           $accountHolderId
+     * @param KnowYourCustomer $kyc
+     *
+     * @throws FinBlocksException
+     *
+     * @return KnowYourCustomer
+     */
+    public function createSoft(string $accountHolderId, KnowYourCustomer $kyc): KnowYourCustomer
+    {
+        $kyc->setSoft(true);
+
+        return $this->createReusable($accountHolderId, $kyc);
+    }
+
+    /**
+     * Reusable code for the Create process.
+     *
+     * @param string           $accountHolderId
+     * @param KnowYourCustomer $kyc
+     *
+     * @throws FinBlocksException
+     *
+     * @return KnowYourCustomer
+     */
+    private function createReusable(string $accountHolderId, KnowYourCustomer $kyc)
+    {
         try {
             Assert::stringNotEmpty($accountHolderId);
 
