@@ -97,7 +97,7 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(Factory\HooksFactory::class, $this->finBlocks->factories()->hooks());
         $this->assertInstanceOf(Model\Hook\Hook::class, $this->finBlocks->factories()->hooks()->create());
         $this->assertInstanceOf(Model\Hook\Hook::class, $this->finBlocks->factories()->hooks()->createFromPayload(''));
-        $this->assertInstanceOf(Model\Hook\Callback::class, $this->finBlocks->factories()->hooks()->createCallbackFromPayload('{"eventId":"12345"}'));
+        $this->assertInstanceOf(Model\Hook\Callback::class, $this->finBlocks->factories()->hooks()->createCallbackFromPayload('{"eventId":"12345"}', 'secret', 'signature'));
     }
 
     public function testKnowYourCustomersFactory()
