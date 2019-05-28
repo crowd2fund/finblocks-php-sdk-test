@@ -125,6 +125,8 @@ class TransfersTest extends AbstractApiTests
 
     public function testMakeTransferToTheSameWallet()
     {
+        $this->markTestSkipped('Not yet implemented');
+
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($this->traitCreateAccountHolderIndividualModel($this->finBlocks));
 
         $wallet = $this->finBlocks->api()->wallets()->create($this->traitCreateWalletModel($this->finBlocks, $accountHolder->getId()));

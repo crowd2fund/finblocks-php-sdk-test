@@ -360,6 +360,8 @@ class BankAccountsTest extends AbstractApiTests
 
     public function testDeactivateBankAccount()
     {
+        $this->markTestSkipped('Not yet implemented');
+
         $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 

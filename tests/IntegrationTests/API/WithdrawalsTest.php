@@ -130,6 +130,8 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testCreateWithdrawalWithInvalidWalletIdAndBankAccountId()
     {
+        $this->markTestSkipped('Not yet implemented');
+
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::BAD_REQUEST);
 
@@ -177,6 +179,8 @@ class WithdrawalsTest extends AbstractApiTests
 
     public function testRetrieveNonExistingWithdrawal()
     {
+        $this->markTestSkipped('Not yet implemented');
+
         $this->expectException(FinBlocksException::class);
         $this->expectExceptionCode(HttpResponse::NOT_FOUND);
 
