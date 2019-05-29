@@ -29,10 +29,10 @@ class CallbackTest extends TestCase
     {
         $model = Callback::createFromPayload(
             json_encode([
-                'eventId' => '12345',
-                'eventName' => 'depositSucceeded',
+                'eventId'    => '12345',
+                'eventName'  => 'depositSucceeded',
                 'resourceId' => '67890',
-                'data' => ['property' => 'content'],
+                'data'       => ['property' => 'content'],
             ]),
             'ThisIsMySecret',
             '314c5b28ca0b246ce9bbf4dd02aa6d9eba5bde72fa2f0a53027d397a9de254e8'
@@ -53,9 +53,9 @@ class CallbackTest extends TestCase
     {
         $model = Callback::createFromPayload(
             json_encode([
-                'eventId' => 'b149d482-cbde-4d37-a24e-40a7cc5764fd',
+                'eventId'    => 'b149d482-cbde-4d37-a24e-40a7cc5764fd',
                 'resourceId' => 'mandate-f676750a-c52c-49ad-820d-21ec990a6846',
-                'eventName' => 'mandateCreated',
+                'eventName'  => 'mandateCreated',
             ]),
             'fishgom00',
             '025fc18c06746a8b8768e6aa4343bc576833d8536185b1148f95f82d2c81c3af'
@@ -72,10 +72,10 @@ class CallbackTest extends TestCase
     {
         $model = Callback::createFromPayload(
             json_encode([
-                'eventId' => '12345',
-                'eventName' => 'depositSucceeded',
+                'eventId'    => '12345',
+                'eventName'  => 'depositSucceeded',
                 'resourceId' => '67890',
-                'data' => ['property' => 'content'],
+                'data'       => ['property' => 'content'],
             ]),
             'ThisIsMySecret',
             'ThisSignatureDoesNotMatch'

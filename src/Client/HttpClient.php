@@ -159,25 +159,25 @@ class HttpClient
 
             // HTTP Method
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-            $logLineRequest = sprintf('%s %s',  $logLineRequest, strtoupper($method));
+            $logLineRequest = sprintf('%s %s', $logLineRequest, strtoupper($method));
 
             if ('GET' === $method) {
                 // API Endpoint
                 $apiResource = sprintf('%s%s%s', $this->server, $apiEndpoint, (!empty($parameters) ? sprintf('?%s', http_build_query($parameters)) : ''));
                 curl_setopt($curl, CURLOPT_URL, $apiResource);
-                $logLineRequest = sprintf('%s %s',  $logLineRequest, $apiResource);
+                $logLineRequest = sprintf('%s %s', $logLineRequest, $apiResource);
             } else {
                 // API Endpoint
                 $apiResource = sprintf('%s%s', $this->server, $apiEndpoint);
                 curl_setopt($curl, CURLOPT_URL, $apiResource);
-                $logLineRequest = sprintf('%s %s',  $logLineRequest, $apiResource);
+                $logLineRequest = sprintf('%s %s', $logLineRequest, $apiResource);
 
                 // HTTP Body
                 if (!empty($parameters)) {
                     $payload = json_encode($parameters);
                     curl_setopt($curl, CURLOPT_POST, true);
                     curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
-                    $logLineRequest = sprintf('%s \'%s\'',  $logLineRequest, $payload);
+                    $logLineRequest = sprintf('%s \'%s\'', $logLineRequest, $payload);
                 }
             }
 
@@ -256,7 +256,7 @@ class HttpClient
 
             return $httpResponse;
         } catch (\Throwable $throwable) {
-            $lofLineException = sprintf('%s %s',  $lofLineException, json_encode($throwable));
+            $lofLineException = sprintf('%s %s', $lofLineException, json_encode($throwable));
 
             $errorLogger->addInfo($lofLineException);
 

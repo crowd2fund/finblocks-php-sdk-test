@@ -95,7 +95,7 @@ class Mandate implements BaseModelInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function create()
     {
@@ -103,7 +103,7 @@ class Mandate implements BaseModelInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function createFromPayload(string $jsonData)
     {

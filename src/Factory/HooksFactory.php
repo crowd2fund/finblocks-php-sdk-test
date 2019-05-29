@@ -11,8 +11,8 @@
 
 namespace FinBlocks\Factory;
 
-use FinBlocks\Model\Hook\Hook;
 use FinBlocks\Model\Hook\Callback as FinBlocksCallback;
+use FinBlocks\Model\Hook\Hook;
 
 /**
  * @author    David Garcia <me@davidgarcia.cat>
