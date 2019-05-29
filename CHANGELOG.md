@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 29th May 2019
+
+### Changed
+
+- Apply fixes from StyleCI #5
+
 ## [1.1.0] - 28th May 2019
 
 ### Added
