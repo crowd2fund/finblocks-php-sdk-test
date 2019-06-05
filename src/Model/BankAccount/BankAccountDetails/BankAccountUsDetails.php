@@ -75,8 +75,8 @@ final class BankAccountUsDetails implements BaseModelInterface
      */
     public function setAba(string $aba)
     {
-        Assert::stringNotEmpty($aba);
-        Assert::maxLength($aba, 9);
+        Assert::stringNotEmpty($aba, 'Bank Account US ABA must be a non-empty string');
+        Assert::maxLength($aba, 9, 'Bank Account US ABA cannot be longer than 9 characters');
 
         $this->aba = $aba;
     }
@@ -94,8 +94,8 @@ final class BankAccountUsDetails implements BaseModelInterface
      */
     public function setAccountNumber(string $accountNumber)
     {
-        Assert::stringNotEmpty($accountNumber);
-        Assert::maxLength($accountNumber, 20);
+        Assert::stringNotEmpty($accountNumber, 'Bank Account US Account Number must be a non-empty string');
+        Assert::maxLength($accountNumber, 20, 'Bank Account US Account Number cannot be longer than 20 characters');
 
         $this->accountNumber = $accountNumber;
     }

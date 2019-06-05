@@ -85,8 +85,8 @@ final class BankAccountCaDetails implements BaseModelInterface
      */
     public function setBankName(string $bankName)
     {
-        Assert::stringNotEmpty($bankName);
-        Assert::maxLength($bankName, 50);
+        Assert::stringNotEmpty($bankName, 'Bank Account CA Bank Name must be a non-empty string');
+        Assert::maxLength($bankName, 50, 'Bank Account CA Bank Name cannot be longer than 50 characters');
 
         $this->bankName = $bankName;
     }
@@ -104,8 +104,8 @@ final class BankAccountCaDetails implements BaseModelInterface
      */
     public function setBranchCode(string $branchCode)
     {
-        Assert::stringNotEmpty($branchCode);
-        Assert::maxLength($branchCode, 5);
+        Assert::stringNotEmpty($branchCode, 'Bank Account CA Branch Code must be a non-empty string');
+        Assert::maxLength($branchCode, 5, 'Bank Account CA Branch Code cannot be longer than 5 characters');
 
         $this->branchCode = $branchCode;
     }
@@ -123,8 +123,8 @@ final class BankAccountCaDetails implements BaseModelInterface
      */
     public function setInstitutionNumber(string $institutionNumber)
     {
-        Assert::stringNotEmpty($institutionNumber);
-        Assert::lengthBetween($institutionNumber, 3, 4);
+        Assert::stringNotEmpty($institutionNumber, 'Bank Account CA Institution Number must be a non-empty string');
+        Assert::lengthBetween($institutionNumber, 3, 4, 'Bank Account CA Institution Number length must be between 3 and 4 characters');
 
         $this->institutionNumber = $institutionNumber;
     }
@@ -142,8 +142,8 @@ final class BankAccountCaDetails implements BaseModelInterface
      */
     public function setAccountNumber(string $accountNumber)
     {
-        Assert::stringNotEmpty($accountNumber);
-        Assert::maxLength($accountNumber, 20);
+        Assert::stringNotEmpty($accountNumber, 'Bank Account CA Account Number must be a non-empty string');
+        Assert::maxLength($accountNumber, 20, 'Bank Account CA Account Number cannot be longer than 20 characters');
 
         $this->accountNumber = $accountNumber;
     }

@@ -80,7 +80,7 @@ class HookDetails implements BaseModelInterface
      */
     public function setUrl(string $url = null)
     {
-        Assert::nullOrStringNotEmpty($url);
+        Assert::nullOrStringNotEmpty($url, 'Hook Details URL must be null or a non-empty string');
 
         $this->url = $url;
     }
@@ -98,8 +98,6 @@ class HookDetails implements BaseModelInterface
      */
     public function setActive(bool $active)
     {
-        Assert::boolean($active);
-
         $this->active = $active;
     }
 

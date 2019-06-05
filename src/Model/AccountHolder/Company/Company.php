@@ -106,8 +106,8 @@ final class Company implements BaseModelInterface
      */
     public function setNumber(string $number = null)
     {
-        Assert::nullOrStringNotEmpty($number);
-        Assert::maxLength($number, 255);
+        Assert::nullOrStringNotEmpty($number, 'Company Number must be null or a non-empty string');
+        Assert::nullOrMaxLength($number, 255, 'Company Number cannot be longer than 255 characters');
 
         $this->number = $number;
     }
@@ -125,8 +125,8 @@ final class Company implements BaseModelInterface
      */
     public function setName(string $name)
     {
-        Assert::stringNotEmpty($name);
-        Assert::maxLength($name, 255);
+        Assert::stringNotEmpty($name, 'Company Name must be a non-empty string');
+        Assert::maxLength($name, 255, 'Company Name cannot be longer than 255 characters');
 
         $this->name = $name;
     }
@@ -144,8 +144,8 @@ final class Company implements BaseModelInterface
      */
     public function setEmail(string $email)
     {
-        Assert::stringNotEmpty($email);
-        Assert::maxLength($email, 255);
+        Assert::stringNotEmpty($email, 'Company Email must be a non-empty string');
+        Assert::maxLength($email, 255, 'Company Email cannot be longer than 255 characters');
 
         $this->email = $email;
     }
@@ -163,8 +163,10 @@ final class Company implements BaseModelInterface
      */
     public function setType(string $type = null)
     {
-        Assert::stringNotEmpty($type);
-        Assert::nullOrOneOf($type, [self::TYPE_BUSINESS, self::TYPE_ORGANISATION, self::TYPE_SOLE_TRADER]);
+        $allowedTypes = [self::TYPE_BUSINESS, self::TYPE_ORGANISATION, self::TYPE_SOLE_TRADER];
+
+        Assert::stringNotEmpty($type, 'Company Type must be a non-empty string');
+        Assert::oneOf($type, $allowedTypes, sprintf('Company Type mut be one of: %s', implode(', ', $allowedTypes)));
 
         $this->type = $type;
     }

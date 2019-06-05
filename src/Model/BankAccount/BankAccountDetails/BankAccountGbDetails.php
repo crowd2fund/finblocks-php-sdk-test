@@ -75,8 +75,8 @@ final class BankAccountGbDetails implements BaseModelInterface
      */
     public function setSortCode(string $sortCode)
     {
-        Assert::stringNotEmpty($sortCode);
-        Assert::length($sortCode, 6);
+        Assert::stringNotEmpty($sortCode, 'Bank Account GB Sort Code must be a non-empty string');
+        Assert::length($sortCode, 6, 'Bank Account GB Sort Code longer must be 6 characters');
 
         $this->sortCode = $sortCode;
     }
@@ -94,8 +94,8 @@ final class BankAccountGbDetails implements BaseModelInterface
      */
     public function setAccountNumber(string $accountNumber)
     {
-        Assert::stringNotEmpty($accountNumber);
-        Assert::length($accountNumber, 8);
+        Assert::stringNotEmpty($accountNumber, 'Bank Account GB Account Number must be a non-empty string');
+        Assert::length($accountNumber, 8, 'Bank Account GB Account Number length must be 8 characters');
 
         $this->accountNumber = $accountNumber;
     }

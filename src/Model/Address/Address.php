@@ -13,6 +13,7 @@ namespace FinBlocks\Model\Address;
 
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\BaseModelInterface;
+use FinBlocks\Validator\CountryCodeValidator;
 use Webmozart\Assert\Assert;
 
 /**
@@ -115,8 +116,8 @@ final class Address implements BaseModelInterface
      */
     public function setFlatNumber(string $flatNumber = null)
     {
-        Assert::nullOrStringNotEmpty($flatNumber);
-        Assert::maxLength($flatNumber, 10);
+        Assert::nullOrStringNotEmpty($flatNumber, 'Address Flat Number must be null or a non-empty string');
+        Assert::nullOrMaxLength($flatNumber, 10, 'Address Flat Number cannot be longer than 10 characters');
 
         $this->flatNumber = $flatNumber;
     }
@@ -134,8 +135,8 @@ final class Address implements BaseModelInterface
      */
     public function setBuildingNumber(string $buildingNumber = null)
     {
-        Assert::nullOrStringNotEmpty($buildingNumber);
-        Assert::maxLength($buildingNumber, 10);
+        Assert::nullOrStringNotEmpty($buildingNumber, 'Address Building Number must be null or a non-empty string');
+        Assert::nullOrMaxLength($buildingNumber, 10, 'Address Building Number cannot be longer than 10 characters');
 
         $this->buildingNumber = $buildingNumber;
     }
@@ -153,8 +154,8 @@ final class Address implements BaseModelInterface
      */
     public function setBuildingName(string $buildingName = null)
     {
-        Assert::nullOrStringNotEmpty($buildingName);
-        Assert::maxLength($buildingName, 255);
+        Assert::nullOrStringNotEmpty($buildingName, 'Address Building Name must be null or a non-empty string');
+        Assert::nullOrMaxLength($buildingName, 255, 'Address Building Name cannot be longer than 255 characters');
 
         $this->buildingName = $buildingName;
     }
@@ -172,8 +173,8 @@ final class Address implements BaseModelInterface
      */
     public function setStreet(string $street)
     {
-        Assert::stringNotEmpty($street);
-        Assert::maxLength($street, 255);
+        Assert::stringNotEmpty($street, 'Address Street must be a non-empty string');
+        Assert::maxLength($street, 255, 'Address Street cannot be longer than 255 characters');
 
         $this->street = $street;
     }
@@ -191,8 +192,8 @@ final class Address implements BaseModelInterface
      */
     public function setSubStreet(string $subStreet = null)
     {
-        Assert::nullOrStringNotEmpty($subStreet);
-        Assert::maxLength($subStreet, 255);
+        Assert::nullOrStringNotEmpty($subStreet, 'Address Sub-Street must be null or a non-empty string');
+        Assert::nullOrMaxLength($subStreet, 255, 'Address Sub-Street cannot be longer than 255 characters');
 
         $this->subStreet = $subStreet;
     }
@@ -210,8 +211,8 @@ final class Address implements BaseModelInterface
      */
     public function setTown(string $town)
     {
-        Assert::stringNotEmpty($town);
-        Assert::maxLength($town, 255);
+        Assert::stringNotEmpty($town, 'Address Town must be a non-empty string');
+        Assert::maxLength($town, 255, 'Address Town cannot be longer than 255 characters');
 
         $this->town = $town;
     }
@@ -229,8 +230,8 @@ final class Address implements BaseModelInterface
      */
     public function setState(string $state = null)
     {
-        Assert::nullOrStringNotEmpty($state);
-        Assert::maxLength($state, 255);
+        Assert::nullOrStringNotEmpty($state, 'Address State must be null or a non-empty string');
+        Assert::nullOrMaxLength($state, 255, 'Address State cannot be longer than 255 characters');
 
         $this->state = $state;
     }
@@ -248,8 +249,8 @@ final class Address implements BaseModelInterface
      */
     public function setPostcode(string $postcode)
     {
-        Assert::stringNotEmpty($postcode);
-        Assert::maxLength($postcode, 255);
+        Assert::stringNotEmpty($postcode, 'Address Postcode must be a non-empty string');
+        Assert::maxLength($postcode, 255, 'Address Postcode cannot be longer than 255 characters');
 
         $this->postcode = $postcode;
     }
@@ -267,8 +268,8 @@ final class Address implements BaseModelInterface
      */
     public function setCountry(string $country)
     {
-        Assert::nullOrStringNotEmpty($country);
-        Assert::length($country, 3);
+        Assert::nullOrStringNotEmpty($country, 'Address Country must be null or a non-empty string');
+        CountryCodeValidator::nullOrValidate($country, 'Address Country must be a valid ISO 3166-1 alpha-3 country code');
 
         $this->country = $country;
     }

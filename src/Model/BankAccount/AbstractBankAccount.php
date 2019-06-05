@@ -83,14 +83,16 @@ abstract class AbstractBankAccount implements BaseModelInterface
      */
     protected function setType(string $type)
     {
-        Assert::stringNotEmpty($type);
-        Assert::oneOf($type, [
+        $bankAccountTypes = [
             BankAccountGb::TYPE,
             BankAccountIban::TYPE,
             BankAccountCa::TYPE,
             BankAccountUs::TYPE,
             BankAccountOther::TYPE,
-        ]);
+        ];
+
+        Assert::stringNotEmpty($type, 'Bank Account Type must be a non-empty string');
+        Assert::oneOf($type, $bankAccountTypes, sprintf('Bank Account Type must be one of: %s', implode(', ', $bankAccountTypes)));
 
         $this->type = $type;
     }
@@ -108,8 +110,8 @@ abstract class AbstractBankAccount implements BaseModelInterface
      */
     public function setAccountHolderId(string $accountHolderId)
     {
-        Assert::stringNotEmpty($accountHolderId);
-        Assert::maxLength($accountHolderId, 255);
+        Assert::stringNotEmpty($accountHolderId, 'Bank Account Account Holder must be a non-empty string');
+        Assert::maxLength($accountHolderId, 255, 'Bank Account Account Holder cannot be longer than 255 characters');
 
         $this->accountHolderId = $accountHolderId;
     }
@@ -127,8 +129,8 @@ abstract class AbstractBankAccount implements BaseModelInterface
      */
     public function setLabel(string $label = null)
     {
-        Assert::nullOrStringNotEmpty($label);
-        Assert::maxLength($label, 255);
+        Assert::nullOrStringNotEmpty($label, 'Bank Account Label must be null or a non-empty string');
+        Assert::nullOrMaxLength($label, 255, 'Bank Account Label cannot be longer than 255 characters');
 
         $this->label = $label;
     }
@@ -146,8 +148,8 @@ abstract class AbstractBankAccount implements BaseModelInterface
      */
     public function setTag(string $tag = null)
     {
-        Assert::nullOrStringNotEmpty($tag);
-        Assert::maxLength($tag, 255);
+        Assert::nullOrStringNotEmpty($tag, 'Bank Account Tag must be null or a non-empty string');
+        Assert::nullOrMaxLength($tag, 255, 'Bank Account Tag cannot be longer than 255 characters');
 
         $this->tag = $tag;
     }

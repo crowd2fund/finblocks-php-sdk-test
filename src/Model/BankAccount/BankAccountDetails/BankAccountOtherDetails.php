@@ -13,6 +13,7 @@ namespace FinBlocks\Model\BankAccount\BankAccountDetails;
 
 use FinBlocks\Exception\FinBlocksException;
 use FinBlocks\Model\BaseModelInterface;
+use FinBlocks\Validator\CountryCodeValidator;
 use Webmozart\Assert\Assert;
 
 /**
@@ -80,8 +81,8 @@ final class BankAccountOtherDetails implements BaseModelInterface
      */
     public function setCountry(string $country)
     {
-        Assert::stringNotEmpty($country);
-        Assert::length($country, 3);
+        Assert::stringNotEmpty($country, 'Bank Account OTHER Country must be a non-empty string');
+        CountryCodeValidator::validate($country, 'Bank Account OTHER Country must be a valid ISO 3166-1 alpha-3 country code');
 
         $this->country = $country;
     }
@@ -99,8 +100,8 @@ final class BankAccountOtherDetails implements BaseModelInterface
      */
     public function setBic(string $bic)
     {
-        Assert::stringNotEmpty($bic);
-        Assert::true(in_array(strlen($bic), [8, 11]));
+        Assert::stringNotEmpty($bic, 'Bank Account OTHER BIC must be a non-empty string');
+        Assert::oneOf(strlen($bic), [8, 11], 'Bank Account OTHER BIC length must be 8 or 11 characters');
 
         $this->bic = $bic;
     }
@@ -118,8 +119,8 @@ final class BankAccountOtherDetails implements BaseModelInterface
      */
     public function setAccountNumber(string $accountNumber)
     {
-        Assert::stringNotEmpty($accountNumber);
-        Assert::maxLength($accountNumber, 20);
+        Assert::stringNotEmpty($accountNumber, 'Bank Account OTHER Account Number must be a non-empty string');
+        Assert::maxLength($accountNumber, 20, 'Bank Account OTHER Account Number length must be 20 characters');
 
         $this->accountNumber = $accountNumber;
     }

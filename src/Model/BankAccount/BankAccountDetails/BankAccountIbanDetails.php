@@ -75,11 +75,8 @@ final class BankAccountIbanDetails implements BaseModelInterface
      */
     public function setBic(string $bic = null)
     {
-        Assert::nullOrStringNotEmpty($bic);
-
-        if (!empty($bic)) {
-            Assert::true(in_array(strlen($bic), [8, 11]));
-        }
+        Assert::nullOrStringNotEmpty($bic, 'Bank Account IBAN BIC must be null or a non-empty string');
+        Assert::nullOrOneOf(strlen($bic), [8, 11], 'Bank Account IBAN BIC length must be 8 or 11 characters');
 
         $this->bic = $bic;
     }
@@ -97,8 +94,8 @@ final class BankAccountIbanDetails implements BaseModelInterface
      */
     public function setIban(string $iban)
     {
-        Assert::stringNotEmpty($iban);
-        Assert::maxLength($iban, 34);
+        Assert::stringNotEmpty($iban, 'Bank Account IBAN must be a non-empty string');
+        Assert::maxLength($iban, 34, 'Bank Account IBAN cannot be longer than 34 characters');
 
         $this->iban = $iban;
     }
