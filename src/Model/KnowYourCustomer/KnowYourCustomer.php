@@ -237,7 +237,6 @@ class KnowYourCustomer implements BaseModelInterface
             'documentId' => $this->documentId,
             'label'      => $this->label,
             'tag'        => $this->tag,
-            'soft'       => $this->soft,
         ];
     }
 
