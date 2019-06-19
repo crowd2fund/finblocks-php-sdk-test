@@ -27,6 +27,10 @@ class Transfer implements BaseModelInterface
 {
     const NATURE = 'transfer';
 
+    // Transfer statuses
+    const STATUS_SENT = 'sent';
+    const STATUS_RECEIVED = 'received';
+
     /**
      * @var string
      */
