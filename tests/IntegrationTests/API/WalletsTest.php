@@ -273,6 +273,6 @@ class WalletsTest extends AbstractApiTests
         $this->assertEquals(10, $statement3->getLimit());
         $this->assertCount(1, $statement3->getItems());
         $this->assertEquals($transfer->getNature(), $statement3->getItems()[0]->getNature());
-        $this->assertEquals($transfer->getId(), $statement3->getItems()[1]->getId());
+        $this->assertEquals($transfer->getId(), $statement3->getItems()[0]->getId());
     }
 }
