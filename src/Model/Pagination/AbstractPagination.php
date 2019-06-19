@@ -27,6 +27,16 @@ abstract class AbstractPagination implements BaseModelInterface
     /**
      * @var int
      */
+    private $limit = 0;
+
+    /**
+     * @var int
+     */
+    private $skip = 0;
+
+    /**
+     * @var int
+     */
     private $total = 0;
 
     /**
@@ -72,6 +82,22 @@ abstract class AbstractPagination implements BaseModelInterface
         } else {
             $this->links = Links::create();
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit(): int
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSkip(): int
+    {
+        return $this->skip;
     }
 
     /**

@@ -13,10 +13,13 @@ namespace FinBlocks\Tests\IntegrationTests\API;
 
 use FinBlocks\Client\HttpResponse;
 use FinBlocks\Exception\FinBlocksException;
+use FinBlocks\Model\Deposit\DepositCard;
 use FinBlocks\Model\Money\Money;
 use FinBlocks\Model\Pagination\WalletsPagination;
 use FinBlocks\Model\Wallet\Wallet;
 use FinBlocks\Tests\Traits\AccountHolderTrait;
+use FinBlocks\Tests\Traits\CardTrait;
+use FinBlocks\Tests\Traits\DepositTrait;
 use FinBlocks\Tests\Traits\WalletTrait;
 
 /**
@@ -30,6 +33,8 @@ use FinBlocks\Tests\Traits\WalletTrait;
 class WalletsTest extends AbstractApiTests
 {
     use AccountHolderTrait;
+    use CardTrait;
+    use DepositTrait;
     use WalletTrait;
 
     public function testCreateWallet()
@@ -200,5 +205,74 @@ class WalletsTest extends AbstractApiTests
         $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
 
         $this->finBlocks->api()->wallets()->listByAccountHolder($accountHolder->getId(), 1, 10000);
+    }
+
+    public function testWalletFullStatement()
+    {
+        $accountHolder = $this->traitCreateAccountHolderIndividualModel($this->finBlocks);
+        $accountHolder = $this->finBlocks->api()->accountHolders()->create($accountHolder);
+
+        $wallet1 = $this->traitCreateWalletModel($this->finBlocks, $accountHolder->getId());
+        $wallet1 = $this->finBlocks->api()->wallets()->create($wallet1);
+
+        $wallet2 = $this->traitCreateWalletModel($this->finBlocks, $accountHolder->getId());
+        $wallet2 = $this->finBlocks->api()->wallets()->create($wallet2);
+
+        $card = $this->traitCreateCardModel($this->finBlocks, $accountHolder->getId());
+        $card = $this->finBlocks->api()->cards()->create($card);
+
+        $deposit1 = $this->traitCreateCardDepositModel($this->finBlocks, $card->getId(), $wallet1->getId(), $wallet1->getCurrency());
+        $deposit1 = $this->finBlocks->api()->deposits()->create($deposit1);
+
+        $deposit2 = $this->traitCreateCardDepositModel($this->finBlocks, $card->getId(), $wallet1->getId(), $wallet1->getCurrency());
+        $deposit2 = $this->finBlocks->api()->deposits()->create($deposit2);
+
+        sleep(5);
+
+        $transfer = $this->finBlocks->factories()->transfers()->create();
+        $transfer->setFrom($wallet1->getId());
+        $transfer->setTo($wallet2->getId());
+        $transfer->setLabel('Wallet-to-Wallet transfer');
+        $transfer->setTag('test');
+        $transfer->getAmount()->setAmount(100);
+        $transfer->getAmount()->setCurrency($wallet1->getCurrency());
+        $transfer = $this->finBlocks->api()->transfers()->create($transfer);
+
+        sleep(1);
+
+        // ----
+
+        $wallet1 = $this->finBlocks->api()->wallets()->show($wallet1->getId());
+        $wallet2 = $this->finBlocks->api()->wallets()->show($wallet2->getId());
+
+        $this->assertEquals(19900, $wallet1->getBalance()->getAmount());
+        $this->assertEquals(100, $wallet2->getBalance()->getAmount());
+
+        $statement1 = $this->finBlocks->api()->wallets()->statement($wallet1->getId(), 1, 2);
+        $statement2 = $this->finBlocks->api()->wallets()->statement($wallet1->getId(), 2, 2);
+        $statement3 = $this->finBlocks->api()->wallets()->statement($wallet2->getId());
+
+        $this->assertEquals(3, $statement1->getTotal());
+        $this->assertEquals(0, $statement1->getSkip());
+        $this->assertEquals(2, $statement1->getLimit());
+        $this->assertCount(2, $statement1->getItems());
+        $this->assertEquals($deposit1->getNature(), $statement1->getItems()[0]->getNature());
+        $this->assertEquals($deposit1->getId(), $statement1->getItems()[0]->getId());
+        $this->assertEquals($deposit2->getNature(), $statement1->getItems()[1]->getNature());
+        $this->assertEquals($deposit2->getId(), $statement1->getItems()[1]->getId());
+
+        $this->assertEquals(3, $statement2->getTotal());
+        $this->assertEquals(2, $statement2->getSkip());
+        $this->assertEquals(2, $statement2->getLimit());
+        $this->assertCount(1, $statement2->getItems());
+        $this->assertEquals($transfer->getNature(), $statement2->getItems()[0]->getNature());
+        $this->assertEquals($transfer->getId(), $statement2->getItems()[0]->getId());
+
+        $this->assertEquals(1, $statement3->getTotal());
+        $this->assertEquals(0, $statement3->getSkip());
+        $this->assertEquals(10, $statement3->getLimit());
+        $this->assertCount(1, $statement3->getItems());
+        $this->assertEquals($transfer->getNature(), $statement3->getItems()[0]->getNature());
+        $this->assertEquals($transfer->getId(), $statement3->getItems()[1]->getId());
     }
 }

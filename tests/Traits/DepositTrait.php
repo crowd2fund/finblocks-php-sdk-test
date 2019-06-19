@@ -27,11 +27,11 @@ use FinBlocks\Model\Deposit\DepositDirectDebit;
  */
 trait DepositTrait
 {
-    public function traitCreateBankWireDeposit(FinBlocks $finBlocks, string $walletId, string $currency = 'GBP'): DepositBankWire
+    public function traitCreateBankWireDeposit(FinBlocks $finBlocks, string $walletId, string $currency = 'GBP', int $amount = 10000): DepositBankWire
     {
         $model = $finBlocks->factories()->deposits()->createBankWire();
 
-        $this->fillGenericFields($model, $walletId, $currency);
+        $this->fillGenericFields($model, $walletId, $currency, $amount);
 
         return $model;
     }
@@ -41,14 +41,15 @@ trait DepositTrait
      * @param string    $cardId
      * @param string    $walletId
      * @param string    $currency
+     * @param int       $amount
      *
      * @return DepositCard
      */
-    public function traitCreateCardDepositModel(FinBlocks $finBlocks, string $cardId, string $walletId, string $currency = 'GBP'): DepositCard
+    public function traitCreateCardDepositModel(FinBlocks $finBlocks, string $cardId, string $walletId, string $currency = 'GBP', int $amount = 10000): DepositCard
     {
         $model = $finBlocks->factories()->deposits()->createCard();
 
-        $this->fillGenericFields($model, $walletId, $currency);
+        $this->fillGenericFields($model, $walletId, $currency, $amount);
 
         $model->setReference($cardId);
         $model->setSecureMode(false);
@@ -56,23 +57,23 @@ trait DepositTrait
         return $model;
     }
 
-    public function traitCreateDirectDebitDepositModel(FinBlocks $finBlocks, string $mandateId, string $walletId, string $currency = 'GBP'): DepositDirectDebit
+    public function traitCreateDirectDebitDepositModel(FinBlocks $finBlocks, string $mandateId, string $walletId, string $currency = 'GBP', int $amount = 10000): DepositDirectDebit
     {
         $model = $finBlocks->factories()->deposits()->createDirectDebit();
 
-        $this->fillGenericFields($model, $walletId, $currency);
+        $this->fillGenericFields($model, $walletId, $currency, $amount);
 
         $model->setReference($mandateId);
 
         return $model;
     }
 
-    private function fillGenericFields(AbstractDeposit $model, string $walletId, string $currency)
+    private function fillGenericFields(AbstractDeposit $model, string $walletId, string $currency, int $amount)
     {
         $model->setTo($walletId);
         $model->setReturnUrl('https://domain.com/return-url');
 
-        $model->getAmount()->setAmount(10000);
+        $model->getAmount()->setAmount($amount);
         $model->getAmount()->setCurrency($currency);
     }
 }
