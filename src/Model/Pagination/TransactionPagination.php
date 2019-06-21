@@ -67,7 +67,8 @@ class TransactionPagination extends AbstractPagination
                         case DepositCard::TYPE:
                             $itemModel = DepositCard::createFromPayload(json_encode($arrayModel));
                             break;
-                        case DepositDirectDebit::TYPE:
+                        //case DepositDirectDebit::TYPE:
+                        case 'direct-debit': case 'directDebit':
                             $itemModel = DepositDirectDebit::createFromPayload(json_encode($arrayModel));
                             break;
                         default:
