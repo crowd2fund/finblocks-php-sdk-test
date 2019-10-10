@@ -52,6 +52,16 @@ class ModelsFactories
     }
 
     /**
+     * RegisterCards Factory.
+     *
+     * @return RegisterCardsFactory
+     */
+    public function registerCards(): RegisterCardsFactory
+    {
+        return new RegisterCardsFactory();
+    }
+
+    /**
      * Deposit's Factory.
      *
      * @return DepositsFactory
