@@ -52,6 +52,16 @@ class ApiEndpoints extends AbstractHttpApi
     }
 
     /**
+     * API Endpoints for RegisterCards management.
+     *
+     * @return RegisterCards
+     */
+    public function registerCards(): RegisterCards
+    {
+        return new RegisterCards($this->httpClient);
+    }
+
+    /**
      * API Endpoints for Deposits management.
      *
      * @return Deposits
