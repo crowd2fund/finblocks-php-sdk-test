@@ -100,6 +100,11 @@ abstract class AbstractDeposit implements BaseModelInterface
     protected $reference;
 
     /**
+     * @var string
+     */
+    protected $userUrl;
+
+    /**
      * AbstractDeposit constructor.
      */
     protected function __construct()
@@ -234,6 +239,14 @@ abstract class AbstractDeposit implements BaseModelInterface
     public function getReference(): string
     {
         return $this->reference;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserUrl(): string
+    {
+        return $this->userUrl;
     }
 
     /**
