@@ -32,6 +32,11 @@ final class DepositCard extends AbstractDeposit
     private $secureMode = false;
 
     /**
+     * @var string
+     */
+    private $cv2;
+
+    /**
      * DepositCard constructor.
      *
      * @param string|null $jsonData
@@ -113,13 +118,25 @@ final class DepositCard extends AbstractDeposit
     }
 
     /**
+     * @param string $cv2
+     */
+    public function setCv2(string $cv2)
+    {
+        $this->cv2 = $cv2;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function httpCreate(): array
     {
         return array_merge(
             parent::httpCreate(),
-            ['reference' => $this->reference, 'secureMode' => $this->secureMode]
+            [
+                'reference' => $this->reference,
+                'secureMode' => $this->secureMode,
+                'cv2' => $this->cv2
+            ]
         );
     }
 }
