@@ -105,6 +105,11 @@ abstract class AbstractDeposit implements BaseModelInterface
     protected $userUrl;
 
     /**
+     * @var string|null
+     */
+    protected $threeDS;
+
+    /**
      * AbstractDeposit constructor.
      */
     protected function __construct()
@@ -247,6 +252,14 @@ abstract class AbstractDeposit implements BaseModelInterface
     public function getUserUrl()
     {
         return $this->userUrl;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getThreeDS()
+    {
+        return $this->threeDS;
     }
 
     /**
