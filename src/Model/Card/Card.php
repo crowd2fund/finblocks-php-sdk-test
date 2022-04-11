@@ -90,6 +90,11 @@ class Card implements BaseModelInterface
     private $createdAt;
 
     /**
+     * @var string
+     */
+    private $cardHolderName;
+
+    /**
      * Card constructor.
      *
      * @param string|null $jsonData
@@ -269,6 +274,22 @@ class Card implements BaseModelInterface
     }
 
     /**
+     * @return string|null
+     */
+    public function getCardHolderName()
+    {
+        return $this->cardHolderName;
+    }
+
+    /**
+     * @param string $cardHolderName
+     */
+    public function setCardHolderName(string $cardHolderName)
+    {
+        $this->cardHolderName = $cardHolderName;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function httpCreate(): array
@@ -278,6 +299,7 @@ class Card implements BaseModelInterface
             'token'           => $this->token,
             'label'           => $this->label,
             'tag'             => $this->tag,
+            'cardHolderName'  => $this->cardHolderName,
         ];
     }
 
