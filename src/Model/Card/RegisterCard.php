@@ -80,6 +80,11 @@ class RegisterCard implements BaseModelInterface
     private $createdAt;
 
     /**
+     * @var string
+     */
+    private $cardHolderName;
+
+    /**
      * Card constructor.
      *
      * @param string|null $jsonData
@@ -243,6 +248,22 @@ class RegisterCard implements BaseModelInterface
     }
 
     /**
+     * @return string|null
+     */
+    public function getCardHolderName()
+    {
+        return $this->cardHolderName;
+    }
+
+    /**
+     * @param string $cardHolderName
+     */
+    public function setCardHolderName(string $cardHolderName)
+    {
+        $this->cardHolderName = $cardHolderName;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function httpCreate(): array
@@ -253,6 +274,7 @@ class RegisterCard implements BaseModelInterface
             'receiptId'       => $this->receiptId,
             'label'           => $this->label,
             'tag'             => $this->tag,
+            'cardHolderName'  => $this->cardHolderName,
         ];
     }
 
