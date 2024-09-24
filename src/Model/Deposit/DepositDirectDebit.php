@@ -24,7 +24,7 @@ use FinBlocks\Model\Money\Money;
  */
 final class DepositDirectDebit extends AbstractDeposit
 {
-    const TYPE = 'directDebit';
+    const string TYPE = 'directDebit';
 
     /**
      * DepositDirectDebit constructor.

@@ -24,7 +24,7 @@ use FinBlocks\Model\Money\Money;
  */
 final class DepositBankWire extends AbstractDeposit
 {
-    const TYPE = 'bankWire';
+    const string TYPE = 'bankWire';
 
     /**
      * DepositBankWire constructor.

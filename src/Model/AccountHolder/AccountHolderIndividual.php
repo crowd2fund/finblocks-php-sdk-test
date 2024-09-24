@@ -24,7 +24,7 @@ use FinBlocks\Model\Address\Address;
  */
 final class AccountHolderIndividual extends AbstractAccountHolder
 {
-    const TYPE = 'individual';
+    const string TYPE = 'individual';
 
     /**
      * AccountHolderIndividual constructor.

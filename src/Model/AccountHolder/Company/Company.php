@@ -26,9 +26,9 @@ use Webmozart\Assert\Assert;
  */
 final class Company implements BaseModelInterface
 {
-    const TYPE_BUSINESS = 'business';
-    const TYPE_ORGANISATION = 'organisation';
-    const TYPE_SOLE_TRADER = 'soletrader';
+    const string TYPE_BUSINESS = 'business';
+    const string TYPE_ORGANISATION = 'organisation';
+    const string TYPE_SOLE_TRADER = 'soletrader';
 
     /**
      * @var string|null

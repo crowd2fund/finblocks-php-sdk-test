@@ -21,7 +21,7 @@ namespace FinBlocks\Model\Document;
  */
 final class DocumentIdCard extends AbstractFrontBackDocument
 {
-    const TYPE = 'national_identity_card';
+    const string TYPE = 'national_identity_card';
 
     /**
      * DocumentIdCard constructor.

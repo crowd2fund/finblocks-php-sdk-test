@@ -24,7 +24,7 @@ use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountOtherDetails;
  */
 final class BankAccountOther extends AbstractBankAccount
 {
-    const TYPE = 'other';
+    const string TYPE = 'other';
 
     /**
      * BankAccountOther constructor.

@@ -24,7 +24,7 @@ use FinBlocks\Model\Money\Money;
  */
 final class DepositCard extends AbstractDeposit
 {
-    const TYPE = 'card';
+    const string TYPE = 'card';
 
     /**
      * @var bool

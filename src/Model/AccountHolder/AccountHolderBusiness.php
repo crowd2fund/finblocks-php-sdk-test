@@ -25,7 +25,7 @@ use FinBlocks\Model\Address\Address;
  */
 final class AccountHolderBusiness extends AbstractAccountHolder
 {
-    const TYPE = 'business';
+    const string TYPE = 'business';
 
     /**
      * @var Company

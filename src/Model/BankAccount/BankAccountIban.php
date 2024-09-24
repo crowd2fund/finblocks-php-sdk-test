@@ -24,7 +24,7 @@ use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountIbanDetails;
  */
 final class BankAccountIban extends AbstractBankAccount
 {
-    const TYPE = 'iban';
+    const string TYPE = 'iban';
 
     /**
      * BankAccountIban constructor.

@@ -24,7 +24,7 @@ use FinBlocks\Model\BankAccount\BankAccountDetails\BankAccountUsDetails;
  */
 final class BankAccountUs extends AbstractBankAccount
 {
-    const TYPE = 'us';
+    const string TYPE = 'us';
 
     /**
      * BankAccountUs constructor.

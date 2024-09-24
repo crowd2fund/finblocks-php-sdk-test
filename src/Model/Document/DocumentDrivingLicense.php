@@ -21,7 +21,7 @@ namespace FinBlocks\Model\Document;
  */
 final class DocumentDrivingLicense extends AbstractFrontBackDocument
 {
-    const TYPE = 'driving_licence';
+    const string TYPE = 'driving_licence';
 
     /**
      * DocumentIdCard constructor.

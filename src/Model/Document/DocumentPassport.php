@@ -21,7 +21,7 @@ namespace FinBlocks\Model\Document;
  */
 final class DocumentPassport extends AbstractFrontDocument
 {
-    const TYPE = 'passport';
+    const string TYPE = 'passport';
 
     /**
      * DocumentPassport constructor.
