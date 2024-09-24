@@ -32,8 +32,8 @@ class HookDetailsTest extends TestCase
         $model->setUrl('url');
         $model->setActive(true);
 
-        $this->assertInternalType('string', $model->getUrl());
-        $this->assertInternalType('boolean', $model->isActive());
+        $this->assertIsString($model->getUrl());
+        $this->assertIsBool($model->isActive());
 
         $this->assertEquals('url', $model->getUrl());
         $this->assertEquals(true, $model->isActive());
@@ -41,8 +41,8 @@ class HookDetailsTest extends TestCase
         $model->setUrl('new url');
         $model->setActive(false);
 
-        $this->assertInternalType('string', $model->getUrl());
-        $this->assertInternalType('boolean', $model->isActive());
+        $this->assertIsString($model->getUrl());
+        $this->assertIsBool($model->isActive());
 
         $this->assertEquals('new url', $model->getUrl());
         $this->assertEquals(false, $model->isActive());

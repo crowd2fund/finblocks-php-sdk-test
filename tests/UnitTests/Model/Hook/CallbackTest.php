@@ -42,7 +42,7 @@ class CallbackTest extends TestCase
         $this->assertEquals('depositSucceeded', $model->getEventName());
         $this->assertEquals('67890', $model->getResourceId());
 
-        $this->assertInternalType('array', $model->getData());
+        $this->assertIsArray($model->getData());
         $this->assertArrayHasKey('property', $model->getData());
         $this->assertEquals('content', $model->getData()['property']);
 
@@ -85,7 +85,7 @@ class CallbackTest extends TestCase
         $this->assertEquals('depositSucceeded', $model->getEventName());
         $this->assertEquals('67890', $model->getResourceId());
 
-        $this->assertInternalType('array', $model->getData());
+        $this->assertIsArray($model->getData());
         $this->assertArrayHasKey('property', $model->getData());
         $this->assertEquals('content', $model->getData()['property']);
 

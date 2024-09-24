@@ -90,19 +90,19 @@ class NetworkTest extends TestCase
         $this->assertEquals('FFFFFF', $model->getPrimaryButtonColour());
         $this->assertEquals('https://www.company.com/assets/images/logo.png', $model->getLogo());
 
-        $this->assertInternalType('array', $model->getTechEmails());
+        $this->assertIsArray($model->getTechEmails());
         $this->assertCount(1, $model->getTechEmails());
         $this->assertEquals('tech@company.finblocks.net', $model->getTechEmails()[0]);
 
-        $this->assertInternalType('array', $model->getAdminEmails());
+        $this->assertIsArray($model->getAdminEmails());
         $this->assertCount(1, $model->getAdminEmails());
         $this->assertEquals('admin@company.finblocks.net', $model->getAdminEmails()[0]);
 
-        $this->assertInternalType('array', $model->getBillingEmails());
+        $this->assertIsArray($model->getBillingEmails());
         $this->assertCount(1, $model->getBillingEmails());
         $this->assertEquals('billing@company.finblocks.net', $model->getBillingEmails()[0]);
 
-        $this->assertInternalType('array', $model->getFraudEmails());
+        $this->assertIsArray($model->getFraudEmails());
         $this->assertCount(1, $model->getFraudEmails());
         $this->assertEquals('fraud@company.finblocks.net', $model->getFraudEmails()[0]);
 

@@ -186,7 +186,7 @@ class DepositTest extends TestCase
 
         $array = $model->httpCreate();
 
-        $this->assertCount(7, $array);
+        $this->assertCount(8, $array);
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('tag', $array);
         $this->assertArrayHasKey('to', $array);
@@ -194,6 +194,7 @@ class DepositTest extends TestCase
         $this->assertArrayHasKey('amount', $array);
         $this->assertArrayHasKey('reference', $array);
         $this->assertArrayHasKey('secureMode', $array);
+        $this->assertArrayHasKey('cv2', $array);
     }
 
     public function testUpdateArrayForCard()

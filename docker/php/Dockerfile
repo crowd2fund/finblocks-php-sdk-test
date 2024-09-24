@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:8.3-fpm
 
 MAINTAINER David Garcia <me@davidgarcia.cat>
 
@@ -23,7 +23,7 @@ RUN composer --version
 # Enable PHP ZIP Extension
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 
-RUN apt-get install -y zip unzip zlib1g-dev
+RUN apt-get install -y zip unzip libzip-dev
 
 RUN docker-php-ext-install zip
 
@@ -35,12 +35,13 @@ RUN docker-php-ext-install opcache
 # Enable PHP XDebug Extension
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+RUN #pecl install xdebug-2.9.8
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 RUN echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.discover_client_host=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.client_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

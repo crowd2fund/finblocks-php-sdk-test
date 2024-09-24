@@ -32,14 +32,14 @@ class KnowYourCustomersPaginationTest extends TestCase
 
         $this->assertInstanceOf(Pagination\Links::class, $model->getLinks());
 
-        $this->assertInternalType('string', $model->getLinks()->getSelf());
-        $this->assertInternalType('string', $model->getLinks()->getFirst());
-        $this->assertInternalType('string', $model->getLinks()->getPrev());
-        $this->assertInternalType('string', $model->getLinks()->getNext());
-        $this->assertInternalType('string', $model->getLinks()->getLast());
+        $this->assertIsString($model->getLinks()->getSelf());
+        $this->assertIsString($model->getLinks()->getFirst());
+        $this->assertIsString($model->getLinks()->getPrev());
+        $this->assertIsString($model->getLinks()->getNext());
+        $this->assertIsString($model->getLinks()->getLast());
 
-        $this->assertInternalType('integer', $model->getTotal());
-        $this->assertInternalType('array', $model->getItems());
+        $this->assertIsInt($model->getTotal());
+        $this->assertIsArray($model->getItems());
 
         $this->assertEquals(0, $model->getTotal());
         $this->assertEquals([], $model->getItems());
